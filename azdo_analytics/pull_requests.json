@@ -32,21 +32,17 @@
     "title": "Migration of types to individual files ",
     "description": "Code has been split and placed into individual files to enable \n* PR inspections\n* Identification of tech debt \n* Hotspots \n* File churn",
     "sourceRefName": "refs/heads/type-per-file",
-    "targetRefName": "refs/heads/master",
-    "mergeStatus": "succeeded",
+    "targetRefName": "refs/heads/develop",
+    "mergeStatus": "conflicts",
     "isDraft": false,
     "mergeId": "e3d0c5cc-58d2-42a8-90aa-899ad33d4c7b",
     "lastMergeSourceCommit": {
-      "commitId": "312e55a3db0d34904755b5a1a52f033178981508",
-      "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/commits/312e55a3db0d34904755b5a1a52f033178981508"
+      "commitId": "eef8c2c4a7aa268244613e67eb72130b417493db",
+      "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/commits/eef8c2c4a7aa268244613e67eb72130b417493db"
     },
     "lastMergeTargetCommit": {
-      "commitId": "3ceae8446504f74fc7944c41a32d542a24d8537a",
-      "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/commits/3ceae8446504f74fc7944c41a32d542a24d8537a"
-    },
-    "lastMergeCommit": {
-      "commitId": "45e1aad3f36a44d3d576c7c9caf20f5affeeac03",
-      "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/commits/45e1aad3f36a44d3d576c7c9caf20f5affeeac03"
+      "commitId": "c32a3203d8c6a1a1e1886d54e21c42c291d6edf1",
+      "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/commits/c32a3203d8c6a1a1e1886d54e21c42c291d6edf1"
     },
     "reviewers": [
       {
@@ -80,6 +76,38 @@
         "id": "69072c0c-8fc5-6dde-be1a-86fa6f738149",
         "uniqueName": "leonardc@od.org",
         "imageUrl": "https://dev.azure.com/itdept0907/_api/_common/identityImage?id=69072c0c-8fc5-6dde-be1a-86fa6f738149"
+      },
+      {
+        "reviewerUrl": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/pullRequests/1297/reviewers/da6b94d6-fc18-604d-9d3e-c0c8c062c461",
+        "vote": 0,
+        "hasDeclined": false,
+        "isFlagged": false,
+        "displayName": "George Draghici",
+        "url": "https://spsprodweu4.vssps.visualstudio.com/A1940fb30-d238-4c4e-87ec-7d7740b3f1b1/_apis/Identities/da6b94d6-fc18-604d-9d3e-c0c8c062c461",
+        "_links": {
+          "avatar": {
+            "href": "https://dev.azure.com/itdept0907/_apis/GraphProfile/MemberAvatars/aad.ZGE2Yjk0ZDYtZmMxOC03MDRkLTlkM2UtYzBjOGMwNjJjNDYx"
+          }
+        },
+        "id": "da6b94d6-fc18-604d-9d3e-c0c8c062c461",
+        "uniqueName": "georged@od.org",
+        "imageUrl": "https://dev.azure.com/itdept0907/_api/_common/identityImage?id=da6b94d6-fc18-604d-9d3e-c0c8c062c461"
+      },
+      {
+        "reviewerUrl": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/pullRequests/1297/reviewers/d3520507-1a38-65c3-be7f-cdcdedf67291",
+        "vote": 0,
+        "hasDeclined": false,
+        "isFlagged": false,
+        "displayName": "Iosif Petre (EXT)",
+        "url": "https://spsprodweu4.vssps.visualstudio.com/A1940fb30-d238-4c4e-87ec-7d7740b3f1b1/_apis/Identities/d3520507-1a38-65c3-be7f-cdcdedf67291",
+        "_links": {
+          "avatar": {
+            "href": "https://dev.azure.com/itdept0907/_apis/GraphProfile/MemberAvatars/aad.ZDM1MjA1MDctMWEzOC03NWMzLWJlN2YtY2RjZGVkZjY3Mjkx"
+          }
+        },
+        "id": "d3520507-1a38-65c3-be7f-cdcdedf67291",
+        "uniqueName": "iosifp@od.org",
+        "imageUrl": "https://dev.azure.com/itdept0907/_api/_common/identityImage?id=d3520507-1a38-65c3-be7f-cdcdedf67291"
       }
     ],
     "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/pullRequests/1297",

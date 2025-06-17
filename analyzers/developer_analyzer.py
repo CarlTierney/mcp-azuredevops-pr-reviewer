@@ -22,6 +22,20 @@ class DeveloperAnalyzer:
         """Analyze real developer activity patterns from actual commits"""
         print("\n=== DEVELOPER ACTIVITY ANALYSIS ===")
         
+        # Check if analysis is already cached
+        analysis_name = "developer_activity"
+        if self.analyzer.is_analysis_cached(analysis_name):
+            cached_df = self.analyzer.get_cached_dataframe(analysis_name)
+            if cached_df is not None:
+                print("📊 Displaying cached developer activity results:")
+                summary_cols = ['Developer', 'Total_Commits', 'Total_Files_Changed', 'LOC_Net_Change', 
+                               'Primary_File_Type', 'Most_Active_Day', 'Consistency_Ratio']
+                print("\nDeveloper Activity Summary:")
+                print(cached_df[summary_cols].to_string(index=False))
+                return cached_df
+        
+        print("🔍 Running fresh developer activity analysis...")
+        
         developer_metrics = defaultdict(lambda: {
             'total_commits': 0,
             'files_changed': set(),
@@ -255,6 +269,9 @@ class DeveloperAnalyzer:
             df_activity.to_csv(output_file, index=False)
             print(f"💾 Saved results to: {output_file}")
             
+            # Mark as cached
+            self.analyzer.mark_analysis_cached(analysis_name, output_file)
+            
             # Generate insights
             print(f"\n=== ACTIVITY INSIGHTS ===")
             total_commits = df_activity['Total_Commits'].sum()
@@ -278,6 +295,19 @@ class DeveloperAnalyzer:
     def analyze_pull_request_metrics(self):
         """Analyze real pull request patterns and metrics"""
         print("\n=== PULL REQUEST METRICS ANALYSIS ===")
+        
+        # Check if analysis is already cached
+        analysis_name = "pull_request_metrics"
+        if self.analyzer.is_analysis_cached(analysis_name):
+            cached_df = self.analyzer.get_cached_dataframe(analysis_name)
+            if cached_df is not None:
+                print("📊 Displaying cached pull request results:")
+                summary_cols = ['PR_ID', 'Title', 'Status', 'Author', 'Duration_Hours', 'Reviewer_Count', 'Approvals']
+                print("\nRecent Pull Requests:")
+                print(cached_df.head(10)[summary_cols].to_string(index=False))
+                return cached_df
+        
+        print("🔍 Running fresh pull request analysis...")
         
         if not self.analyzer.pull_requests:
             print("No pull request data available for analysis")
@@ -362,7 +392,11 @@ class DeveloperAnalyzer:
             print("\nRecent Pull Requests:")
             print(df_prs.head(10)[summary_cols].to_string(index=False))
             
-            df_prs.to_csv(f"{self.analyzer.data_dir}/azdo_pull_request_metrics.csv", index=False)
+            output_file = f"{self.analyzer.data_dir}/azdo_pull_request_metrics.csv"
+            df_prs.to_csv(output_file, index=False)
+            
+            # Mark as cached
+            self.analyzer.mark_analysis_cached(analysis_name, output_file)
             
             # Generate insights
             print(f"\n=== PULL REQUEST INSIGHTS ===")

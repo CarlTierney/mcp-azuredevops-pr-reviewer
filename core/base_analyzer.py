@@ -8,6 +8,7 @@ import json
 import base64
 import requests
 import pandas as pd
+import hashlib
 from datetime import datetime, timedelta
 from collections import defaultdict
 import radon.complexity as radon_cc
@@ -61,6 +62,11 @@ class BaseAnalyzer:
             'scripts': ['.ps1', '.bat', '.cmd', '.sh'],
             'other': []
         }
+        
+        # Cache management
+        self.cache_dir = os.path.join(data_dir, "cache")
+        self.cache_info_file = os.path.join(self.cache_dir, "cache_info.json")
+        os.makedirs(self.cache_dir, exist_ok=True)
         
         # Initialize data attributes
         self.commits = []
@@ -386,3 +392,101 @@ class BaseAnalyzer:
                 return repo['id']
         
         raise Exception(f"Repository '{self.repo_name}' not found")
+
+    def calculate_data_hash(self):
+        """Calculate a hash of the current data to detect changes"""
+        try:
+            # Create a hash based on key data characteristics
+            hash_data = {
+                'commits_count': len(self.commits),
+                'detailed_commits_count': len(self.detailed_commits),
+                'pull_requests_count': len(self.pull_requests),
+                'date_from': self.date_from,
+                'date_to': self.date_to,
+                'org_name': self.org_name,
+                'project_name': self.project_name,
+                'repo_name': self.repo_name
+            }
+            
+            # Add commit IDs hash for detailed change detection
+            if self.commits:
+                commit_ids = sorted([c.get('commitId', '') for c in self.commits])
+                hash_data['commit_ids_hash'] = hashlib.md5(''.join(commit_ids).encode()).hexdigest()
+            
+            # Add detailed commits hash
+            if self.detailed_commits:
+                detailed_keys = sorted(self.detailed_commits.keys())
+                hash_data['detailed_commits_hash'] = hashlib.md5(''.join(detailed_keys).encode()).hexdigest()
+            
+            # Create final hash
+            hash_string = json.dumps(hash_data, sort_keys=True)
+            return hashlib.md5(hash_string.encode()).hexdigest()
+        
+        except Exception as e:
+            print(f"Warning: Could not calculate data hash: {e}")
+            return None
+
+    def load_cache_info(self):
+        """Load cache information from previous runs"""
+        try:
+            if os.path.exists(self.cache_info_file):
+                with open(self.cache_info_file, 'r') as f:
+                    return json.load(f)
+        except Exception as e:
+            print(f"Warning: Could not load cache info: {e}")
+        return {}
+
+    def save_cache_info(self, cache_info):
+        """Save cache information for future runs"""
+        try:
+            with open(self.cache_info_file, 'w') as f:
+                json.dump(cache_info, f, indent=2)
+        except Exception as e:
+            print(f"Warning: Could not save cache info: {e}")
+
+    def is_analysis_cached(self, analysis_name):
+        """Check if analysis results are cached and still valid"""
+        cache_info = self.load_cache_info()
+        current_hash = self.calculate_data_hash()
+        
+        if not current_hash:
+            return False
+        
+        analysis_info = cache_info.get(analysis_name, {})
+        cached_hash = analysis_info.get('data_hash')
+        cached_file = analysis_info.get('output_file')
+        
+        # Check if hash matches and output file exists
+        if cached_hash == current_hash and cached_file and os.path.exists(cached_file):
+            cached_time = analysis_info.get('timestamp', '')
+            print(f"  ✓ Using cached results for {analysis_name} (generated: {cached_time})")
+            return True
+        
+        return False
+
+    def mark_analysis_cached(self, analysis_name, output_file):
+        """Mark an analysis as cached with current data hash"""
+        cache_info = self.load_cache_info()
+        current_hash = self.calculate_data_hash()
+        
+        if current_hash:
+            cache_info[analysis_name] = {
+                'data_hash': current_hash,
+                'output_file': output_file,
+                'timestamp': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+            }
+            self.save_cache_info(cache_info)
+
+    def get_cached_dataframe(self, analysis_name):
+        """Load cached DataFrame if available"""
+        cache_info = self.load_cache_info()
+        analysis_info = cache_info.get(analysis_name, {})
+        cached_file = analysis_info.get('output_file')
+        
+        if cached_file and os.path.exists(cached_file):
+            try:
+                return pd.read_csv(cached_file)
+            except Exception as e:
+                print(f"Warning: Could not load cached file {cached_file}: {e}")
+        
+        return None

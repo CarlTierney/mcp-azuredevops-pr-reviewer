@@ -1,5 +1,68 @@
 [
   {
+    "commitId": "2de70643876da662ddabd9afd963427e4efc58ed",
+    "author": {
+      "name": "Carl Tierney (EXT)Carl",
+      "email": "carlt@od.org",
+      "date": "2025-06-17T01:03:10Z"
+    },
+    "committer": {
+      "name": "Carl Tierney (EXT)Carl",
+      "email": "carlt@od.org",
+      "date": "2025-06-17T01:03:10Z"
+    },
+    "comment": "Merge pull request 1297 from type-per-file into master",
+    "changeCounts": {
+      "Add": 976,
+      "Edit": 925,
+      "Delete": 34
+    },
+    "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/commits/2de70643876da662ddabd9afd963427e4efc58ed",
+    "remoteUrl": "https://dev.azure.com/itdept0907/Zinnia/_git/Zinnia/commit/2de70643876da662ddabd9afd963427e4efc58ed"
+  },
+  {
+    "commitId": "eef8c2c4a7aa268244613e67eb72130b417493db",
+    "author": {
+      "name": "Carl Tierney",
+      "email": "carl.tierney@vision2systems.com",
+      "date": "2025-06-17T01:03:01Z"
+    },
+    "committer": {
+      "name": "Carl Tierney",
+      "email": "carl.tierney@vision2systems.com",
+      "date": "2025-06-17T01:03:01Z"
+    },
+    "comment": "updated .gitignore to include Rider and VS Code files",
+    "changeCounts": {
+      "Add": 0,
+      "Edit": 0,
+      "Delete": 1
+    },
+    "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/commits/eef8c2c4a7aa268244613e67eb72130b417493db",
+    "remoteUrl": "https://dev.azure.com/itdept0907/Zinnia/_git/Zinnia/commit/eef8c2c4a7aa268244613e67eb72130b417493db"
+  },
+  {
+    "commitId": "b03658dccedd07ede0a7cb4a7f7c0781b20f9171",
+    "author": {
+      "name": "Carl Tierney",
+      "email": "carl.tierney@vision2systems.com",
+      "date": "2025-06-17T01:02:38Z"
+    },
+    "committer": {
+      "name": "Carl Tierney",
+      "email": "carl.tierney@vision2systems.com",
+      "date": "2025-06-17T01:02:38Z"
+    },
+    "comment": "updated .gitignore to include Rider and VS Code files",
+    "changeCounts": {
+      "Add": 0,
+      "Edit": 1,
+      "Delete": 0
+    },
+    "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/commits/b03658dccedd07ede0a7cb4a7f7c0781b20f9171",
+    "remoteUrl": "https://dev.azure.com/itdept0907/Zinnia/_git/Zinnia/commit/b03658dccedd07ede0a7cb4a7f7c0781b20f9171"
+  },
+  {
     "commitId": "45e1aad3f36a44d3d576c7c9caf20f5affeeac03",
     "author": {
       "name": "Carl Tierney (EXT)Carl",

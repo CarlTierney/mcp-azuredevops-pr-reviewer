@@ -22,6 +22,39 @@ class HotspotAnalyzer:
         """Analyze bus factor and hotspots for ALL repository files"""
         print("\n=== BUS FACTOR & HOTSPOTS ANALYSIS ===")
         
+        # Check if analysis is already cached
+        files_analysis_name = "file_hotspots"
+        devs_analysis_name = "bus_factor"
+        
+        files_cached = self.analyzer.is_analysis_cached(files_analysis_name)
+        devs_cached = self.analyzer.is_analysis_cached(devs_analysis_name)
+        
+        if files_cached and devs_cached:
+            cached_files_df = self.analyzer.get_cached_dataframe(files_analysis_name)
+            cached_devs_df = self.analyzer.get_cached_dataframe(devs_analysis_name)
+            
+            if cached_files_df is not None and cached_devs_df is not None:
+                print("📊 Displaying cached hotspots and bus factor results:")
+                
+                print(f"\n📁 File Hotspots Analysis:")
+                print(f"  Total files analyzed: {len(cached_files_df)}")
+                print(f"  Critical files: {sum(cached_files_df['Is_Critical'])}")
+                
+                top_files = cached_files_df.head(10)[['File_Name', 'Bus_Factor_Risk', 'Hotspot_Score', 'Developers_Count', 'Is_Critical']]
+                print("\nTop 10 Riskiest Files:")
+                print(top_files.to_string(index=False))
+                
+                print(f"\n👥 Developer Bus Factor Analysis:")
+                print(f"  Developers analyzed: {len(cached_devs_df)}")
+                
+                dev_summary = cached_devs_df[['Developer', 'Files_Owned', 'Exclusive_Files', 'Bus_Factor_Risk', 'Risk_Level']]
+                print("\nDeveloper Risk Summary:")
+                print(dev_summary.to_string(index=False))
+                
+                return cached_files_df, cached_devs_df
+        
+        print("🔍 Running fresh bus factor and hotspots analysis...")
+        
         # Track metrics for each file and developer
         file_metrics = defaultdict(lambda: {
             'developers': set(),
@@ -45,9 +78,11 @@ class HotspotAnalyzer:
         })
         
         # Analyze all detailed commits to build file and developer metrics
-        print("Analyzing file changes across all commits...")
+        print("🔍 Analyzing file changes across all commits...")
         total_commits = len(self.analyzer.detailed_commits)
         commit_count = 0
+        processed_files = 0
+        skipped_files = 0
         
         # Get current date for recency calculations
         current_date = datetime.now().replace(tzinfo=None)
@@ -56,7 +91,8 @@ class HotspotAnalyzer:
         for commit_id, changes_data in self.analyzer.detailed_commits.items():
             commit_count += 1
             if commit_count % 100 == 0:
-                print(f"  Processing commit {commit_count}/{total_commits} ({(commit_count/total_commits)*100:.1f}%)")
+                progress_pct = (commit_count / total_commits) * 100
+                print(f"    Hotspot analysis: {commit_count:,}/{total_commits:,} ({progress_pct:.1f}%) | Files: {processed_files:,} | Skipped: {skipped_files:,}")
             
             # Get commit info
             commit_info = next((c for c in self.analyzer.commits if c.get('commitId') == commit_id), None)
@@ -91,7 +127,10 @@ class HotspotAnalyzer:
                 # Skip certain file types that aren't relevant for hotspot analysis
                 filename = os.path.basename(path)
                 if self.analyzer.classify_file_type(filename) in ['other', 'docs']:
+                    skipped_files += 1
                     continue
+                
+                processed_files += 1
                 
                 # Update file metrics
                 file_metrics[path]['developers'].add(author_key)
@@ -117,9 +156,12 @@ class HotspotAnalyzer:
                 developer_metrics[author_key]['files_owned'].add(path)
                 developer_metrics[author_key]['total_file_changes'] += 1
         
-        print(f"✓ Analyzed {len(file_metrics)} unique files across {total_commits} commits")
+        print(f"  ✓ Analyzed {len(file_metrics)} unique files across {total_commits:,} commits")
+        print(f"    - {processed_files:,} files processed")
+        print(f"    - {skipped_files:,} files skipped")
         
         # Calculate file hotspot scores and bus factor risks
+        print("📊 Calculating hotspot scores and bus factor risks...")
         file_analysis_data = []
         
         for file_path, metrics in file_metrics.items():
@@ -194,6 +236,7 @@ class HotspotAnalyzer:
             })
         
         # Calculate developer bus factor risks
+        print("👥 Calculating developer bus factor risks...")
         developer_analysis_data = []
         total_files = len(file_metrics)
         
@@ -259,7 +302,12 @@ class HotspotAnalyzer:
             print("\nTop 10 Riskiest Files:")
             print(top_files.to_string(index=False))
             
-            df_files.to_csv(f"{self.analyzer.data_dir}/azdo_file_hotspots_analysis.csv", index=False)
+            output_file = f"{self.analyzer.data_dir}/azdo_file_hotspots_analysis.csv"
+            df_files.to_csv(output_file, index=False)
+            print(f"💾 Saved file hotspots to: {output_file}")
+            
+            # Mark as cached
+            self.analyzer.mark_analysis_cached(files_analysis_name, output_file)
         
         if not df_developers.empty:
             df_developers = df_developers.sort_values('Bus_Factor_Risk', ascending=False)
@@ -273,7 +321,12 @@ class HotspotAnalyzer:
             print("\nDeveloper Risk Summary:")
             print(dev_summary.to_string(index=False))
             
-            df_developers.to_csv(f"{self.analyzer.data_dir}/azdo_bus_factor_analysis.csv", index=False)
+            output_file = f"{self.analyzer.data_dir}/azdo_bus_factor_analysis.csv"
+            df_developers.to_csv(output_file, index=False)
+            print(f"💾 Saved bus factor analysis to: {output_file}")
+            
+            # Mark as cached
+            self.analyzer.mark_analysis_cached(devs_analysis_name, output_file)
         
         # Generate insights
         print(f"\n=== BUS FACTOR & HOTSPOT INSIGHTS ===")
