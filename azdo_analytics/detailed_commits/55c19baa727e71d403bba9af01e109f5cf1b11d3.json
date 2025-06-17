@@ -1,0 +1,75 @@
+{
+  "changeCounts": {
+    "Edit": 5,
+    "Add": 1
+  },
+  "changes": [
+    {
+      "item": {
+        "objectId": "4f6d7d5b66cfc77bf58b4e6921c9d933b717bc5f",
+        "originalObjectId": "cc0e07e7fbce7e9c73dc15a5107ce6a88cf585c9",
+        "gitObjectType": "tree",
+        "commitId": "55c19baa727e71d403bba9af01e109f5cf1b11d3",
+        "path": "/Tools",
+        "isFolder": true,
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/Tools?versionType=Commit&version=55c19baa727e71d403bba9af01e109f5cf1b11d3"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "34ca829455982c4e47aed5e5b4fa2ad857977b4f",
+        "originalObjectId": "e97779ef9a3ba5da882b31562a9b9606189298a4",
+        "gitObjectType": "tree",
+        "commitId": "55c19baa727e71d403bba9af01e109f5cf1b11d3",
+        "path": "/Tools/Zinnia.SqlGenerator",
+        "isFolder": true,
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/Tools%2FZinnia.SqlGenerator?versionType=Commit&version=55c19baa727e71d403bba9af01e109f5cf1b11d3"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "5565d4168d7d7d3037cc889354e5d6a2358969d8",
+        "originalObjectId": "6b09ac69ff76272aae04e6f1f45e654346fe9ab2",
+        "gitObjectType": "blob",
+        "commitId": "55c19baa727e71d403bba9af01e109f5cf1b11d3",
+        "path": "/Tools/Zinnia.SqlGenerator/AppSettings.cs",
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/Tools%2FZinnia.SqlGenerator%2FAppSettings.cs?versionType=Commit&version=55c19baa727e71d403bba9af01e109f5cf1b11d3"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "cf769f95e77add8ce5be518e153fd1fbf4232c84",
+        "gitObjectType": "blob",
+        "commitId": "55c19baa727e71d403bba9af01e109f5cf1b11d3",
+        "path": "/Tools/Zinnia.SqlGenerator/FileManager.cs",
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/Tools%2FZinnia.SqlGenerator%2FFileManager.cs?versionType=Commit&version=55c19baa727e71d403bba9af01e109f5cf1b11d3"
+      },
+      "changeType": "add"
+    },
+    {
+      "item": {
+        "objectId": "4fe4c397eead6d1d8c799bb5657efc246b480082",
+        "originalObjectId": "75568bac0ea62f90fc81d8c131dc6b0aa8ce6b51",
+        "gitObjectType": "blob",
+        "commitId": "55c19baa727e71d403bba9af01e109f5cf1b11d3",
+        "path": "/Tools/Zinnia.SqlGenerator/Program.cs",
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/Tools%2FZinnia.SqlGenerator%2FProgram.cs?versionType=Commit&version=55c19baa727e71d403bba9af01e109f5cf1b11d3"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "22c7829129d7cc3c15055fb7c701438165f2a341",
+        "originalObjectId": "6eb57f7c5c53ff29c8753f05562619d3ee7c60b8",
+        "gitObjectType": "blob",
+        "commitId": "55c19baa727e71d403bba9af01e109f5cf1b11d3",
+        "path": "/Tools/Zinnia.SqlGenerator/appsettings.json",
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/Tools%2FZinnia.SqlGenerator%2Fappsettings.json?versionType=Commit&version=55c19baa727e71d403bba9af01e109f5cf1b11d3"
+      },
+      "changeType": "edit"
+    }
+  ]
+}

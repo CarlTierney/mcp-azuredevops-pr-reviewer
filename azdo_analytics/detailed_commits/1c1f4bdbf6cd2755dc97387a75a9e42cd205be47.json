@@ -1,0 +1,184 @@
+{
+  "changeCounts": {
+    "Edit": 3,
+    "Add": 14
+  },
+  "changes": [
+    {
+      "item": {
+        "objectId": "c841e580f9d525ae54a0d3a0e8482711978bb863",
+        "originalObjectId": "28a903ea34dd4eb68725680c5539b72af09ff0ff",
+        "gitObjectType": "tree",
+        "commitId": "1c1f4bdbf6cd2755dc97387a75a9e42cd205be47",
+        "path": "/ZinniaInternal.Model",
+        "isFolder": true,
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Model?versionType=Commit&version=1c1f4bdbf6cd2755dc97387a75a9e42cd205be47"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "5c2cd67017cfd0dc234fe66181fe77be088ebd09",
+        "originalObjectId": "b7c5addbd43410ca3940487e23d6f0b2240fedf1",
+        "gitObjectType": "tree",
+        "commitId": "1c1f4bdbf6cd2755dc97387a75a9e42cd205be47",
+        "path": "/ZinniaInternal.Model/ViewModels",
+        "isFolder": true,
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Model%2FViewModels?versionType=Commit&version=1c1f4bdbf6cd2755dc97387a75a9e42cd205be47"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "0930e63b156ba2247baa787c0abcbb1148541a80",
+        "gitObjectType": "tree",
+        "commitId": "1c1f4bdbf6cd2755dc97387a75a9e42cd205be47",
+        "path": "/ZinniaInternal.Model/ViewModels/Travel",
+        "isFolder": true,
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Model%2FViewModels%2FTravel?versionType=Commit&version=1c1f4bdbf6cd2755dc97387a75a9e42cd205be47"
+      },
+      "changeType": "add"
+    },
+    {
+      "item": {
+        "objectId": "a5b1f8c8c0a280e783217ba29813c28c146ebf02",
+        "gitObjectType": "blob",
+        "commitId": "1c1f4bdbf6cd2755dc97387a75a9e42cd205be47",
+        "path": "/ZinniaInternal.Model/ViewModels/Travel/BaseTravelViewModel.cs",
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Model%2FViewModels%2FTravel%2FBaseTravelViewModel.cs?versionType=Commit&version=1c1f4bdbf6cd2755dc97387a75a9e42cd205be47"
+      },
+      "changeType": "add"
+    },
+    {
+      "item": {
+        "objectId": "23c5b54b1ddc009df61981fc82058370348c7b35",
+        "gitObjectType": "blob",
+        "commitId": "1c1f4bdbf6cd2755dc97387a75a9e42cd205be47",
+        "path": "/ZinniaInternal.Model/ViewModels/Travel/TravelOfferClaimedSeatsViewModel.cs",
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Model%2FViewModels%2FTravel%2FTravelOfferClaimedSeatsViewModel.cs?versionType=Commit&version=1c1f4bdbf6cd2755dc97387a75a9e42cd205be47"
+      },
+      "changeType": "add"
+    },
+    {
+      "item": {
+        "objectId": "f6d498d4a6888d1e7c83ebf89c1ac0f1ff90c1e5",
+        "gitObjectType": "blob",
+        "commitId": "1c1f4bdbf6cd2755dc97387a75a9e42cd205be47",
+        "path": "/ZinniaInternal.Model/ViewModels/Travel/TravelOfferReservationViewModel.cs",
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Model%2FViewModels%2FTravel%2FTravelOfferReservationViewModel.cs?versionType=Commit&version=1c1f4bdbf6cd2755dc97387a75a9e42cd205be47"
+      },
+      "changeType": "add"
+    },
+    {
+      "item": {
+        "objectId": "931fcbbfba3e74572bb8f284380e949cb5da3ba4",
+        "gitObjectType": "blob",
+        "commitId": "1c1f4bdbf6cd2755dc97387a75a9e42cd205be47",
+        "path": "/ZinniaInternal.Model/ViewModels/Travel/TravelOfferViewModel.cs",
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Model%2FViewModels%2FTravel%2FTravelOfferViewModel.cs?versionType=Commit&version=1c1f4bdbf6cd2755dc97387a75a9e42cd205be47"
+      },
+      "changeType": "add"
+    },
+    {
+      "item": {
+        "objectId": "5e192677d2614b60c02922c15f57cf1f25b6e505",
+        "gitObjectType": "blob",
+        "commitId": "1c1f4bdbf6cd2755dc97387a75a9e42cd205be47",
+        "path": "/ZinniaInternal.Model/ViewModels/Travel/TravelOffersViewModel.cs",
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Model%2FViewModels%2FTravel%2FTravelOffersViewModel.cs?versionType=Commit&version=1c1f4bdbf6cd2755dc97387a75a9e42cd205be47"
+      },
+      "changeType": "add"
+    },
+    {
+      "item": {
+        "objectId": "882c6557c7a576e837ae0daa72890c440819acff",
+        "gitObjectType": "blob",
+        "commitId": "1c1f4bdbf6cd2755dc97387a75a9e42cd205be47",
+        "path": "/ZinniaInternal.Model/ViewModels/Travel/TravelRequestViewModel.cs",
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Model%2FViewModels%2FTravel%2FTravelRequestViewModel.cs?versionType=Commit&version=1c1f4bdbf6cd2755dc97387a75a9e42cd205be47"
+      },
+      "changeType": "add"
+    },
+    {
+      "item": {
+        "objectId": "6ffc2f494e2dc688660dcdfe656834b78e38a61f",
+        "gitObjectType": "blob",
+        "commitId": "1c1f4bdbf6cd2755dc97387a75a9e42cd205be47",
+        "path": "/ZinniaInternal.Model/ViewModels/Travel/TravelRequestsViewModel.cs",
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Model%2FViewModels%2FTravel%2FTravelRequestsViewModel.cs?versionType=Commit&version=1c1f4bdbf6cd2755dc97387a75a9e42cd205be47"
+      },
+      "changeType": "add"
+    },
+    {
+      "item": {
+        "objectId": "7fd04d22fc41ae95ca477bb53fa3f9e3257843cc",
+        "gitObjectType": "blob",
+        "commitId": "1c1f4bdbf6cd2755dc97387a75a9e42cd205be47",
+        "path": "/ZinniaInternal.Model/ViewModels/Travel/TravelTravellerViewModel.cs",
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Model%2FViewModels%2FTravel%2FTravelTravellerViewModel.cs?versionType=Commit&version=1c1f4bdbf6cd2755dc97387a75a9e42cd205be47"
+      },
+      "changeType": "add"
+    },
+    {
+      "item": {
+        "objectId": "605f8f331e0be04a16c78985d429241886ec6c2e",
+        "gitObjectType": "blob",
+        "commitId": "1c1f4bdbf6cd2755dc97387a75a9e42cd205be47",
+        "path": "/ZinniaInternal.Model/ViewModels/Travel/TravelTravellersViewModel.cs",
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Model%2FViewModels%2FTravel%2FTravelTravellersViewModel.cs?versionType=Commit&version=1c1f4bdbf6cd2755dc97387a75a9e42cd205be47"
+      },
+      "changeType": "add"
+    },
+    {
+      "item": {
+        "objectId": "80a052b30cc6dff7e82280baa2ec12fbfa2d8226",
+        "gitObjectType": "blob",
+        "commitId": "1c1f4bdbf6cd2755dc97387a75a9e42cd205be47",
+        "path": "/ZinniaInternal.Model/ViewModels/Travel/TravelTripReservationViewModel.cs",
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Model%2FViewModels%2FTravel%2FTravelTripReservationViewModel.cs?versionType=Commit&version=1c1f4bdbf6cd2755dc97387a75a9e42cd205be47"
+      },
+      "changeType": "add"
+    },
+    {
+      "item": {
+        "objectId": "6df428663cdfa1c0f5137e6755ff88dc78e444c3",
+        "gitObjectType": "blob",
+        "commitId": "1c1f4bdbf6cd2755dc97387a75a9e42cd205be47",
+        "path": "/ZinniaInternal.Model/ViewModels/Travel/TravelTripViewModel.cs",
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Model%2FViewModels%2FTravel%2FTravelTripViewModel.cs?versionType=Commit&version=1c1f4bdbf6cd2755dc97387a75a9e42cd205be47"
+      },
+      "changeType": "add"
+    },
+    {
+      "item": {
+        "objectId": "2b8efd1ec3fb453f91fd508b28299887d3418ee1",
+        "gitObjectType": "blob",
+        "commitId": "1c1f4bdbf6cd2755dc97387a75a9e42cd205be47",
+        "path": "/ZinniaInternal.Model/ViewModels/Travel/TravelTripsViewModel.cs",
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Model%2FViewModels%2FTravel%2FTravelTripsViewModel.cs?versionType=Commit&version=1c1f4bdbf6cd2755dc97387a75a9e42cd205be47"
+      },
+      "changeType": "add"
+    },
+    {
+      "item": {
+        "objectId": "a4d0cc86dcbf67934222b84cf5da06aed2daf5fe",
+        "gitObjectType": "blob",
+        "commitId": "1c1f4bdbf6cd2755dc97387a75a9e42cd205be47",
+        "path": "/ZinniaInternal.Model/ViewModels/Travel/TripContentViewModel.cs",
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Model%2FViewModels%2FTravel%2FTripContentViewModel.cs?versionType=Commit&version=1c1f4bdbf6cd2755dc97387a75a9e42cd205be47"
+      },
+      "changeType": "add"
+    },
+    {
+      "item": {
+        "objectId": "6fea5435eb56ce2cc9c28fcc98497863f3afdfe3",
+        "originalObjectId": "a11c7510fd641e21ad6ce29522f96fbff8437c41",
+        "gitObjectType": "blob",
+        "commitId": "1c1f4bdbf6cd2755dc97387a75a9e42cd205be47",
+        "path": "/ZinniaInternal.Model/ViewModels/ViewModels.cs",
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Model%2FViewModels%2FViewModels.cs?versionType=Commit&version=1c1f4bdbf6cd2755dc97387a75a9e42cd205be47"
+      },
+      "changeType": "edit"
+    }
+  ]
+}

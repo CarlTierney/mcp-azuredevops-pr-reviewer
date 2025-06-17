@@ -1,0 +1,417 @@
+{
+  "changeCounts": {
+    "Edit": 30,
+    "Add": 6
+  },
+  "changes": [
+    {
+      "item": {
+        "objectId": "70aa118186a6fa1d452d1b0092a878964c5962c4",
+        "originalObjectId": "16b1d1a3422881f15e60e878cfcc9168dc841b60",
+        "gitObjectType": "tree",
+        "commitId": "cd0a5ebc6c49929101bdd37e6115a2fca1d7c69f",
+        "path": "/ZinniaInternal.Businesslogic",
+        "isFolder": true,
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Businesslogic?versionType=Commit&version=cd0a5ebc6c49929101bdd37e6115a2fca1d7c69f"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "985e7deac2ebab21698f26669f1f9a1d4aab7f12",
+        "originalObjectId": "7cd8d8014d642fe088eb790d8d49262c5600a378",
+        "gitObjectType": "tree",
+        "commitId": "cd0a5ebc6c49929101bdd37e6115a2fca1d7c69f",
+        "path": "/ZinniaInternal.Businesslogic/Helpers",
+        "isFolder": true,
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Businesslogic%2FHelpers?versionType=Commit&version=cd0a5ebc6c49929101bdd37e6115a2fca1d7c69f"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "64d47ab7bcf0d5b16f71caec39939d93dc6cfe4c",
+        "originalObjectId": "57febe026fc6a654e06e0d7ae803fcae672bb377",
+        "gitObjectType": "blob",
+        "commitId": "cd0a5ebc6c49929101bdd37e6115a2fca1d7c69f",
+        "path": "/ZinniaInternal.Businesslogic/Helpers/ZinniaHub.cs",
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Businesslogic%2FHelpers%2FZinniaHub.cs?versionType=Commit&version=cd0a5ebc6c49929101bdd37e6115a2fca1d7c69f"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "6c2a2362f383c86b6d426695f9c3c63fa9153ecb",
+        "originalObjectId": "bd39c9d99f1524c6c38259eb1452ca51bb400857",
+        "gitObjectType": "tree",
+        "commitId": "cd0a5ebc6c49929101bdd37e6115a2fca1d7c69f",
+        "path": "/ZinniaInternal.Businesslogic/Services",
+        "isFolder": true,
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Businesslogic%2FServices?versionType=Commit&version=cd0a5ebc6c49929101bdd37e6115a2fca1d7c69f"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "a45057c96932e80a94933621772b53417e0088fe",
+        "originalObjectId": "d944bf5c908eee229c942f87cc8d2698caf756e7",
+        "gitObjectType": "blob",
+        "commitId": "cd0a5ebc6c49929101bdd37e6115a2fca1d7c69f",
+        "path": "/ZinniaInternal.Businesslogic/Services/CommunicationHub.cs",
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Businesslogic%2FServices%2FCommunicationHub.cs?versionType=Commit&version=cd0a5ebc6c49929101bdd37e6115a2fca1d7c69f"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "213ba1878c1938ff19b7b70f5053af3a5aee69da",
+        "originalObjectId": "9b087d43ceb1c295bb6c4b2a0a0496981f96d9dd",
+        "gitObjectType": "blob",
+        "commitId": "cd0a5ebc6c49929101bdd37e6115a2fca1d7c69f",
+        "path": "/ZinniaInternal.Businesslogic/ZinniaInternal.BusinessLogic.csproj",
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Businesslogic%2FZinniaInternal.BusinessLogic.csproj?versionType=Commit&version=cd0a5ebc6c49929101bdd37e6115a2fca1d7c69f"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "1495ff123cae13a7677baaacd7c6738a1bde3e18",
+        "originalObjectId": "d42f9abceb57ef451a142ef87ae15d2557b96280",
+        "gitObjectType": "tree",
+        "commitId": "cd0a5ebc6c49929101bdd37e6115a2fca1d7c69f",
+        "path": "/ZinniaInternal.Cache",
+        "isFolder": true,
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Cache?versionType=Commit&version=cd0a5ebc6c49929101bdd37e6115a2fca1d7c69f"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "5eee53fe047053f87ce4cf438616928c48bb8887",
+        "originalObjectId": "deb55c4d7819a616daec5b38e38c84792d3b0841",
+        "gitObjectType": "blob",
+        "commitId": "cd0a5ebc6c49929101bdd37e6115a2fca1d7c69f",
+        "path": "/ZinniaInternal.Cache/ZinniaInternal.Cache.csproj",
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Cache%2FZinniaInternal.Cache.csproj?versionType=Commit&version=cd0a5ebc6c49929101bdd37e6115a2fca1d7c69f"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "08115c7ceed1a6639d151c79eb9474db7ce92a3a",
+        "originalObjectId": "d9a01e5320f36c339a2ae283ca32186204bc829d",
+        "gitObjectType": "tree",
+        "commitId": "cd0a5ebc6c49929101bdd37e6115a2fca1d7c69f",
+        "path": "/ZinniaInternal.Data",
+        "isFolder": true,
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Data?versionType=Commit&version=cd0a5ebc6c49929101bdd37e6115a2fca1d7c69f"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "fc6e28a9028c3229a74f88a8b1d1de5f3d151349",
+        "originalObjectId": "5c2641904e1c164c59f6dbf0f2dca4c3d5dfde7f",
+        "gitObjectType": "blob",
+        "commitId": "cd0a5ebc6c49929101bdd37e6115a2fca1d7c69f",
+        "path": "/ZinniaInternal.Data/ZinniaInternal.Data.csproj",
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Data%2FZinniaInternal.Data.csproj?versionType=Commit&version=cd0a5ebc6c49929101bdd37e6115a2fca1d7c69f"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "724622e952601ac77328759fba7234143eeb7e7e",
+        "originalObjectId": "f6e8e7ff0bebf359c3c281591c6128752b52486a",
+        "gitObjectType": "tree",
+        "commitId": "cd0a5ebc6c49929101bdd37e6115a2fca1d7c69f",
+        "path": "/ZinniaInternal.External.Woppy",
+        "isFolder": true,
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.External.Woppy?versionType=Commit&version=cd0a5ebc6c49929101bdd37e6115a2fca1d7c69f"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "dd36a0513b2e09b347ca20b5f01ae016d7638e07",
+        "originalObjectId": "ced8cdb9a0b4dfe7719bc67c41c58072eeb5e76c",
+        "gitObjectType": "blob",
+        "commitId": "cd0a5ebc6c49929101bdd37e6115a2fca1d7c69f",
+        "path": "/ZinniaInternal.External.Woppy/ZinniaInternal.External.Woppy.csproj",
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.External.Woppy%2FZinniaInternal.External.Woppy.csproj?versionType=Commit&version=cd0a5ebc6c49929101bdd37e6115a2fca1d7c69f"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "ae3cdae24472bdf2ebbe556fef674b2cda2ce86a",
+        "originalObjectId": "b4f01f5fda2cf420b1dafc913788141acfe410cf",
+        "gitObjectType": "tree",
+        "commitId": "cd0a5ebc6c49929101bdd37e6115a2fca1d7c69f",
+        "path": "/ZinniaInternal.Model",
+        "isFolder": true,
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Model?versionType=Commit&version=cd0a5ebc6c49929101bdd37e6115a2fca1d7c69f"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "c6c75c459538948c989f2e485b5384e0c2876f11",
+        "originalObjectId": "4540f508538232ea9f093281ed56ca52f147d573",
+        "gitObjectType": "blob",
+        "commitId": "cd0a5ebc6c49929101bdd37e6115a2fca1d7c69f",
+        "path": "/ZinniaInternal.Model/ZinniaInternal.Model.csproj",
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Model%2FZinniaInternal.Model.csproj?versionType=Commit&version=cd0a5ebc6c49929101bdd37e6115a2fca1d7c69f"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "8797abe556d6d3d1fbc1bbd4038789345af534a2",
+        "originalObjectId": "9720c6d1003752ca5055f0d057d4232486e87231",
+        "gitObjectType": "tree",
+        "commitId": "cd0a5ebc6c49929101bdd37e6115a2fca1d7c69f",
+        "path": "/ZinniaInternal.Security",
+        "isFolder": true,
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Security?versionType=Commit&version=cd0a5ebc6c49929101bdd37e6115a2fca1d7c69f"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "7a42659bdd5ff74de46108b1646ea2dd2499ebca",
+        "originalObjectId": "76f37f786ece7e03ac20b734a3f542ea7cf5ccce",
+        "gitObjectType": "blob",
+        "commitId": "cd0a5ebc6c49929101bdd37e6115a2fca1d7c69f",
+        "path": "/ZinniaInternal.Security/ZinniaInternal.Security.csproj",
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Security%2FZinniaInternal.Security.csproj?versionType=Commit&version=cd0a5ebc6c49929101bdd37e6115a2fca1d7c69f"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "fe1f77b79099f056f27d24105d0344105dace9f6",
+        "originalObjectId": "2c73849624a007e68f66bcc9e30acf5c09561a89",
+        "gitObjectType": "tree",
+        "commitId": "cd0a5ebc6c49929101bdd37e6115a2fca1d7c69f",
+        "path": "/ZinniaInternal.Utils",
+        "isFolder": true,
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Utils?versionType=Commit&version=cd0a5ebc6c49929101bdd37e6115a2fca1d7c69f"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "f0f124ad725af8297398f81013913fd66d903b2a",
+        "originalObjectId": "bbf8439887bbd5106fd41f83ed5ab184d5459177",
+        "gitObjectType": "blob",
+        "commitId": "cd0a5ebc6c49929101bdd37e6115a2fca1d7c69f",
+        "path": "/ZinniaInternal.Utils/ZinniaInternal.Utils.csproj",
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Utils%2FZinniaInternal.Utils.csproj?versionType=Commit&version=cd0a5ebc6c49929101bdd37e6115a2fca1d7c69f"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "9a36b43083f185cd63a8dc0ab9bbc3f0b4e1377e",
+        "originalObjectId": "84d635fb263b8e4d026fef3303c9ebf3c36e3ccf",
+        "gitObjectType": "tree",
+        "commitId": "cd0a5ebc6c49929101bdd37e6115a2fca1d7c69f",
+        "path": "/ZinniaInternalCore",
+        "isFolder": true,
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternalCore?versionType=Commit&version=cd0a5ebc6c49929101bdd37e6115a2fca1d7c69f"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "e59936283b4240f7e05b946b670d78a9e3636d55",
+        "originalObjectId": "1be2425254b7c517f5b5b0752852716a98dc9b47",
+        "gitObjectType": "blob",
+        "commitId": "cd0a5ebc6c49929101bdd37e6115a2fca1d7c69f",
+        "path": "/ZinniaInternalCore/Program.cs",
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternalCore%2FProgram.cs?versionType=Commit&version=cd0a5ebc6c49929101bdd37e6115a2fca1d7c69f"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "bd6a1016de3ac390466cdb30e31caf5e97ab2eea",
+        "originalObjectId": "79a5d6130f3718ee7abbfe890b00f83c27835ed9",
+        "gitObjectType": "tree",
+        "commitId": "cd0a5ebc6c49929101bdd37e6115a2fca1d7c69f",
+        "path": "/ZinniaInternalCore/Views",
+        "isFolder": true,
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternalCore%2FViews?versionType=Commit&version=cd0a5ebc6c49929101bdd37e6115a2fca1d7c69f"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "e6bab01ea5057cce1489c623fdb6c672e46c3272",
+        "originalObjectId": "6c225c642345192fd7f3ecc9ead91ec35ed33ba4",
+        "gitObjectType": "tree",
+        "commitId": "cd0a5ebc6c49929101bdd37e6115a2fca1d7c69f",
+        "path": "/ZinniaInternalCore/Views/QuickPane",
+        "isFolder": true,
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternalCore%2FViews%2FQuickPane?versionType=Commit&version=cd0a5ebc6c49929101bdd37e6115a2fca1d7c69f"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "47dcdd0f7e7327a02f9fadcccde044b713a69a43",
+        "originalObjectId": "f731a7823aa62174d1e8359edbf9beb07b37cb5f",
+        "gitObjectType": "tree",
+        "commitId": "cd0a5ebc6c49929101bdd37e6115a2fca1d7c69f",
+        "path": "/ZinniaInternalCore/Views/QuickPane/Inventory",
+        "isFolder": true,
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternalCore%2FViews%2FQuickPane%2FInventory?versionType=Commit&version=cd0a5ebc6c49929101bdd37e6115a2fca1d7c69f"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "cf8af9a40ed3dfde16d0fbf815deca96e3edc707",
+        "originalObjectId": "d8bb07577f8bec4b9095c2d9217449365d44f5ff",
+        "gitObjectType": "blob",
+        "commitId": "cd0a5ebc6c49929101bdd37e6115a2fca1d7c69f",
+        "path": "/ZinniaInternalCore/Views/QuickPane/Inventory/UploadFims.cshtml",
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternalCore%2FViews%2FQuickPane%2FInventory%2FUploadFims.cshtml?versionType=Commit&version=cd0a5ebc6c49929101bdd37e6115a2fca1d7c69f"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "4c50cbde5e0388fd63a661cc01b4f0fe063c3d94",
+        "originalObjectId": "251f05a8652454008c44c7ccc210036acffefb65",
+        "gitObjectType": "tree",
+        "commitId": "cd0a5ebc6c49929101bdd37e6115a2fca1d7c69f",
+        "path": "/ZinniaInternalCore/Views/Shared",
+        "isFolder": true,
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternalCore%2FViews%2FShared?versionType=Commit&version=cd0a5ebc6c49929101bdd37e6115a2fca1d7c69f"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "57f3f9623b02b04be8e262d3a7e60c95c44fbbe8",
+        "originalObjectId": "d229df5320ed8685e5880c2b77cc99b2a09d4ef5",
+        "gitObjectType": "blob",
+        "commitId": "cd0a5ebc6c49929101bdd37e6115a2fca1d7c69f",
+        "path": "/ZinniaInternalCore/Views/Shared/_LayoutBootstrap.cshtml",
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternalCore%2FViews%2FShared%2F_LayoutBootstrap.cshtml?versionType=Commit&version=cd0a5ebc6c49929101bdd37e6115a2fca1d7c69f"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "b733d6f5f48379091f9458e557cd4d2baf9cf32a",
+        "originalObjectId": "2bad6bc1b19157c44b44d667f797cbb64f32181e",
+        "gitObjectType": "blob",
+        "commitId": "cd0a5ebc6c49929101bdd37e6115a2fca1d7c69f",
+        "path": "/ZinniaInternalCore/ZinniaInternalCore.csproj",
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternalCore%2FZinniaInternalCore.csproj?versionType=Commit&version=cd0a5ebc6c49929101bdd37e6115a2fca1d7c69f"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "1193caddb4fd2b8b901642529b6129ebdf5e3214",
+        "gitObjectType": "blob",
+        "commitId": "cd0a5ebc6c49929101bdd37e6115a2fca1d7c69f",
+        "path": "/ZinniaInternalCore/libman.json",
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternalCore%2Flibman.json?versionType=Commit&version=cd0a5ebc6c49929101bdd37e6115a2fca1d7c69f"
+      },
+      "changeType": "add"
+    },
+    {
+      "item": {
+        "objectId": "f480abfd0f750bf5d9847b5ccdab672e3700095b",
+        "originalObjectId": "e95e96cb37cdd06905983e98b1c6a0112010f23f",
+        "gitObjectType": "tree",
+        "commitId": "cd0a5ebc6c49929101bdd37e6115a2fca1d7c69f",
+        "path": "/ZinniaInternalCore/wwwroot",
+        "isFolder": true,
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternalCore%2Fwwwroot?versionType=Commit&version=cd0a5ebc6c49929101bdd37e6115a2fca1d7c69f"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "debcadcdbe36fc8913d17c89dd2874c63ad822bf",
+        "originalObjectId": "9ed363457f402a98e747ba005600dd67dcf14bc3",
+        "gitObjectType": "tree",
+        "commitId": "cd0a5ebc6c49929101bdd37e6115a2fca1d7c69f",
+        "path": "/ZinniaInternalCore/wwwroot/Scripts",
+        "isFolder": true,
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternalCore%2Fwwwroot%2FScripts?versionType=Commit&version=cd0a5ebc6c49929101bdd37e6115a2fca1d7c69f"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "1f088f0f4223091e243c0758eeb01ae9e8541d52",
+        "gitObjectType": "tree",
+        "commitId": "cd0a5ebc6c49929101bdd37e6115a2fca1d7c69f",
+        "path": "/ZinniaInternalCore/wwwroot/Scripts/signalr",
+        "isFolder": true,
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternalCore%2Fwwwroot%2FScripts%2Fsignalr?versionType=Commit&version=cd0a5ebc6c49929101bdd37e6115a2fca1d7c69f"
+      },
+      "changeType": "add"
+    },
+    {
+      "item": {
+        "objectId": "4f93e41c4e75627b7e2ee503f240b4bdfde0589f",
+        "gitObjectType": "tree",
+        "commitId": "cd0a5ebc6c49929101bdd37e6115a2fca1d7c69f",
+        "path": "/ZinniaInternalCore/wwwroot/Scripts/signalr/dist",
+        "isFolder": true,
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternalCore%2Fwwwroot%2FScripts%2Fsignalr%2Fdist?versionType=Commit&version=cd0a5ebc6c49929101bdd37e6115a2fca1d7c69f"
+      },
+      "changeType": "add"
+    },
+    {
+      "item": {
+        "objectId": "00b80f13a8a6d6de7336a5532e55e1c75db59e4b",
+        "gitObjectType": "tree",
+        "commitId": "cd0a5ebc6c49929101bdd37e6115a2fca1d7c69f",
+        "path": "/ZinniaInternalCore/wwwroot/Scripts/signalr/dist/browser",
+        "isFolder": true,
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternalCore%2Fwwwroot%2FScripts%2Fsignalr%2Fdist%2Fbrowser?versionType=Commit&version=cd0a5ebc6c49929101bdd37e6115a2fca1d7c69f"
+      },
+      "changeType": "add"
+    },
+    {
+      "item": {
+        "objectId": "6fe8f21a3a2e21108e3d1203f879ca6aa9e3710b",
+        "gitObjectType": "blob",
+        "commitId": "cd0a5ebc6c49929101bdd37e6115a2fca1d7c69f",
+        "path": "/ZinniaInternalCore/wwwroot/Scripts/signalr/dist/browser/signalr.js",
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternalCore%2Fwwwroot%2FScripts%2Fsignalr%2Fdist%2Fbrowser%2Fsignalr.js?versionType=Commit&version=cd0a5ebc6c49929101bdd37e6115a2fca1d7c69f"
+      },
+      "changeType": "add"
+    },
+    {
+      "item": {
+        "objectId": "0ba87de533c27ee6b462c629dad25653c941ce3e",
+        "gitObjectType": "blob",
+        "commitId": "cd0a5ebc6c49929101bdd37e6115a2fca1d7c69f",
+        "path": "/ZinniaInternalCore/wwwroot/Scripts/signalr/dist/browser/signalr.min.js",
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternalCore%2Fwwwroot%2FScripts%2Fsignalr%2Fdist%2Fbrowser%2Fsignalr.min.js?versionType=Commit&version=cd0a5ebc6c49929101bdd37e6115a2fca1d7c69f"
+      },
+      "changeType": "add"
+    },
+    {
+      "item": {
+        "objectId": "ead72d01116a401deeddeceb9776fe102bff9c36",
+        "originalObjectId": "2a1a1aa88947ac7218ffa9d8c9aa22febd761aef",
+        "gitObjectType": "blob",
+        "commitId": "cd0a5ebc6c49929101bdd37e6115a2fca1d7c69f",
+        "path": "/ZinniaInternalCore/wwwroot/Scripts/zinnia.js",
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternalCore%2Fwwwroot%2FScripts%2Fzinnia.js?versionType=Commit&version=cd0a5ebc6c49929101bdd37e6115a2fca1d7c69f"
+      },
+      "changeType": "edit"
+    }
+  ]
+}

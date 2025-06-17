@@ -1,0 +1,509 @@
+{
+  "changeCounts": {
+    "Edit": 41,
+    "Add": 4
+  },
+  "changes": [
+    {
+      "item": {
+        "objectId": "cc0e07e7fbce7e9c73dc15a5107ce6a88cf585c9",
+        "originalObjectId": "3e2958ec8e11bfc1e8c1636484c1b4e9ce80dde0",
+        "gitObjectType": "tree",
+        "commitId": "161ac2086ee319b8a015564a9d02d6542f9ff796",
+        "path": "/Tools",
+        "isFolder": true,
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/Tools?versionType=Commit&version=161ac2086ee319b8a015564a9d02d6542f9ff796"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "e97779ef9a3ba5da882b31562a9b9606189298a4",
+        "originalObjectId": "b5184c755f6eaee690fb3c1d68529c047d075b4e",
+        "gitObjectType": "tree",
+        "commitId": "161ac2086ee319b8a015564a9d02d6542f9ff796",
+        "path": "/Tools/Zinnia.SqlGenerator",
+        "isFolder": true,
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/Tools%2FZinnia.SqlGenerator?versionType=Commit&version=161ac2086ee319b8a015564a9d02d6542f9ff796"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "75568bac0ea62f90fc81d8c131dc6b0aa8ce6b51",
+        "originalObjectId": "43f53862946df63bae2529ff75bf74d7634a90f4",
+        "gitObjectType": "blob",
+        "commitId": "161ac2086ee319b8a015564a9d02d6542f9ff796",
+        "path": "/Tools/Zinnia.SqlGenerator/Program.cs",
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/Tools%2FZinnia.SqlGenerator%2FProgram.cs?versionType=Commit&version=161ac2086ee319b8a015564a9d02d6542f9ff796"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "3083c835a35cd8c5242e916436f7aea922e567a2",
+        "gitObjectType": "blob",
+        "commitId": "161ac2086ee319b8a015564a9d02d6542f9ff796",
+        "path": "/Tools/Zinnia.SqlGenerator/readme.md",
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/Tools%2FZinnia.SqlGenerator%2Freadme.md?versionType=Commit&version=161ac2086ee319b8a015564a9d02d6542f9ff796"
+      },
+      "changeType": "add"
+    },
+    {
+      "item": {
+        "objectId": "2fd07dce74e5a1849ed46cc52ba8d902dfda46f6",
+        "originalObjectId": "f3c013ff97bbd2c9d1fedea55b49d9c94a0c9022",
+        "gitObjectType": "tree",
+        "commitId": "161ac2086ee319b8a015564a9d02d6542f9ff796",
+        "path": "/Tools/Zinnia.SqlMigrator",
+        "isFolder": true,
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/Tools%2FZinnia.SqlMigrator?versionType=Commit&version=161ac2086ee319b8a015564a9d02d6542f9ff796"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "1c31a866170278f5bf0fe9d799026a4bcdcd5c2f",
+        "gitObjectType": "blob",
+        "commitId": "161ac2086ee319b8a015564a9d02d6542f9ff796",
+        "path": "/Tools/Zinnia.SqlMigrator/readme.md",
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/Tools%2FZinnia.SqlMigrator%2Freadme.md?versionType=Commit&version=161ac2086ee319b8a015564a9d02d6542f9ff796"
+      },
+      "changeType": "add"
+    },
+    {
+      "item": {
+        "objectId": "53af64f34b026d26f216c2df718417136e3dd14e",
+        "originalObjectId": "94e6328d11ed1381ecff24705b6a106de260de7c",
+        "gitObjectType": "tree",
+        "commitId": "161ac2086ee319b8a015564a9d02d6542f9ff796",
+        "path": "/ZinniaInternal.Data",
+        "isFolder": true,
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Data?versionType=Commit&version=161ac2086ee319b8a015564a9d02d6542f9ff796"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "f19e606951bc6e0591489c1f436c973e15d96d22",
+        "originalObjectId": "baa66124e1d216e13ef59f1040b9be4816b97222",
+        "gitObjectType": "tree",
+        "commitId": "161ac2086ee319b8a015564a9d02d6542f9ff796",
+        "path": "/ZinniaInternal.Data/SqlScripts",
+        "isFolder": true,
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Data%2FSqlScripts?versionType=Commit&version=161ac2086ee319b8a015564a9d02d6542f9ff796"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "08d78ba5fd35fd2c8695a4fbb4c80b87a1da2a15",
+        "originalObjectId": "90c653a54b15417092ab5cb569730e7edd889f59",
+        "gitObjectType": "tree",
+        "commitId": "161ac2086ee319b8a015564a9d02d6542f9ff796",
+        "path": "/ZinniaInternal.Data/SqlScripts/Raw",
+        "isFolder": true,
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Data%2FSqlScripts%2FRaw?versionType=Commit&version=161ac2086ee319b8a015564a9d02d6542f9ff796"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "de9a0fa2c708902e53da711fb926ffa0532b2df8",
+        "originalObjectId": "6be146bef0b142ec6781b906bbe9901179d5609d",
+        "gitObjectType": "tree",
+        "commitId": "161ac2086ee319b8a015564a9d02d6542f9ff796",
+        "path": "/ZinniaInternal.Data/SqlScripts/Raw/Functions",
+        "isFolder": true,
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Data%2FSqlScripts%2FRaw%2FFunctions?versionType=Commit&version=161ac2086ee319b8a015564a9d02d6542f9ff796"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "a44edf4d344c715be13e1c587325b2b23ec0cb7e",
+        "originalObjectId": "92c2d06c6432cf2e2fed0f44741ddb34ec6be0b1",
+        "gitObjectType": "tree",
+        "commitId": "161ac2086ee319b8a015564a9d02d6542f9ff796",
+        "path": "/ZinniaInternal.Data/SqlScripts/Raw/Functions/Scalar-valued",
+        "isFolder": true,
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Data%2FSqlScripts%2FRaw%2FFunctions%2FScalar-valued?versionType=Commit&version=161ac2086ee319b8a015564a9d02d6542f9ff796"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "63c0ceb5acda71c5b79fa8e81ae5ebba367d750a",
+        "originalObjectId": "a9e8311a89cd21a24d77d745600d9d68066030d6",
+        "gitObjectType": "blob",
+        "commitId": "161ac2086ee319b8a015564a9d02d6542f9ff796",
+        "path": "/ZinniaInternal.Data/SqlScripts/Raw/Functions/Scalar-valued/dbo.AutoFix.sql",
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Data%2FSqlScripts%2FRaw%2FFunctions%2FScalar-valued%2Fdbo.AutoFix.sql?versionType=Commit&version=161ac2086ee319b8a015564a9d02d6542f9ff796"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "c339d2d44fa3358de670276ace28f788997b2932",
+        "originalObjectId": "86801094bb1a29fd2a200061c3a06f7d84729b74",
+        "gitObjectType": "blob",
+        "commitId": "161ac2086ee319b8a015564a9d02d6542f9ff796",
+        "path": "/ZinniaInternal.Data/SqlScripts/Raw/Functions/Scalar-valued/dbo.CalculateAvailable.sql",
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Data%2FSqlScripts%2FRaw%2FFunctions%2FScalar-valued%2Fdbo.CalculateAvailable.sql?versionType=Commit&version=161ac2086ee319b8a015564a9d02d6542f9ff796"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "cefcf742edcbb22a4689cfaa87a6e9923ed49c6d",
+        "originalObjectId": "ae72a48bed97f89294ff97bfe4f22ec846679c5b",
+        "gitObjectType": "blob",
+        "commitId": "161ac2086ee319b8a015564a9d02d6542f9ff796",
+        "path": "/ZinniaInternal.Data/SqlScripts/Raw/Functions/Scalar-valued/dbo.CalculateIssue.sql",
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Data%2FSqlScripts%2FRaw%2FFunctions%2FScalar-valued%2Fdbo.CalculateIssue.sql?versionType=Commit&version=161ac2086ee319b8a015564a9d02d6542f9ff796"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "fee7840aea70083878e3b30fce27352062690df4",
+        "originalObjectId": "985c009ed001747104d7a364b73a7ef648bb30f4",
+        "gitObjectType": "blob",
+        "commitId": "161ac2086ee319b8a015564a9d02d6542f9ff796",
+        "path": "/ZinniaInternal.Data/SqlScripts/Raw/Functions/Scalar-valued/dbo.CalculateRemaining.sql",
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Data%2FSqlScripts%2FRaw%2FFunctions%2FScalar-valued%2Fdbo.CalculateRemaining.sql?versionType=Commit&version=161ac2086ee319b8a015564a9d02d6542f9ff796"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "f3c1ce4e984fd153abdd9e8487576ae911093e4d",
+        "originalObjectId": "88d09dd0fe38f251be8525920dce5fc10abdf171",
+        "gitObjectType": "blob",
+        "commitId": "161ac2086ee319b8a015564a9d02d6542f9ff796",
+        "path": "/ZinniaInternal.Data/SqlScripts/Raw/Functions/Scalar-valued/dbo.ChkValidEmail.sql",
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Data%2FSqlScripts%2FRaw%2FFunctions%2FScalar-valued%2Fdbo.ChkValidEmail.sql?versionType=Commit&version=161ac2086ee319b8a015564a9d02d6542f9ff796"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "80760b131a0ed628f4a4954b77101ca5839d9a7f",
+        "originalObjectId": "b7bf81cc676918835c05778fbebb0860c129fe4b",
+        "gitObjectType": "blob",
+        "commitId": "161ac2086ee319b8a015564a9d02d6542f9ff796",
+        "path": "/ZinniaInternal.Data/SqlScripts/Raw/Functions/Scalar-valued/dbo.FormatMoney.sql",
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Data%2FSqlScripts%2FRaw%2FFunctions%2FScalar-valued%2Fdbo.FormatMoney.sql?versionType=Commit&version=161ac2086ee319b8a015564a9d02d6542f9ff796"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "f09cc45857dd93f1d550615eb7fb522778062101",
+        "originalObjectId": "535794fe02b4b1ad643cdba26c3cd5c0ec6724e5",
+        "gitObjectType": "blob",
+        "commitId": "161ac2086ee319b8a015564a9d02d6542f9ff796",
+        "path": "/ZinniaInternal.Data/SqlScripts/Raw/Functions/Scalar-valued/dbo.FormatMoneyFull.sql",
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Data%2FSqlScripts%2FRaw%2FFunctions%2FScalar-valued%2Fdbo.FormatMoneyFull.sql?versionType=Commit&version=161ac2086ee319b8a015564a9d02d6542f9ff796"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "62016dfb5e117f2b99630d14132c3b0037410564",
+        "originalObjectId": "ec66168f90ca400a72d5ec1a4f3c9f56d823af3c",
+        "gitObjectType": "blob",
+        "commitId": "161ac2086ee319b8a015564a9d02d6542f9ff796",
+        "path": "/ZinniaInternal.Data/SqlScripts/Raw/Functions/Scalar-valued/dbo.IconIndicator.sql",
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Data%2FSqlScripts%2FRaw%2FFunctions%2FScalar-valued%2Fdbo.IconIndicator.sql?versionType=Commit&version=161ac2086ee319b8a015564a9d02d6542f9ff796"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "2854f0f4d05f732ba71e5d0c747301eefb03362f",
+        "originalObjectId": "4a33e410b5635652c56bbd9d07fc60e531aff227",
+        "gitObjectType": "blob",
+        "commitId": "161ac2086ee319b8a015564a9d02d6542f9ff796",
+        "path": "/ZinniaInternal.Data/SqlScripts/Raw/Functions/Scalar-valued/dbo.IsNullOrWhiteSpace.sql",
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Data%2FSqlScripts%2FRaw%2FFunctions%2FScalar-valued%2Fdbo.IsNullOrWhiteSpace.sql?versionType=Commit&version=161ac2086ee319b8a015564a9d02d6542f9ff796"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "b9a2e6a3091c54863db65296bd176f580a40e47b",
+        "originalObjectId": "15e30d9e43a8c1b70f6f8ad066deac39aaab6088",
+        "gitObjectType": "blob",
+        "commitId": "161ac2086ee319b8a015564a9d02d6542f9ff796",
+        "path": "/ZinniaInternal.Data/SqlScripts/Raw/Functions/Scalar-valued/dbo.KpiStatus.sql",
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Data%2FSqlScripts%2FRaw%2FFunctions%2FScalar-valued%2Fdbo.KpiStatus.sql?versionType=Commit&version=161ac2086ee319b8a015564a9d02d6542f9ff796"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "18e4499920e61aae3bececa9309a3a10af62bf55",
+        "originalObjectId": "2754304be6e43622d6066b98a5334a310505e860",
+        "gitObjectType": "blob",
+        "commitId": "161ac2086ee319b8a015564a9d02d6542f9ff796",
+        "path": "/ZinniaInternal.Data/SqlScripts/Raw/Functions/Scalar-valued/dbo.OfWhichField.sql",
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Data%2FSqlScripts%2FRaw%2FFunctions%2FScalar-valued%2Fdbo.OfWhichField.sql?versionType=Commit&version=161ac2086ee319b8a015564a9d02d6542f9ff796"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "119fe93c7077a0208ed18c0a952f6d4fc2990b19",
+        "originalObjectId": "93a44607ea8be54c9ec052fa1005d4ddeb9eb79d",
+        "gitObjectType": "blob",
+        "commitId": "161ac2086ee319b8a015564a9d02d6542f9ff796",
+        "path": "/ZinniaInternal.Data/SqlScripts/Raw/Functions/Scalar-valued/dbo.OfWhichOpportunity.sql",
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Data%2FSqlScripts%2FRaw%2FFunctions%2FScalar-valued%2Fdbo.OfWhichOpportunity.sql?versionType=Commit&version=161ac2086ee319b8a015564a9d02d6542f9ff796"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "4f969e1c855e387fadc263a085cd791b387c268a",
+        "originalObjectId": "c095d994fde411007dd2254da4bd54b5fc4030fb",
+        "gitObjectType": "blob",
+        "commitId": "161ac2086ee319b8a015564a9d02d6542f9ff796",
+        "path": "/ZinniaInternal.Data/SqlScripts/Raw/Functions/Scalar-valued/dbo.OfWhichRecovery.sql",
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Data%2FSqlScripts%2FRaw%2FFunctions%2FScalar-valued%2Fdbo.OfWhichRecovery.sql?versionType=Commit&version=161ac2086ee319b8a015564a9d02d6542f9ff796"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "eb22fa3995c04713041bf8c9ac19164ce437e1cf",
+        "originalObjectId": "22d69fea8a2905380e77d1d5d459d9e5a170c0b1",
+        "gitObjectType": "blob",
+        "commitId": "161ac2086ee319b8a015564a9d02d6542f9ff796",
+        "path": "/ZinniaInternal.Data/SqlScripts/Raw/Functions/Scalar-valued/dbo.OnlyGreaterThenZero.sql",
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Data%2FSqlScripts%2FRaw%2FFunctions%2FScalar-valued%2Fdbo.OnlyGreaterThenZero.sql?versionType=Commit&version=161ac2086ee319b8a015564a9d02d6542f9ff796"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "1c5dcd0aabb50aeba056654e5157200da03b016e",
+        "originalObjectId": "c887f9df1e6ab5eb8043a25e776f16ee883de1fd",
+        "gitObjectType": "blob",
+        "commitId": "161ac2086ee319b8a015564a9d02d6542f9ff796",
+        "path": "/ZinniaInternal.Data/SqlScripts/Raw/Functions/Scalar-valued/dbo.QuestionAnswered.sql",
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Data%2FSqlScripts%2FRaw%2FFunctions%2FScalar-valued%2Fdbo.QuestionAnswered.sql?versionType=Commit&version=161ac2086ee319b8a015564a9d02d6542f9ff796"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "35a248b5e1b8d486dee434d3361d031e69d24130",
+        "originalObjectId": "987f3a9d7e06d5ca247623e174199072badff234",
+        "gitObjectType": "blob",
+        "commitId": "161ac2086ee319b8a015564a9d02d6542f9ff796",
+        "path": "/ZinniaInternal.Data/SqlScripts/Raw/Functions/Scalar-valued/dbo.QuestionCommentAssessment.sql",
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Data%2FSqlScripts%2FRaw%2FFunctions%2FScalar-valued%2Fdbo.QuestionCommentAssessment.sql?versionType=Commit&version=161ac2086ee319b8a015564a9d02d6542f9ff796"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "2b3a2b246c5f953ec698416185422699af660c0b",
+        "originalObjectId": "cd1c14d8a105387c1fd0fa5b3dc23945830aad30",
+        "gitObjectType": "blob",
+        "commitId": "161ac2086ee319b8a015564a9d02d6542f9ff796",
+        "path": "/ZinniaInternal.Data/SqlScripts/Raw/Functions/Scalar-valued/dbo.QuestionCommentAssessmentScore.sql",
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Data%2FSqlScripts%2FRaw%2FFunctions%2FScalar-valued%2Fdbo.QuestionCommentAssessmentScore.sql?versionType=Commit&version=161ac2086ee319b8a015564a9d02d6542f9ff796"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "624305ade5331ae68d9bc7d755e55efbcb6c6663",
+        "originalObjectId": "fad35ccf9ff60384867b1045c3b1064f1794e026",
+        "gitObjectType": "blob",
+        "commitId": "161ac2086ee319b8a015564a9d02d6542f9ff796",
+        "path": "/ZinniaInternal.Data/SqlScripts/Raw/Functions/Scalar-valued/dbo.StripNonNumerics.sql",
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Data%2FSqlScripts%2FRaw%2FFunctions%2FScalar-valued%2Fdbo.StripNonNumerics.sql?versionType=Commit&version=161ac2086ee319b8a015564a9d02d6542f9ff796"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "db4f6f2a4e8e374b71e1f32422a3266e6714f302",
+        "originalObjectId": "855aa832bc4ac85794cd003564ca058ecb6d64c0",
+        "gitObjectType": "blob",
+        "commitId": "161ac2086ee319b8a015564a9d02d6542f9ff796",
+        "path": "/ZinniaInternal.Data/SqlScripts/Raw/Functions/Scalar-valued/dbo.TimeAgo.sql",
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Data%2FSqlScripts%2FRaw%2FFunctions%2FScalar-valued%2Fdbo.TimeAgo.sql?versionType=Commit&version=161ac2086ee319b8a015564a9d02d6542f9ff796"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "c79c2dd6e8483f7e9a0506fc100fd0cd589f7b84",
+        "originalObjectId": "e3c9ef85e7b0dbd6e3546ca3a292d724306ea183",
+        "gitObjectType": "blob",
+        "commitId": "161ac2086ee319b8a015564a9d02d6542f9ff796",
+        "path": "/ZinniaInternal.Data/SqlScripts/Raw/Functions/Scalar-valued/dbo.ToOnlyYes.sql",
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Data%2FSqlScripts%2FRaw%2FFunctions%2FScalar-valued%2Fdbo.ToOnlyYes.sql?versionType=Commit&version=161ac2086ee319b8a015564a9d02d6542f9ff796"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "82614ee654938e1a3cb09f6693c9cf38893da9a1",
+        "originalObjectId": "98299a46cd5f4c290cbc14c4934ccfadb2e5e4b2",
+        "gitObjectType": "blob",
+        "commitId": "161ac2086ee319b8a015564a9d02d6542f9ff796",
+        "path": "/ZinniaInternal.Data/SqlScripts/Raw/Functions/Scalar-valued/dbo.ToOnlyYesWithDefault.sql",
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Data%2FSqlScripts%2FRaw%2FFunctions%2FScalar-valued%2Fdbo.ToOnlyYesWithDefault.sql?versionType=Commit&version=161ac2086ee319b8a015564a9d02d6542f9ff796"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "5d8201f689de636f766ab506ed6eab1383ad96d6",
+        "originalObjectId": "e635e5f658af5de083871f9e2216ff81ab6c32a7",
+        "gitObjectType": "blob",
+        "commitId": "161ac2086ee319b8a015564a9d02d6542f9ff796",
+        "path": "/ZinniaInternal.Data/SqlScripts/Raw/Functions/Scalar-valued/dbo.ToYesNo.sql",
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Data%2FSqlScripts%2FRaw%2FFunctions%2FScalar-valued%2Fdbo.ToYesNo.sql?versionType=Commit&version=161ac2086ee319b8a015564a9d02d6542f9ff796"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "ca14ca0b50e9086c41bf3de30f1fa25fea5ddfe8",
+        "originalObjectId": "8806809c35c9dde4b6ae0069d594883772192990",
+        "gitObjectType": "blob",
+        "commitId": "161ac2086ee319b8a015564a9d02d6542f9ff796",
+        "path": "/ZinniaInternal.Data/SqlScripts/Raw/Functions/Scalar-valued/dbo.WordCount.sql",
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Data%2FSqlScripts%2FRaw%2FFunctions%2FScalar-valued%2Fdbo.WordCount.sql?versionType=Commit&version=161ac2086ee319b8a015564a9d02d6542f9ff796"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "60ce6156acbedcf68cf7fe6f1e5770b923f10f7c",
+        "originalObjectId": "2769094321513a07ffab31b2663416355bebaeb8",
+        "gitObjectType": "blob",
+        "commitId": "161ac2086ee319b8a015564a9d02d6542f9ff796",
+        "path": "/ZinniaInternal.Data/SqlScripts/Raw/Functions/Scalar-valued/dbo.fnFirsties.sql",
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Data%2FSqlScripts%2FRaw%2FFunctions%2FScalar-valued%2Fdbo.fnFirsties.sql?versionType=Commit&version=161ac2086ee319b8a015564a9d02d6542f9ff796"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "32d226f9be3ba5ca7bc3e4251c5f610e6211226d",
+        "originalObjectId": "41b333da9fb8c2b60593744ff62432811bdd761d",
+        "gitObjectType": "blob",
+        "commitId": "161ac2086ee319b8a015564a9d02d6542f9ff796",
+        "path": "/ZinniaInternal.Data/SqlScripts/Raw/Functions/Scalar-valued/dbo.fn_split_string_value.sql",
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Data%2FSqlScripts%2FRaw%2FFunctions%2FScalar-valued%2Fdbo.fn_split_string_value.sql?versionType=Commit&version=161ac2086ee319b8a015564a9d02d6542f9ff796"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "135670399ca2f97703372a64f023a12cbb6134bb",
+        "originalObjectId": "3986c908e1b9bf8080955f235e5aa9599d7a4872",
+        "gitObjectType": "blob",
+        "commitId": "161ac2086ee319b8a015564a9d02d6542f9ff796",
+        "path": "/ZinniaInternal.Data/SqlScripts/Raw/Functions/Scalar-valued/dbo.itemAtIndexInASplitString.sql",
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Data%2FSqlScripts%2FRaw%2FFunctions%2FScalar-valued%2Fdbo.itemAtIndexInASplitString.sql?versionType=Commit&version=161ac2086ee319b8a015564a9d02d6542f9ff796"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "e4240b4776e820db441f97e801c94ffc7026c339",
+        "originalObjectId": "1a1b159483f15b113931add731f657bc4e71cba0",
+        "gitObjectType": "blob",
+        "commitId": "161ac2086ee319b8a015564a9d02d6542f9ff796",
+        "path": "/ZinniaInternal.Data/SqlScripts/Raw/Functions/Scalar-valued/dbo.udf_StripHTML.sql",
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Data%2FSqlScripts%2FRaw%2FFunctions%2FScalar-valued%2Fdbo.udf_StripHTML.sql?versionType=Commit&version=161ac2086ee319b8a015564a9d02d6542f9ff796"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "708a389949ddb8317de3ff2f31d0940a8632c262",
+        "originalObjectId": "797d6d8400d1531e03d630047b598dfde81f6eec",
+        "gitObjectType": "tree",
+        "commitId": "161ac2086ee319b8a015564a9d02d6542f9ff796",
+        "path": "/ZinniaInternal.Data/SqlScripts/Raw/Functions/Table-valued",
+        "isFolder": true,
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Data%2FSqlScripts%2FRaw%2FFunctions%2FTable-valued?versionType=Commit&version=161ac2086ee319b8a015564a9d02d6542f9ff796"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "dc0dd3d33ad97caa00aee61f7261016fe427000e",
+        "originalObjectId": "9f301b3c00a131a539d790c716c1ea0f2f6a67df",
+        "gitObjectType": "blob",
+        "commitId": "161ac2086ee319b8a015564a9d02d6542f9ff796",
+        "path": "/ZinniaInternal.Data/SqlScripts/Raw/Functions/Table-valued/dbo.fnGetWWLHistoryMainBlocksScoreByYear.sql",
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Data%2FSqlScripts%2FRaw%2FFunctions%2FTable-valued%2Fdbo.fnGetWWLHistoryMainBlocksScoreByYear.sql?versionType=Commit&version=161ac2086ee319b8a015564a9d02d6542f9ff796"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "e17561cb2b78cb18295ce030c2411a78902579cc",
+        "originalObjectId": "8eb0140912f33d2efdcc066e153cf59f47b0bda2",
+        "gitObjectType": "blob",
+        "commitId": "161ac2086ee319b8a015564a9d02d6542f9ff796",
+        "path": "/ZinniaInternal.Data/SqlScripts/Raw/Functions/Table-valued/dbo.parseJSON.sql",
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Data%2FSqlScripts%2FRaw%2FFunctions%2FTable-valued%2Fdbo.parseJSON.sql?versionType=Commit&version=161ac2086ee319b8a015564a9d02d6542f9ff796"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "9fc92dc5f06aa69f4933247a28f6dd948540f2d9",
+        "originalObjectId": "f7139c667c06c54c487157ce17f60b95555473bc",
+        "gitObjectType": "tree",
+        "commitId": "161ac2086ee319b8a015564a9d02d6542f9ff796",
+        "path": "/ZinniaInternal.Data/SqlScripts/Raw/Stored Procedures",
+        "isFolder": true,
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Data%2FSqlScripts%2FRaw%2FStored%20Procedures?versionType=Commit&version=161ac2086ee319b8a015564a9d02d6542f9ff796"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "bf398d9d6c0ab8b0a628a7f17878a84697cb1ce3",
+        "gitObjectType": "blob",
+        "commitId": "161ac2086ee319b8a015564a9d02d6542f9ff796",
+        "path": "/ZinniaInternal.Data/SqlScripts/Raw/Stored Procedures/dbo.ConsolidationOnBSPv2.sql",
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Data%2FSqlScripts%2FRaw%2FStored%20Procedures%2Fdbo.ConsolidationOnBSPv2.sql?versionType=Commit&version=161ac2086ee319b8a015564a9d02d6542f9ff796"
+      },
+      "changeType": "add"
+    },
+    {
+      "item": {
+        "objectId": "9f056acec551c73cd629014563e55d2c8619c9b5",
+        "originalObjectId": "25fac9d08d3d58b509ab6e1632daee5563346e69",
+        "gitObjectType": "blob",
+        "commitId": "161ac2086ee319b8a015564a9d02d6542f9ff796",
+        "path": "/ZinniaInternal.Data/SqlScripts/Raw/Stored Procedures/dbo.ConsolidationScriptv3.sql",
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Data%2FSqlScripts%2FRaw%2FStored%20Procedures%2Fdbo.ConsolidationScriptv3.sql?versionType=Commit&version=161ac2086ee319b8a015564a9d02d6542f9ff796"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "5a211a84ac4fba307f1985fa86772cf54c9091cf",
+        "gitObjectType": "blob",
+        "commitId": "161ac2086ee319b8a015564a9d02d6542f9ff796",
+        "path": "/ZinniaInternal.Data/SqlScripts/Raw/Stored Procedures/dbo.RebuildTeam.sql",
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Data%2FSqlScripts%2FRaw%2FStored%20Procedures%2Fdbo.RebuildTeam.sql?versionType=Commit&version=161ac2086ee319b8a015564a9d02d6542f9ff796"
+      },
+      "changeType": "add"
+    }
+  ]
+}

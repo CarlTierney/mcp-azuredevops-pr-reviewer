@@ -1,0 +1,78 @@
+{
+  "changeCounts": {
+    "Edit": 5,
+    "Add": 1
+  },
+  "changes": [
+    {
+      "item": {
+        "objectId": "1c011bc16b176fa17bf1fefb67a0a7ffdd87a037",
+        "originalObjectId": "a6875d158be5fc77d31eeb58580e73fec8d31d86",
+        "gitObjectType": "tree",
+        "commitId": "d8eb9605a06476e3e312d746df7b3173a58f93da",
+        "path": "/ZinniaInternal.Data",
+        "isFolder": true,
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Data?versionType=Commit&version=d8eb9605a06476e3e312d746df7b3173a58f93da"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "4c4db1b66f72ef42294c5aca43f4311e4ef616bd",
+        "originalObjectId": "17a8c6799f0ab16d60ccb12f320782506d77aefe",
+        "gitObjectType": "tree",
+        "commitId": "d8eb9605a06476e3e312d746df7b3173a58f93da",
+        "path": "/ZinniaInternal.Data/SqlScripts",
+        "isFolder": true,
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Data%2FSqlScripts?versionType=Commit&version=d8eb9605a06476e3e312d746df7b3173a58f93da"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "06fb7009fc14827c25b331250868b059a2790448",
+        "originalObjectId": "90a9f4b676602617273bd55fe704a22c76707e0d",
+        "gitObjectType": "tree",
+        "commitId": "d8eb9605a06476e3e312d746df7b3173a58f93da",
+        "path": "/ZinniaInternal.Data/SqlScripts/Post-deployment",
+        "isFolder": true,
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Data%2FSqlScripts%2FPost-deployment?versionType=Commit&version=d8eb9605a06476e3e312d746df7b3173a58f93da"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "946b53bc7fce418d87cccd23b6459e4de8ac49ae",
+        "originalObjectId": "5fdb0c7205c3947fc249f1e49f9855c81bc1c95e",
+        "gitObjectType": "tree",
+        "commitId": "d8eb9605a06476e3e312d746df7b3173a58f93da",
+        "path": "/ZinniaInternal.Data/SqlScripts/Post-deployment/Charts",
+        "isFolder": true,
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Data%2FSqlScripts%2FPost-deployment%2FCharts?versionType=Commit&version=d8eb9605a06476e3e312d746df7b3173a58f93da"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "57b12dcb125707771b9f18ecaf8d60b3411819bc",
+        "originalObjectId": "21448c63052505ed0b743e05de62b4ba2dd93ebb",
+        "gitObjectType": "tree",
+        "commitId": "d8eb9605a06476e3e312d746df7b3173a58f93da",
+        "path": "/ZinniaInternal.Data/SqlScripts/Post-deployment/Charts/WWL",
+        "isFolder": true,
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Data%2FSqlScripts%2FPost-deployment%2FCharts%2FWWL?versionType=Commit&version=d8eb9605a06476e3e312d746df7b3173a58f93da"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "2ea818ae4a3812096a2331ad2d60564b450905a5",
+        "gitObjectType": "blob",
+        "commitId": "d8eb9605a06476e3e312d746df7b3173a58f93da",
+        "path": "/ZinniaInternal.Data/SqlScripts/Post-deployment/Charts/WWL/WWL Country profiles data for IPM.sql",
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Data%2FSqlScripts%2FPost-deployment%2FCharts%2FWWL%2FWWL%20Country%20profiles%20data%20for%20IPM.sql?versionType=Commit&version=d8eb9605a06476e3e312d746df7b3173a58f93da"
+      },
+      "changeType": "add"
+    }
+  ]
+}

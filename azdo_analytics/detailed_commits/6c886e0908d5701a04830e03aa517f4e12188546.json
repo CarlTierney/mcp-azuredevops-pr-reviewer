@@ -1,0 +1,42 @@
+{
+  "changeCounts": {
+    "Edit": 3
+  },
+  "changes": [
+    {
+      "item": {
+        "objectId": "c39f60bdf628a9ddbfa889de74796c339c3ed0ed",
+        "originalObjectId": "e70110a10eca2085dcd8a5ba9778dfbf8e5efe37",
+        "gitObjectType": "tree",
+        "commitId": "6c886e0908d5701a04830e03aa517f4e12188546",
+        "path": "/ZinniaInternal.Data",
+        "isFolder": true,
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Data?versionType=Commit&version=6c886e0908d5701a04830e03aa517f4e12188546"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "be6dc610f076a43deb53125fe32b1e2ecad00fa5",
+        "originalObjectId": "6743e81fd416e274f6982ec48ee764ca2f1768f9",
+        "gitObjectType": "tree",
+        "commitId": "6c886e0908d5701a04830e03aa517f4e12188546",
+        "path": "/ZinniaInternal.Data/Migrations",
+        "isFolder": true,
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Data%2FMigrations?versionType=Commit&version=6c886e0908d5701a04830e03aa517f4e12188546"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "5f001b65f2975a89ede13b67fb73cea161190236",
+        "originalObjectId": "967852bc9af68551aa5cae98142ac9146f2a2856",
+        "gitObjectType": "blob",
+        "commitId": "6c886e0908d5701a04830e03aa517f4e12188546",
+        "path": "/ZinniaInternal.Data/Migrations/202504171236199_AddAvailableForSpeakerFlagToSpeakerSubRegion.cs",
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Data%2FMigrations%2F202504171236199_AddAvailableForSpeakerFlagToSpeakerSubRegion.cs?versionType=Commit&version=6c886e0908d5701a04830e03aa517f4e12188546"
+      },
+      "changeType": "edit"
+    }
+  ]
+}

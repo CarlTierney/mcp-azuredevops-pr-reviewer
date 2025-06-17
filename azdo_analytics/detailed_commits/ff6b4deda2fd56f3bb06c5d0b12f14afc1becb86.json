@@ -1,0 +1,66 @@
+{
+  "changeCounts": {
+    "Edit": 4,
+    "Add": 1
+  },
+  "changes": [
+    {
+      "item": {
+        "objectId": "cbef0d05eb24d8e143fa85e0dd9ec140109970fb",
+        "originalObjectId": "266bf5007411d8ad4fcfd09b8cd53a6835f5eb04",
+        "gitObjectType": "tree",
+        "commitId": "ff6b4deda2fd56f3bb06c5d0b12f14afc1becb86",
+        "path": "/ZinniaInternal.Data",
+        "isFolder": true,
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Data?versionType=Commit&version=ff6b4deda2fd56f3bb06c5d0b12f14afc1becb86"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "883c3d354c8ed4eaffa0ea91c2ede177819e1105",
+        "originalObjectId": "d30aacf358abed4a0a593aab32f82c7836585af6",
+        "gitObjectType": "tree",
+        "commitId": "ff6b4deda2fd56f3bb06c5d0b12f14afc1becb86",
+        "path": "/ZinniaInternal.Data/SqlScripts",
+        "isFolder": true,
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Data%2FSqlScripts?versionType=Commit&version=ff6b4deda2fd56f3bb06c5d0b12f14afc1becb86"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "da4585c964a5a6d59cd9d0d445ad40755db4d24b",
+        "originalObjectId": "cb17cb049329cc44e68b0b9925937f4ac701efd9",
+        "gitObjectType": "tree",
+        "commitId": "ff6b4deda2fd56f3bb06c5d0b12f14afc1becb86",
+        "path": "/ZinniaInternal.Data/SqlScripts/Post-deployment",
+        "isFolder": true,
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Data%2FSqlScripts%2FPost-deployment?versionType=Commit&version=ff6b4deda2fd56f3bb06c5d0b12f14afc1becb86"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "c4ba250808927ae590ac320aad7128bdbfa736d9",
+        "originalObjectId": "f0a246db3b8405c0f4d4ae8fbf582e6d462e8aaa",
+        "gitObjectType": "tree",
+        "commitId": "ff6b4deda2fd56f3bb06c5d0b12f14afc1becb86",
+        "path": "/ZinniaInternal.Data/SqlScripts/Post-deployment/ApplicationSQLScripts",
+        "isFolder": true,
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Data%2FSqlScripts%2FPost-deployment%2FApplicationSQLScripts?versionType=Commit&version=ff6b4deda2fd56f3bb06c5d0b12f14afc1becb86"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "680c74d0837036f17c5dd2061f33accf8f57ce95",
+        "gitObjectType": "blob",
+        "commitId": "ff6b4deda2fd56f3bb06c5d0b12f14afc1becb86",
+        "path": "/ZinniaInternal.Data/SqlScripts/Post-deployment/ApplicationSQLScripts/fimsexcelfilescleanup.sql",
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Data%2FSqlScripts%2FPost-deployment%2FApplicationSQLScripts%2Ffimsexcelfilescleanup.sql?versionType=Commit&version=ff6b4deda2fd56f3bb06c5d0b12f14afc1becb86"
+      },
+      "changeType": "add"
+    }
+  ]
+}

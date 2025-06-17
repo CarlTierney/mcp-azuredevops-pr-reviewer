@@ -1,0 +1,111 @@
+{
+  "changeCounts": {
+    "Edit": 7,
+    "Add": 2
+  },
+  "changes": [
+    {
+      "item": {
+        "objectId": "d7219dfebe92b1a75294884199ecbb5b3265a1f4",
+        "originalObjectId": "58a25c7829c58cfc7ab04de8f7955d1dd85d4ace",
+        "gitObjectType": "tree",
+        "commitId": "3df1f2b4da6156d28723e4545f184abc79860578",
+        "path": "/ZinniaInternal.Data",
+        "isFolder": true,
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Data?versionType=Commit&version=3df1f2b4da6156d28723e4545f184abc79860578"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "1af57e42b9aa75c2f3f9dc0c792c1844713f1218",
+        "originalObjectId": "eef3438a2964fc06980b9812451a20cb779e13b7",
+        "gitObjectType": "tree",
+        "commitId": "3df1f2b4da6156d28723e4545f184abc79860578",
+        "path": "/ZinniaInternal.Data/SqlScripts",
+        "isFolder": true,
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Data%2FSqlScripts?versionType=Commit&version=3df1f2b4da6156d28723e4545f184abc79860578"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "67c5302228f9428c13dbc0cadf45c8c2c48e8078",
+        "originalObjectId": "d6e47168d33d53fb7a2854ac9294f26754ed0e1f",
+        "gitObjectType": "tree",
+        "commitId": "3df1f2b4da6156d28723e4545f184abc79860578",
+        "path": "/ZinniaInternal.Data/SqlScripts/Post-deployment",
+        "isFolder": true,
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Data%2FSqlScripts%2FPost-deployment?versionType=Commit&version=3df1f2b4da6156d28723e4545f184abc79860578"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "6561bebf8543344faa9fe68994be7d0a032cf679",
+        "gitObjectType": "tree",
+        "commitId": "3df1f2b4da6156d28723e4545f184abc79860578",
+        "path": "/ZinniaInternal.Data/SqlScripts/Post-deployment/Changes",
+        "isFolder": true,
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Data%2FSqlScripts%2FPost-deployment%2FChanges?versionType=Commit&version=3df1f2b4da6156d28723e4545f184abc79860578"
+      },
+      "changeType": "add"
+    },
+    {
+      "item": {
+        "objectId": "f77c0a75f3828fdd3bad7d39bab6f03a62ebdba0",
+        "gitObjectType": "blob",
+        "commitId": "3df1f2b4da6156d28723e4545f184abc79860578",
+        "path": "/ZinniaInternal.Data/SqlScripts/Post-deployment/Changes/AgeGroup_Updates.sql",
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Data%2FSqlScripts%2FPost-deployment%2FChanges%2FAgeGroup_Updates.sql?versionType=Commit&version=3df1f2b4da6156d28723e4545f184abc79860578"
+      },
+      "changeType": "add"
+    },
+    {
+      "item": {
+        "objectId": "bc05367fdf3fa266a9da09b7e7fcab48b3829164",
+        "originalObjectId": "acb9d4ae493f52ba6af35009498d97d28a9bb4b5",
+        "gitObjectType": "tree",
+        "commitId": "3df1f2b4da6156d28723e4545f184abc79860578",
+        "path": "/ZinniaInternal.Data/SqlScripts/Post-deployment/Charts",
+        "isFolder": true,
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Data%2FSqlScripts%2FPost-deployment%2FCharts?versionType=Commit&version=3df1f2b4da6156d28723e4545f184abc79860578"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "5f525100be8b940424ec31b8bbe068af0f07b7e2",
+        "originalObjectId": "67e194d93f31ad09045ab77b3a0a6fdd05a25724",
+        "gitObjectType": "tree",
+        "commitId": "3df1f2b4da6156d28723e4545f184abc79860578",
+        "path": "/ZinniaInternal.Data/SqlScripts/Post-deployment/Charts/GlobalFieldReportRD2024",
+        "isFolder": true,
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Data%2FSqlScripts%2FPost-deployment%2FCharts%2FGlobalFieldReportRD2024?versionType=Commit&version=3df1f2b4da6156d28723e4545f184abc79860578"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "937c5861ffb43add403c9ee9b910e5514106a752",
+        "originalObjectId": "ca8226ab570eda11bbb092454c1a132b4477b33a",
+        "gitObjectType": "blob",
+        "commitId": "3df1f2b4da6156d28723e4545f184abc79860578",
+        "path": "/ZinniaInternal.Data/SqlScripts/Post-deployment/Charts/GlobalFieldReportRD2024/Analysis-4.BudgetAndExpenditure-BudgetByMinistryType.sql",
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Data%2FSqlScripts%2FPost-deployment%2FCharts%2FGlobalFieldReportRD2024%2FAnalysis-4.BudgetAndExpenditure-BudgetByMinistryType.sql?versionType=Commit&version=3df1f2b4da6156d28723e4545f184abc79860578"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "d05b8dd632e05909ed3e1860888797260fd5e7b9",
+        "originalObjectId": "5c2641904e1c164c59f6dbf0f2dca4c3d5dfde7f",
+        "gitObjectType": "blob",
+        "commitId": "3df1f2b4da6156d28723e4545f184abc79860578",
+        "path": "/ZinniaInternal.Data/ZinniaInternal.Data.csproj",
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Data%2FZinniaInternal.Data.csproj?versionType=Commit&version=3df1f2b4da6156d28723e4545f184abc79860578"
+      },
+      "changeType": "edit"
+    }
+  ]
+}

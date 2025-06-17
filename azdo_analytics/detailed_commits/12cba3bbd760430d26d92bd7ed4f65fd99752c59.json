@@ -1,0 +1,96 @@
+{
+  "changeCounts": {
+    "Edit": 4,
+    "Add": 4
+  },
+  "changes": [
+    {
+      "item": {
+        "objectId": "81f5c3341d58e8fc45ea5095afbc8fd51e7b5213",
+        "originalObjectId": "89d4687e4bc6f2cd81c0ae0dc2821cbf4e42c95a",
+        "gitObjectType": "tree",
+        "commitId": "12cba3bbd760430d26d92bd7ed4f65fd99752c59",
+        "path": "/ZinniaInternal.Data",
+        "isFolder": true,
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Data?versionType=Commit&version=12cba3bbd760430d26d92bd7ed4f65fd99752c59"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "9384b415e8440492aa5fb13d71d47778d60dd5ae",
+        "originalObjectId": "1cf40cd9b600ac713932c52fe2fdc5f385373242",
+        "gitObjectType": "tree",
+        "commitId": "12cba3bbd760430d26d92bd7ed4f65fd99752c59",
+        "path": "/ZinniaInternal.Data/Migrations",
+        "isFolder": true,
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Data%2FMigrations?versionType=Commit&version=12cba3bbd760430d26d92bd7ed4f65fd99752c59"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "d159ac030923ff1de8f733073fabf4594a51d9c0",
+        "gitObjectType": "blob",
+        "commitId": "12cba3bbd760430d26d92bd7ed4f65fd99752c59",
+        "path": "/ZinniaInternal.Data/Migrations/202502041000268_AddOptionsToCashTransactionAccountTable.Designer.cs",
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Data%2FMigrations%2F202502041000268_AddOptionsToCashTransactionAccountTable.Designer.cs?versionType=Commit&version=12cba3bbd760430d26d92bd7ed4f65fd99752c59"
+      },
+      "changeType": "add"
+    },
+    {
+      "item": {
+        "objectId": "c99766813d21d5a96557d166df10607d7f0d7fa4",
+        "gitObjectType": "blob",
+        "commitId": "12cba3bbd760430d26d92bd7ed4f65fd99752c59",
+        "path": "/ZinniaInternal.Data/Migrations/202502041000268_AddOptionsToCashTransactionAccountTable.cs",
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Data%2FMigrations%2F202502041000268_AddOptionsToCashTransactionAccountTable.cs?versionType=Commit&version=12cba3bbd760430d26d92bd7ed4f65fd99752c59"
+      },
+      "changeType": "add"
+    },
+    {
+      "item": {
+        "objectId": "bfdd10fd4095bec6d75bd15b523a99081978b48f",
+        "gitObjectType": "blob",
+        "commitId": "12cba3bbd760430d26d92bd7ed4f65fd99752c59",
+        "path": "/ZinniaInternal.Data/Migrations/202502041000268_AddOptionsToCashTransactionAccountTable.resx",
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Data%2FMigrations%2F202502041000268_AddOptionsToCashTransactionAccountTable.resx?versionType=Commit&version=12cba3bbd760430d26d92bd7ed4f65fd99752c59"
+      },
+      "changeType": "add"
+    },
+    {
+      "item": {
+        "objectId": "325bcd2625ebf93a397f81b03a5c85d687fb7927",
+        "originalObjectId": "01e07bcda928b7b4848a4eacba7d16c13f9c7e40",
+        "gitObjectType": "tree",
+        "commitId": "12cba3bbd760430d26d92bd7ed4f65fd99752c59",
+        "path": "/ZinniaInternal.Data/SqlScripts",
+        "isFolder": true,
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Data%2FSqlScripts?versionType=Commit&version=12cba3bbd760430d26d92bd7ed4f65fd99752c59"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "940faf8fdc2254835ab8a02f011f145aa1a3530e",
+        "originalObjectId": "3a49ca319e4b805dfd2206e30e7bcb428c1af365",
+        "gitObjectType": "tree",
+        "commitId": "12cba3bbd760430d26d92bd7ed4f65fd99752c59",
+        "path": "/ZinniaInternal.Data/SqlScripts/Post-deployment",
+        "isFolder": true,
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Data%2FSqlScripts%2FPost-deployment?versionType=Commit&version=12cba3bbd760430d26d92bd7ed4f65fd99752c59"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "757ff210d3872f2aafa7cbee91a7dd3cf700a21e",
+        "gitObjectType": "blob",
+        "commitId": "12cba3bbd760430d26d92bd7ed4f65fd99752c59",
+        "path": "/ZinniaInternal.Data/SqlScripts/Post-deployment/AddOptionsToCashTransactionAccountTable.sql",
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Data%2FSqlScripts%2FPost-deployment%2FAddOptionsToCashTransactionAccountTable.sql?versionType=Commit&version=12cba3bbd760430d26d92bd7ed4f65fd99752c59"
+      },
+      "changeType": "add"
+    }
+  ]
+}

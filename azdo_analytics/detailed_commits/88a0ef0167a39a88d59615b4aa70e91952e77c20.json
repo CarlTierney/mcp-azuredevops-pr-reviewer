@@ -1,0 +1,42 @@
+{
+  "changeCounts": {
+    "Edit": 3
+  },
+  "changes": [
+    {
+      "item": {
+        "objectId": "171569567ad6bed8ffb5ff361e4269a091363697",
+        "originalObjectId": "e596bcff0bab109a21332fbdd4a7c18158d66f08",
+        "gitObjectType": "tree",
+        "commitId": "88a0ef0167a39a88d59615b4aa70e91952e77c20",
+        "path": "/ZinniaInternal.Businesslogic",
+        "isFolder": true,
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Businesslogic?versionType=Commit&version=88a0ef0167a39a88d59615b4aa70e91952e77c20"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "a61f826f2920d9de78c73bc91375fc97273498ad",
+        "originalObjectId": "2ba094aac191fe7136da9240b12f7ead103c12e0",
+        "gitObjectType": "tree",
+        "commitId": "88a0ef0167a39a88d59615b4aa70e91952e77c20",
+        "path": "/ZinniaInternal.Businesslogic/Travel",
+        "isFolder": true,
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Businesslogic%2FTravel?versionType=Commit&version=88a0ef0167a39a88d59615b4aa70e91952e77c20"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "0ecaa5d78e21320f9345fe980bb17a4048352635",
+        "originalObjectId": "118999c4007e279dc5ae795e0bee4142beea535a",
+        "gitObjectType": "blob",
+        "commitId": "88a0ef0167a39a88d59615b4aa70e91952e77c20",
+        "path": "/ZinniaInternal.Businesslogic/Travel/TravelService.cs",
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Businesslogic%2FTravel%2FTravelService.cs?versionType=Commit&version=88a0ef0167a39a88d59615b4aa70e91952e77c20"
+      },
+      "changeType": "edit"
+    }
+  ]
+}

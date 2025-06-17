@@ -1,0 +1,112 @@
+{
+  "changeCounts": {
+    "Edit": 7,
+    "Add": 2
+  },
+  "changes": [
+    {
+      "item": {
+        "objectId": "bbdce829ba347e250040aadbda81cc094a20769b",
+        "originalObjectId": "59757b663d40cd54a7dfac5aa218562139daa085",
+        "gitObjectType": "tree",
+        "commitId": "6e66500d6e7fa9c05d6734d83aaadb829dcfdaf3",
+        "path": "/ZinniaInternal.Data",
+        "isFolder": true,
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Data?versionType=Commit&version=6e66500d6e7fa9c05d6734d83aaadb829dcfdaf3"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "137104cb1b9bb18b7c8e3bac93dd981cb390baa6",
+        "originalObjectId": "e963e915ad21e80f69ae133e8a934279226ad395",
+        "gitObjectType": "tree",
+        "commitId": "6e66500d6e7fa9c05d6734d83aaadb829dcfdaf3",
+        "path": "/ZinniaInternal.Data/SqlScripts",
+        "isFolder": true,
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Data%2FSqlScripts?versionType=Commit&version=6e66500d6e7fa9c05d6734d83aaadb829dcfdaf3"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "be95cd8f15a1fbcb015193f8332c5031dbe585de",
+        "originalObjectId": "1ccba850afb2989cbcb08b7e54c0b027f17fcf97",
+        "gitObjectType": "tree",
+        "commitId": "6e66500d6e7fa9c05d6734d83aaadb829dcfdaf3",
+        "path": "/ZinniaInternal.Data/SqlScripts/Post-deployment",
+        "isFolder": true,
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Data%2FSqlScripts%2FPost-deployment?versionType=Commit&version=6e66500d6e7fa9c05d6734d83aaadb829dcfdaf3"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "d364af89ddb325bd8432cbd2fb43860203bc454d",
+        "originalObjectId": "b9b756f615f20f5f39e1daeb5e505fde18d37676",
+        "gitObjectType": "tree",
+        "commitId": "6e66500d6e7fa9c05d6734d83aaadb829dcfdaf3",
+        "path": "/ZinniaInternal.Data/SqlScripts/Post-deployment/Charts",
+        "isFolder": true,
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Data%2FSqlScripts%2FPost-deployment%2FCharts?versionType=Commit&version=6e66500d6e7fa9c05d6734d83aaadb829dcfdaf3"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "67302e3c718c15402e2707df7c3bc22a016a0fa4",
+        "originalObjectId": "019a35f3e14745f0ecc910caf955deeb8274a7d6",
+        "gitObjectType": "tree",
+        "commitId": "6e66500d6e7fa9c05d6734d83aaadb829dcfdaf3",
+        "path": "/ZinniaInternal.Data/SqlScripts/Post-deployment/Charts/GoDashboards",
+        "isFolder": true,
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Data%2FSqlScripts%2FPost-deployment%2FCharts%2FGoDashboards?versionType=Commit&version=6e66500d6e7fa9c05d6734d83aaadb829dcfdaf3"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "1fee81ee26a7f9a545c7ee4ef8b3b29ec378da65",
+        "originalObjectId": "1c554e20cd7c92979f65f440bd5161171105fe8b",
+        "gitObjectType": "tree",
+        "commitId": "6e66500d6e7fa9c05d6734d83aaadb829dcfdaf3",
+        "path": "/ZinniaInternal.Data/SqlScripts/Post-deployment/Charts/GoDashboards/Export",
+        "isFolder": true,
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Data%2FSqlScripts%2FPost-deployment%2FCharts%2FGoDashboards%2FExport?versionType=Commit&version=6e66500d6e7fa9c05d6734d83aaadb829dcfdaf3"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "3beb5b78ba2df8a923d30a6e0d97b59524b2cbc4",
+        "gitObjectType": "blob",
+        "commitId": "6e66500d6e7fa9c05d6734d83aaadb829dcfdaf3",
+        "path": "/ZinniaInternal.Data/SqlScripts/Post-deployment/Charts/GoDashboards/Export/Export activity AIR global.sql",
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Data%2FSqlScripts%2FPost-deployment%2FCharts%2FGoDashboards%2FExport%2FExport%20activity%20AIR%20global.sql?versionType=Commit&version=6e66500d6e7fa9c05d6734d83aaadb829dcfdaf3"
+      },
+      "changeType": "add"
+    },
+    {
+      "item": {
+        "objectId": "4875dee8fcf06ce3a62b255deb22d6b6016567dc",
+        "originalObjectId": "d4a11e1ce92a34b63e8dc7bcf9a1007ea3b975fe",
+        "gitObjectType": "tree",
+        "commitId": "6e66500d6e7fa9c05d6734d83aaadb829dcfdaf3",
+        "path": "/ZinniaInternal.Data/SqlScripts/Post-deployment/Charts/ImpactMyWorld",
+        "isFolder": true,
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Data%2FSqlScripts%2FPost-deployment%2FCharts%2FImpactMyWorld?versionType=Commit&version=6e66500d6e7fa9c05d6734d83aaadb829dcfdaf3"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "2d932eae4e2f7ed341fb2dc27499df6b1f9fd754",
+        "gitObjectType": "blob",
+        "commitId": "6e66500d6e7fa9c05d6734d83aaadb829dcfdaf3",
+        "path": "/ZinniaInternal.Data/SqlScripts/Post-deployment/Charts/ImpactMyWorld/Export activity AIR regional.sql",
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Data%2FSqlScripts%2FPost-deployment%2FCharts%2FImpactMyWorld%2FExport%20activity%20AIR%20regional.sql?versionType=Commit&version=6e66500d6e7fa9c05d6734d83aaadb829dcfdaf3"
+      },
+      "changeType": "add"
+    }
+  ]
+}

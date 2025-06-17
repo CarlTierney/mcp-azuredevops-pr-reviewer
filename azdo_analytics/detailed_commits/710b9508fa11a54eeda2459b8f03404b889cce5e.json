@@ -1,0 +1,42 @@
+{
+  "changeCounts": {
+    "Edit": 3
+  },
+  "changes": [
+    {
+      "item": {
+        "objectId": "ad020c4af63e169c844c9428916738e7fd1a7a3f",
+        "originalObjectId": "89a20619db753a649ac38f46f177a44159212381",
+        "gitObjectType": "tree",
+        "commitId": "710b9508fa11a54eeda2459b8f03404b889cce5e",
+        "path": "/ZinniaInternal.Businesslogic",
+        "isFolder": true,
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Businesslogic?versionType=Commit&version=710b9508fa11a54eeda2459b8f03404b889cce5e"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "ae6d59222cbe1aa73d8dda5e1a3a3001e3a471b7",
+        "originalObjectId": "21425b94a82b9fcfa070ce9325daf5572451621f",
+        "gitObjectType": "tree",
+        "commitId": "710b9508fa11a54eeda2459b8f03404b889cce5e",
+        "path": "/ZinniaInternal.Businesslogic/GO",
+        "isFolder": true,
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Businesslogic%2FGO?versionType=Commit&version=710b9508fa11a54eeda2459b8f03404b889cce5e"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "fd9ea9526244516e49744de3334b468e9f2ed910",
+        "originalObjectId": "257827b20dfb6b604c23c13982fc872860ba4a71",
+        "gitObjectType": "blob",
+        "commitId": "710b9508fa11a54eeda2459b8f03404b889cce5e",
+        "path": "/ZinniaInternal.Businesslogic/GO/Fims.cs",
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Businesslogic%2FGO%2FFims.cs?versionType=Commit&version=710b9508fa11a54eeda2459b8f03404b889cce5e"
+      },
+      "changeType": "edit"
+    }
+  ]
+}

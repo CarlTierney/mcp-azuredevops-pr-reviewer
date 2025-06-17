@@ -1,0 +1,536 @@
+{
+  "changeCounts": {
+    "Edit": 47
+  },
+  "changes": [
+    {
+      "item": {
+        "objectId": "266bf5007411d8ad4fcfd09b8cd53a6835f5eb04",
+        "originalObjectId": "c569f73c532774480d8a2d11f6e784ab774663b8",
+        "gitObjectType": "tree",
+        "commitId": "cd1aaa086c96371caa31a481788300a01a51871c",
+        "path": "/ZinniaInternal.Data",
+        "isFolder": true,
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Data?versionType=Commit&version=cd1aaa086c96371caa31a481788300a01a51871c"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "d30aacf358abed4a0a593aab32f82c7836585af6",
+        "originalObjectId": "eef3438a2964fc06980b9812451a20cb779e13b7",
+        "gitObjectType": "tree",
+        "commitId": "cd1aaa086c96371caa31a481788300a01a51871c",
+        "path": "/ZinniaInternal.Data/SqlScripts",
+        "isFolder": true,
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Data%2FSqlScripts?versionType=Commit&version=cd1aaa086c96371caa31a481788300a01a51871c"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "cb17cb049329cc44e68b0b9925937f4ac701efd9",
+        "originalObjectId": "d6e47168d33d53fb7a2854ac9294f26754ed0e1f",
+        "gitObjectType": "tree",
+        "commitId": "cd1aaa086c96371caa31a481788300a01a51871c",
+        "path": "/ZinniaInternal.Data/SqlScripts/Post-deployment",
+        "isFolder": true,
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Data%2FSqlScripts%2FPost-deployment?versionType=Commit&version=cd1aaa086c96371caa31a481788300a01a51871c"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "e7db14d7111ce973783ea4baddfe806e7be56d25",
+        "originalObjectId": "acb9d4ae493f52ba6af35009498d97d28a9bb4b5",
+        "gitObjectType": "tree",
+        "commitId": "cd1aaa086c96371caa31a481788300a01a51871c",
+        "path": "/ZinniaInternal.Data/SqlScripts/Post-deployment/Charts",
+        "isFolder": true,
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Data%2FSqlScripts%2FPost-deployment%2FCharts?versionType=Commit&version=cd1aaa086c96371caa31a481788300a01a51871c"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "d01b407244f689acb8e3b1a0150e3ebe44eb42e9",
+        "originalObjectId": "59ad9db56453ed7e85119892c4e9653bac03b1dd",
+        "gitObjectType": "tree",
+        "commitId": "cd1aaa086c96371caa31a481788300a01a51871c",
+        "path": "/ZinniaInternal.Data/SqlScripts/Post-deployment/Charts/AnnualProgramReport",
+        "isFolder": true,
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Data%2FSqlScripts%2FPost-deployment%2FCharts%2FAnnualProgramReport?versionType=Commit&version=cd1aaa086c96371caa31a481788300a01a51871c"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "e74fe905e0e0fbfd444b73a49ce5128bdcc5e3b8",
+        "originalObjectId": "e6043142ceba1be3bdbb2aa6f6fe2c39a3cff621",
+        "gitObjectType": "blob",
+        "commitId": "cd1aaa086c96371caa31a481788300a01a51871c",
+        "path": "/ZinniaInternal.Data/SqlScripts/Post-deployment/Charts/AnnualProgramReport/Direct Effect and Activity data.sql",
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Data%2FSqlScripts%2FPost-deployment%2FCharts%2FAnnualProgramReport%2FDirect%20Effect%20and%20Activity%20data.sql?versionType=Commit&version=cd1aaa086c96371caa31a481788300a01a51871c"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "41148a8c7411de15f1a773e51639dc3d610b4fb1",
+        "originalObjectId": "dad81256db223b96363c52bff63a46306e4b2255",
+        "gitObjectType": "blob",
+        "commitId": "cd1aaa086c96371caa31a481788300a01a51871c",
+        "path": "/ZinniaInternal.Data/SqlScripts/Post-deployment/Charts/AnnualProgramReport/Variance data.sql",
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Data%2FSqlScripts%2FPost-deployment%2FCharts%2FAnnualProgramReport%2FVariance%20data.sql?versionType=Commit&version=cd1aaa086c96371caa31a481788300a01a51871c"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "499d1421a27d3c23626d2f7e883c73026b69fa28",
+        "originalObjectId": "4435bf17314039a113e10f2d562f965c1a058c0f",
+        "gitObjectType": "tree",
+        "commitId": "cd1aaa086c96371caa31a481788300a01a51871c",
+        "path": "/ZinniaInternal.Data/SqlScripts/Post-deployment/Charts/GlobalFieldReport-G",
+        "isFolder": true,
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Data%2FSqlScripts%2FPost-deployment%2FCharts%2FGlobalFieldReport-G?versionType=Commit&version=cd1aaa086c96371caa31a481788300a01a51871c"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "11164e594e53e6a7837c4b846f6152cb5c5881bd",
+        "originalObjectId": "b5f13d06d12d2ca2c9ce1ac41eac8e39a9a21cd8",
+        "gitObjectType": "blob",
+        "commitId": "cd1aaa086c96371caa31a481788300a01a51871c",
+        "path": "/ZinniaInternal.Data/SqlScripts/Post-deployment/Charts/GlobalFieldReport-G/Analysis-2a.MinistryType-new.sql",
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Data%2FSqlScripts%2FPost-deployment%2FCharts%2FGlobalFieldReport-G%2FAnalysis-2a.MinistryType-new.sql?versionType=Commit&version=cd1aaa086c96371caa31a481788300a01a51871c"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "8eef9efdeb1b9b4da641e466be8a24080b395a2c",
+        "originalObjectId": "c3fb00b96c88cde3c0b2c1db959e254ab1ed00dc",
+        "gitObjectType": "blob",
+        "commitId": "cd1aaa086c96371caa31a481788300a01a51871c",
+        "path": "/ZinniaInternal.Data/SqlScripts/Post-deployment/Charts/GlobalFieldReport-G/Analysis-2a.MinistryType.sql",
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Data%2FSqlScripts%2FPost-deployment%2FCharts%2FGlobalFieldReport-G%2FAnalysis-2a.MinistryType.sql?versionType=Commit&version=cd1aaa086c96371caa31a481788300a01a51871c"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "14e4e36f60bcafebf792a128f1972449986b50ee",
+        "originalObjectId": "d2e44b5260411ef9cea185139e0fe8877a5be8c9",
+        "gitObjectType": "blob",
+        "commitId": "cd1aaa086c96371caa31a481788300a01a51871c",
+        "path": "/ZinniaInternal.Data/SqlScripts/Post-deployment/Charts/GlobalFieldReport-G/Analysis-2b.Country-new.sql",
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Data%2FSqlScripts%2FPost-deployment%2FCharts%2FGlobalFieldReport-G%2FAnalysis-2b.Country-new.sql?versionType=Commit&version=cd1aaa086c96371caa31a481788300a01a51871c"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "40da1ab2a668cad967826031cb7321bf38633770",
+        "originalObjectId": "842ce731cf1af39841c79bb61a1646b874b1063c",
+        "gitObjectType": "blob",
+        "commitId": "cd1aaa086c96371caa31a481788300a01a51871c",
+        "path": "/ZinniaInternal.Data/SqlScripts/Post-deployment/Charts/GlobalFieldReport-G/Analysis-2b.Country.sql",
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Data%2FSqlScripts%2FPost-deployment%2FCharts%2FGlobalFieldReport-G%2FAnalysis-2b.Country.sql?versionType=Commit&version=cd1aaa086c96371caa31a481788300a01a51871c"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "062fd71712a862e5f4036daa3b4d337adbb07646",
+        "originalObjectId": "22adb862ee3a2f2cf56b06fb281e906ee89085cf",
+        "gitObjectType": "blob",
+        "commitId": "cd1aaa086c96371caa31a481788300a01a51871c",
+        "path": "/ZinniaInternal.Data/SqlScripts/Post-deployment/Charts/GlobalFieldReport-G/Analysis-2c.Age-new.sql",
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Data%2FSqlScripts%2FPost-deployment%2FCharts%2FGlobalFieldReport-G%2FAnalysis-2c.Age-new.sql?versionType=Commit&version=cd1aaa086c96371caa31a481788300a01a51871c"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "ef95321fb06affb70c0b2e30316fb4f04ff3f645",
+        "originalObjectId": "cb60e564a5689ea6db497a015d96ec002a21f1d2",
+        "gitObjectType": "blob",
+        "commitId": "cd1aaa086c96371caa31a481788300a01a51871c",
+        "path": "/ZinniaInternal.Data/SqlScripts/Post-deployment/Charts/GlobalFieldReport-G/Analysis-2c.Age.sql",
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Data%2FSqlScripts%2FPost-deployment%2FCharts%2FGlobalFieldReport-G%2FAnalysis-2c.Age.sql?versionType=Commit&version=cd1aaa086c96371caa31a481788300a01a51871c"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "216a4da032ae02292af194dcb08acfbb11deb147",
+        "originalObjectId": "02d5e6926f8898e9c606387d1e4eaf53a795d887",
+        "gitObjectType": "blob",
+        "commitId": "cd1aaa086c96371caa31a481788300a01a51871c",
+        "path": "/ZinniaInternal.Data/SqlScripts/Post-deployment/Charts/GlobalFieldReport-G/Analysis-2d.Gender-new.sql",
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Data%2FSqlScripts%2FPost-deployment%2FCharts%2FGlobalFieldReport-G%2FAnalysis-2d.Gender-new.sql?versionType=Commit&version=cd1aaa086c96371caa31a481788300a01a51871c"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "2831fe218c8cc96788f317933e247c0d28a0ca18",
+        "originalObjectId": "6b833e0d18d28434c4856e68c6b48f056dfe07f3",
+        "gitObjectType": "blob",
+        "commitId": "cd1aaa086c96371caa31a481788300a01a51871c",
+        "path": "/ZinniaInternal.Data/SqlScripts/Post-deployment/Charts/GlobalFieldReport-G/Analysis-2d.Gender.sql",
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Data%2FSqlScripts%2FPost-deployment%2FCharts%2FGlobalFieldReport-G%2FAnalysis-2d.Gender.sql?versionType=Commit&version=cd1aaa086c96371caa31a481788300a01a51871c"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "933143b8c71440abaf91acc3739740886f225e6c",
+        "originalObjectId": "1e2549c0c00895c2d6c8787e6ed0951b74d16bd5",
+        "gitObjectType": "blob",
+        "commitId": "cd1aaa086c96371caa31a481788300a01a51871c",
+        "path": "/ZinniaInternal.Data/SqlScripts/Post-deployment/Charts/GlobalFieldReport-G/Housekeeping-BeneficiariesWithNoGoInventory-new.sql",
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Data%2FSqlScripts%2FPost-deployment%2FCharts%2FGlobalFieldReport-G%2FHousekeeping-BeneficiariesWithNoGoInventory-new.sql?versionType=Commit&version=cd1aaa086c96371caa31a481788300a01a51871c"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "d4b04586fb503413e0e36bb4c1d2000356578039",
+        "originalObjectId": "f79a5c23c3e177da80228a409f2feb4b63b6829c",
+        "gitObjectType": "blob",
+        "commitId": "cd1aaa086c96371caa31a481788300a01a51871c",
+        "path": "/ZinniaInternal.Data/SqlScripts/Post-deployment/Charts/GlobalFieldReport-G/Housekeeping-BeneficiariesWithNoGoInventory.sql",
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Data%2FSqlScripts%2FPost-deployment%2FCharts%2FGlobalFieldReport-G%2FHousekeeping-BeneficiariesWithNoGoInventory.sql?versionType=Commit&version=cd1aaa086c96371caa31a481788300a01a51871c"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "c8749f7eb2561d72201803a12c05de545cb520da",
+        "originalObjectId": "a21052f06cb18fa050db20626d94e662db1f8210",
+        "gitObjectType": "tree",
+        "commitId": "cd1aaa086c96371caa31a481788300a01a51871c",
+        "path": "/ZinniaInternal.Data/SqlScripts/Post-deployment/Charts/GlobalFieldReportG24",
+        "isFolder": true,
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Data%2FSqlScripts%2FPost-deployment%2FCharts%2FGlobalFieldReportG24?versionType=Commit&version=cd1aaa086c96371caa31a481788300a01a51871c"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "ce990f277a3883cbc46e2be4ab36dc611a1df269",
+        "originalObjectId": "535d418b3b1dd9d9ffdc31aa50b6735083325409",
+        "gitObjectType": "blob",
+        "commitId": "cd1aaa086c96371caa31a481788300a01a51871c",
+        "path": "/ZinniaInternal.Data/SqlScripts/Post-deployment/Charts/GlobalFieldReportG24/Analysis-2a.MinistryType.sql",
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Data%2FSqlScripts%2FPost-deployment%2FCharts%2FGlobalFieldReportG24%2FAnalysis-2a.MinistryType.sql?versionType=Commit&version=cd1aaa086c96371caa31a481788300a01a51871c"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "bb1c04961350461e3ecb23bf24fcac985631c3de",
+        "originalObjectId": "d162b980c64fb50aad9b4eff2a2cc1221f5c016a",
+        "gitObjectType": "blob",
+        "commitId": "cd1aaa086c96371caa31a481788300a01a51871c",
+        "path": "/ZinniaInternal.Data/SqlScripts/Post-deployment/Charts/GlobalFieldReportG24/Analysis-2b.Country.sql",
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Data%2FSqlScripts%2FPost-deployment%2FCharts%2FGlobalFieldReportG24%2FAnalysis-2b.Country.sql?versionType=Commit&version=cd1aaa086c96371caa31a481788300a01a51871c"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "a89db3a99fbd380615e78a7cc68c609533d0ac34",
+        "originalObjectId": "f63118baf8905ab329bce40498c9bdc246d716f2",
+        "gitObjectType": "blob",
+        "commitId": "cd1aaa086c96371caa31a481788300a01a51871c",
+        "path": "/ZinniaInternal.Data/SqlScripts/Post-deployment/Charts/GlobalFieldReportG24/Analysis-2c.Age.sql",
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Data%2FSqlScripts%2FPost-deployment%2FCharts%2FGlobalFieldReportG24%2FAnalysis-2c.Age.sql?versionType=Commit&version=cd1aaa086c96371caa31a481788300a01a51871c"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "a4f86f483bf054fadc22a4b8719aff6a1f30c356",
+        "originalObjectId": "5b9237e23bb85dbe06d9de95a540144d2f61be7c",
+        "gitObjectType": "blob",
+        "commitId": "cd1aaa086c96371caa31a481788300a01a51871c",
+        "path": "/ZinniaInternal.Data/SqlScripts/Post-deployment/Charts/GlobalFieldReportG24/Analysis-2d.Gender.sql",
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Data%2FSqlScripts%2FPost-deployment%2FCharts%2FGlobalFieldReportG24%2FAnalysis-2d.Gender.sql?versionType=Commit&version=cd1aaa086c96371caa31a481788300a01a51871c"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "024b0f4a702e78a439dc290eb3936f45ea314d44",
+        "originalObjectId": "67e194d93f31ad09045ab77b3a0a6fdd05a25724",
+        "gitObjectType": "tree",
+        "commitId": "cd1aaa086c96371caa31a481788300a01a51871c",
+        "path": "/ZinniaInternal.Data/SqlScripts/Post-deployment/Charts/GlobalFieldReportRD2024",
+        "isFolder": true,
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Data%2FSqlScripts%2FPost-deployment%2FCharts%2FGlobalFieldReportRD2024?versionType=Commit&version=cd1aaa086c96371caa31a481788300a01a51871c"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "e1a993a7890209b524854d5b47dcf6f504bb9472",
+        "originalObjectId": "545b37b4cd78dc3e353f4f8b82e7a42747d1c4a7",
+        "gitObjectType": "blob",
+        "commitId": "cd1aaa086c96371caa31a481788300a01a51871c",
+        "path": "/ZinniaInternal.Data/SqlScripts/Post-deployment/Charts/GlobalFieldReportRD2024/Analysis-2a.BenefitsPerMinistryType.sql",
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Data%2FSqlScripts%2FPost-deployment%2FCharts%2FGlobalFieldReportRD2024%2FAnalysis-2a.BenefitsPerMinistryType.sql?versionType=Commit&version=cd1aaa086c96371caa31a481788300a01a51871c"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "ae33e249db8dc9af03b7445216e459c3e7ea4442",
+        "originalObjectId": "c7256c6fc1f8761163780bc0ab25b74a477af2e0",
+        "gitObjectType": "blob",
+        "commitId": "cd1aaa086c96371caa31a481788300a01a51871c",
+        "path": "/ZinniaInternal.Data/SqlScripts/Post-deployment/Charts/GlobalFieldReportRD2024/Analysis-2b.BenefitsPerCountry.sql",
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Data%2FSqlScripts%2FPost-deployment%2FCharts%2FGlobalFieldReportRD2024%2FAnalysis-2b.BenefitsPerCountry.sql?versionType=Commit&version=cd1aaa086c96371caa31a481788300a01a51871c"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "7e44804fc137e9fe845c095101c365e6299671f6",
+        "originalObjectId": "2f5d63379ae778a033c3da37250a65d0047ec5c7",
+        "gitObjectType": "blob",
+        "commitId": "cd1aaa086c96371caa31a481788300a01a51871c",
+        "path": "/ZinniaInternal.Data/SqlScripts/Post-deployment/Charts/GlobalFieldReportRD2024/Analysis-2c.BenefitsPerAge.sql",
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Data%2FSqlScripts%2FPost-deployment%2FCharts%2FGlobalFieldReportRD2024%2FAnalysis-2c.BenefitsPerAge.sql?versionType=Commit&version=cd1aaa086c96371caa31a481788300a01a51871c"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "3611ded350459d3ae602adc6efd0c9c17fb1579e",
+        "originalObjectId": "92bb75fdbd75e4d9e1f4468739b193ac36b57676",
+        "gitObjectType": "blob",
+        "commitId": "cd1aaa086c96371caa31a481788300a01a51871c",
+        "path": "/ZinniaInternal.Data/SqlScripts/Post-deployment/Charts/GlobalFieldReportRD2024/Analysis-2d.BenefitsPerGender.sql",
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Data%2FSqlScripts%2FPost-deployment%2FCharts%2FGlobalFieldReportRD2024%2FAnalysis-2d.BenefitsPerGender.sql?versionType=Commit&version=cd1aaa086c96371caa31a481788300a01a51871c"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "dd7b2dc26e04fc10939e0c323ba4e22fd932baaa",
+        "originalObjectId": "6d0f5748b3f4f5ad18391d21374f191f0b743562",
+        "gitObjectType": "tree",
+        "commitId": "cd1aaa086c96371caa31a481788300a01a51871c",
+        "path": "/ZinniaInternal.Data/SqlScripts/Post-deployment/Charts/GoDashboards",
+        "isFolder": true,
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Data%2FSqlScripts%2FPost-deployment%2FCharts%2FGoDashboards?versionType=Commit&version=cd1aaa086c96371caa31a481788300a01a51871c"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "621dd46f7444b18ba66e73945c739459c90890e4",
+        "originalObjectId": "7e909173394db167223ec38d3d05851f37be0d53",
+        "gitObjectType": "tree",
+        "commitId": "cd1aaa086c96371caa31a481788300a01a51871c",
+        "path": "/ZinniaInternal.Data/SqlScripts/Post-deployment/Charts/GoDashboards/Export",
+        "isFolder": true,
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Data%2FSqlScripts%2FPost-deployment%2FCharts%2FGoDashboards%2FExport?versionType=Commit&version=cd1aaa086c96371caa31a481788300a01a51871c"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "ca2c67b7e768735e72ac1a9e347d911b4c92918c",
+        "originalObjectId": "cabb3d7710d5cb9c998b9ff0753dd76a56c92e46",
+        "gitObjectType": "blob",
+        "commitId": "cd1aaa086c96371caa31a481788300a01a51871c",
+        "path": "/ZinniaInternal.Data/SqlScripts/Post-deployment/Charts/GoDashboards/Export/GO Activity multi year export.sql",
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Data%2FSqlScripts%2FPost-deployment%2FCharts%2FGoDashboards%2FExport%2FGO%20Activity%20multi%20year%20export.sql?versionType=Commit&version=cd1aaa086c96371caa31a481788300a01a51871c"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "cfc7b30f3415a6dd9c38ea48e78b8f917a921758",
+        "originalObjectId": "76e94b4c1b92105bf0f74c13fe7b800afdbe3561",
+        "gitObjectType": "tree",
+        "commitId": "cd1aaa086c96371caa31a481788300a01a51871c",
+        "path": "/ZinniaInternal.Data/SqlScripts/Post-deployment/Charts/ImpactMyWorld",
+        "isFolder": true,
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Data%2FSqlScripts%2FPost-deployment%2FCharts%2FImpactMyWorld?versionType=Commit&version=cd1aaa086c96371caa31a481788300a01a51871c"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "ed70540789550b97471493651dc8f5a52ddbf5b8",
+        "originalObjectId": "e6b7bc303a3bd5d8fb7b4414dbf1d1d34d1f39c5",
+        "gitObjectType": "blob",
+        "commitId": "cd1aaa086c96371caa31a481788300a01a51871c",
+        "path": "/ZinniaInternal.Data/SqlScripts/Post-deployment/Charts/ImpactMyWorld/My World Field - LTS - Country-old.sql",
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Data%2FSqlScripts%2FPost-deployment%2FCharts%2FImpactMyWorld%2FMy%20World%20Field%20-%20LTS%20-%20Country-old.sql?versionType=Commit&version=cd1aaa086c96371caa31a481788300a01a51871c"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "8d1de770c3a20f2176789d1ff81ccd52acda119b",
+        "originalObjectId": "645ea2bb3c177413e35dcbf7d7920437830da0bc",
+        "gitObjectType": "blob",
+        "commitId": "cd1aaa086c96371caa31a481788300a01a51871c",
+        "path": "/ZinniaInternal.Data/SqlScripts/Post-deployment/Charts/ImpactMyWorld/My World Field - LTS - Country.sql",
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Data%2FSqlScripts%2FPost-deployment%2FCharts%2FImpactMyWorld%2FMy%20World%20Field%20-%20LTS%20-%20Country.sql?versionType=Commit&version=cd1aaa086c96371caa31a481788300a01a51871c"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "7d21f94de4f6336755c973ec79b7ab3b5d423c14",
+        "originalObjectId": "15ea4c031e9c998ddfe9ff8ee44dd28fabf3a4bc",
+        "gitObjectType": "blob",
+        "commitId": "cd1aaa086c96371caa31a481788300a01a51871c",
+        "path": "/ZinniaInternal.Data/SqlScripts/Post-deployment/Charts/ImpactMyWorld/My World Field - LTS - Ministry Type-old.sql",
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Data%2FSqlScripts%2FPost-deployment%2FCharts%2FImpactMyWorld%2FMy%20World%20Field%20-%20LTS%20-%20Ministry%20Type-old.sql?versionType=Commit&version=cd1aaa086c96371caa31a481788300a01a51871c"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "2755f76c0d5820c028446cf6efa39f264676c5c9",
+        "originalObjectId": "acc442ce5eab2c58918995b57f19bd543e8b0c88",
+        "gitObjectType": "blob",
+        "commitId": "cd1aaa086c96371caa31a481788300a01a51871c",
+        "path": "/ZinniaInternal.Data/SqlScripts/Post-deployment/Charts/ImpactMyWorld/My World Field - LTS - Ministry Type.sql",
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Data%2FSqlScripts%2FPost-deployment%2FCharts%2FImpactMyWorld%2FMy%20World%20Field%20-%20LTS%20-%20Ministry%20Type.sql?versionType=Commit&version=cd1aaa086c96371caa31a481788300a01a51871c"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "346396bac913f7bda9190ade9014337dd7cba6a1",
+        "originalObjectId": "512b760189762c03b1529d7979ad334349cddf24",
+        "gitObjectType": "tree",
+        "commitId": "cd1aaa086c96371caa31a481788300a01a51871c",
+        "path": "/ZinniaInternal.Data/SqlScripts/Post-deployment/Charts/LtsRdReport",
+        "isFolder": true,
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Data%2FSqlScripts%2FPost-deployment%2FCharts%2FLtsRdReport?versionType=Commit&version=cd1aaa086c96371caa31a481788300a01a51871c"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "dbc9ea2c11ff8110105aabc12d9206aea1d137cb",
+        "originalObjectId": "b4dbe61d4499f9bff1a46c0f7ff3aa4a037bac2b",
+        "gitObjectType": "blob",
+        "commitId": "cd1aaa086c96371caa31a481788300a01a51871c",
+        "path": "/ZinniaInternal.Data/SqlScripts/Post-deployment/Charts/LtsRdReport/Analysis-2a.MinistryType-new.sql",
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Data%2FSqlScripts%2FPost-deployment%2FCharts%2FLtsRdReport%2FAnalysis-2a.MinistryType-new.sql?versionType=Commit&version=cd1aaa086c96371caa31a481788300a01a51871c"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "1826364b82233df2a9b2229f3e0736b68d68ea2a",
+        "originalObjectId": "bcf42118824f888b58a56bb6bae52e8f6d31f09f",
+        "gitObjectType": "blob",
+        "commitId": "cd1aaa086c96371caa31a481788300a01a51871c",
+        "path": "/ZinniaInternal.Data/SqlScripts/Post-deployment/Charts/LtsRdReport/Analysis-2a.MinistryType.sql",
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Data%2FSqlScripts%2FPost-deployment%2FCharts%2FLtsRdReport%2FAnalysis-2a.MinistryType.sql?versionType=Commit&version=cd1aaa086c96371caa31a481788300a01a51871c"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "63787b30b8b1360e77e407d9468282d382f549f7",
+        "originalObjectId": "829db944d3c60ee7b856b6e1b1f571fc2ce33466",
+        "gitObjectType": "blob",
+        "commitId": "cd1aaa086c96371caa31a481788300a01a51871c",
+        "path": "/ZinniaInternal.Data/SqlScripts/Post-deployment/Charts/LtsRdReport/Analysis-2b.Country-new.sql",
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Data%2FSqlScripts%2FPost-deployment%2FCharts%2FLtsRdReport%2FAnalysis-2b.Country-new.sql?versionType=Commit&version=cd1aaa086c96371caa31a481788300a01a51871c"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "12b7e407c73ab09ff57bae1edfee9c14d9a05d2c",
+        "originalObjectId": "74ba4694cdf4711820bc2c84b56f8b125e627b48",
+        "gitObjectType": "blob",
+        "commitId": "cd1aaa086c96371caa31a481788300a01a51871c",
+        "path": "/ZinniaInternal.Data/SqlScripts/Post-deployment/Charts/LtsRdReport/Analysis-2b.Country.sql",
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Data%2FSqlScripts%2FPost-deployment%2FCharts%2FLtsRdReport%2FAnalysis-2b.Country.sql?versionType=Commit&version=cd1aaa086c96371caa31a481788300a01a51871c"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "2083cae98e7c3eed6c2943751b12c88aa34eb2ab",
+        "originalObjectId": "da995baaab1aa9a555805ef33794b2ea2fc45b50",
+        "gitObjectType": "blob",
+        "commitId": "cd1aaa086c96371caa31a481788300a01a51871c",
+        "path": "/ZinniaInternal.Data/SqlScripts/Post-deployment/Charts/LtsRdReport/Analysis-2c.Age-new.sql",
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Data%2FSqlScripts%2FPost-deployment%2FCharts%2FLtsRdReport%2FAnalysis-2c.Age-new.sql?versionType=Commit&version=cd1aaa086c96371caa31a481788300a01a51871c"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "d9bc1c8eb6574d5ca870686215c8b802a2444dc3",
+        "originalObjectId": "b13ca9b65c54ca9b34a1fc9c0cd7b2dcf1f96159",
+        "gitObjectType": "blob",
+        "commitId": "cd1aaa086c96371caa31a481788300a01a51871c",
+        "path": "/ZinniaInternal.Data/SqlScripts/Post-deployment/Charts/LtsRdReport/Analysis-2c.Age.sql",
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Data%2FSqlScripts%2FPost-deployment%2FCharts%2FLtsRdReport%2FAnalysis-2c.Age.sql?versionType=Commit&version=cd1aaa086c96371caa31a481788300a01a51871c"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "82aaf727303999d927858efa288b3ddfab83b6fd",
+        "originalObjectId": "26f98478806e87ef9e36deb3b90977ae3c6ed871",
+        "gitObjectType": "blob",
+        "commitId": "cd1aaa086c96371caa31a481788300a01a51871c",
+        "path": "/ZinniaInternal.Data/SqlScripts/Post-deployment/Charts/LtsRdReport/Analysis-2d.Gender-new.sql",
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Data%2FSqlScripts%2FPost-deployment%2FCharts%2FLtsRdReport%2FAnalysis-2d.Gender-new.sql?versionType=Commit&version=cd1aaa086c96371caa31a481788300a01a51871c"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "de41841854f25996aa63da97da5c129afb0309e9",
+        "originalObjectId": "5be9d6e6bd71d0c6d20a089c91151c044209173f",
+        "gitObjectType": "blob",
+        "commitId": "cd1aaa086c96371caa31a481788300a01a51871c",
+        "path": "/ZinniaInternal.Data/SqlScripts/Post-deployment/Charts/LtsRdReport/Analysis-2d.Gender.sql",
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Data%2FSqlScripts%2FPost-deployment%2FCharts%2FLtsRdReport%2FAnalysis-2d.Gender.sql?versionType=Commit&version=cd1aaa086c96371caa31a481788300a01a51871c"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "a0e929c0c442155e095e90d7c70f6ac8daf750b2",
+        "originalObjectId": "4faeafc1c1834f16bb0c124f3837e91ddde002cf",
+        "gitObjectType": "blob",
+        "commitId": "cd1aaa086c96371caa31a481788300a01a51871c",
+        "path": "/ZinniaInternal.Data/SqlScripts/Post-deployment/Charts/LtsRdReport/Housekeeping-BeneficiariesWithNoGoInventory-new.sql",
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Data%2FSqlScripts%2FPost-deployment%2FCharts%2FLtsRdReport%2FHousekeeping-BeneficiariesWithNoGoInventory-new.sql?versionType=Commit&version=cd1aaa086c96371caa31a481788300a01a51871c"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "cb953a3bca30fc76a54d0c1a40fe8b5a55cce044",
+        "originalObjectId": "8b13abebb41d0d042b51b32ffe9a095ca6c36561",
+        "gitObjectType": "blob",
+        "commitId": "cd1aaa086c96371caa31a481788300a01a51871c",
+        "path": "/ZinniaInternal.Data/SqlScripts/Post-deployment/Charts/LtsRdReport/Housekeeping-BeneficiariesWithNoGoInventory.sql",
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Data%2FSqlScripts%2FPost-deployment%2FCharts%2FLtsRdReport%2FHousekeeping-BeneficiariesWithNoGoInventory.sql?versionType=Commit&version=cd1aaa086c96371caa31a481788300a01a51871c"
+      },
+      "changeType": "edit"
+    }
+  ]
+}

@@ -1,0 +1,66 @@
+{
+  "changeCounts": {
+    "Edit": 5
+  },
+  "changes": [
+    {
+      "item": {
+        "objectId": "38b7988bcfb53764312587558f7bcb9c9f2d18d7",
+        "originalObjectId": "cfbcf30db025be2a8948c96ad5ed058e9074867c",
+        "gitObjectType": "tree",
+        "commitId": "f1673b81c12660fa7548a2eebd3a8547c39960a2",
+        "path": "/ZinniaInternalCore",
+        "isFolder": true,
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternalCore?versionType=Commit&version=f1673b81c12660fa7548a2eebd3a8547c39960a2"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "5407ec876a22ab660dfbcc31188dded5b345c8f5",
+        "originalObjectId": "5db911d383f85e674115872990a41eb02fac1dc1",
+        "gitObjectType": "tree",
+        "commitId": "f1673b81c12660fa7548a2eebd3a8547c39960a2",
+        "path": "/ZinniaInternalCore/Views",
+        "isFolder": true,
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternalCore%2FViews?versionType=Commit&version=f1673b81c12660fa7548a2eebd3a8547c39960a2"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "3f5d18517af08a216b3bbb3d3d4dd0a2eca60754",
+        "originalObjectId": "8f806de5351d2a260660c9a98424c75513353fe1",
+        "gitObjectType": "tree",
+        "commitId": "f1673b81c12660fa7548a2eebd3a8547c39960a2",
+        "path": "/ZinniaInternalCore/Views/QuickPane",
+        "isFolder": true,
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternalCore%2FViews%2FQuickPane?versionType=Commit&version=f1673b81c12660fa7548a2eebd3a8547c39960a2"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "3a24b5a1a92de2d1d220cb36678206e5e310958f",
+        "originalObjectId": "11decd486705b7a004e4821a3e8f363ae466bcb8",
+        "gitObjectType": "tree",
+        "commitId": "f1673b81c12660fa7548a2eebd3a8547c39960a2",
+        "path": "/ZinniaInternalCore/Views/QuickPane/GrantDetail",
+        "isFolder": true,
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternalCore%2FViews%2FQuickPane%2FGrantDetail?versionType=Commit&version=f1673b81c12660fa7548a2eebd3a8547c39960a2"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "d8fc873161b9218f250ac791af33f38d065558f6",
+        "originalObjectId": "1daa73df36a8518a664fd4783efb2238aaf12e24",
+        "gitObjectType": "blob",
+        "commitId": "f1673b81c12660fa7548a2eebd3a8547c39960a2",
+        "path": "/ZinniaInternalCore/Views/QuickPane/GrantDetail/Year.cshtml",
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternalCore%2FViews%2FQuickPane%2FGrantDetail%2FYear.cshtml?versionType=Commit&version=f1673b81c12660fa7548a2eebd3a8547c39960a2"
+      },
+      "changeType": "edit"
+    }
+  ]
+}

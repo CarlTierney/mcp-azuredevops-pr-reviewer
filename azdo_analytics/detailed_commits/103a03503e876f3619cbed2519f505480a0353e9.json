@@ -1,0 +1,42 @@
+{
+  "changeCounts": {
+    "Edit": 3
+  },
+  "changes": [
+    {
+      "item": {
+        "objectId": "fa30c41aaf099d6f5a8ec010c4aff4186a4bcd36",
+        "originalObjectId": "67c26834ed5dde09fc92871c26b9dc01658d26e2",
+        "gitObjectType": "tree",
+        "commitId": "103a03503e876f3619cbed2519f505480a0353e9",
+        "path": "/ZinniaInternal.Businesslogic",
+        "isFolder": true,
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Businesslogic?versionType=Commit&version=103a03503e876f3619cbed2519f505480a0353e9"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "67897bbe455cf423430e2676a1fe53b2ba2d9364",
+        "originalObjectId": "414090dc9286ba3fc2fa51ef8a9230e8fef4a7e1",
+        "gitObjectType": "tree",
+        "commitId": "103a03503e876f3619cbed2519f505480a0353e9",
+        "path": "/ZinniaInternal.Businesslogic/IOP",
+        "isFolder": true,
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Businesslogic%2FIOP?versionType=Commit&version=103a03503e876f3619cbed2519f505480a0353e9"
+      },
+      "changeType": "edit"
+    },
+    {
+      "item": {
+        "objectId": "94bfe551b1f8493ef42aaa8f8a0cf8e18f98aea3",
+        "originalObjectId": "7837d7b372e2d1ed38a15193dac95fd13f3916c6",
+        "gitObjectType": "blob",
+        "commitId": "103a03503e876f3619cbed2519f505480a0353e9",
+        "path": "/ZinniaInternal.Businesslogic/IOP/Incidents.cs",
+        "url": "https://dev.azure.com/itdept0907/363d8384-f6b3-410c-bc7e-f2292c31067c/_apis/git/repositories/1c720761-799b-468f-9944-ad12e8b3081d/items/ZinniaInternal.Businesslogic%2FIOP%2FIncidents.cs?versionType=Commit&version=103a03503e876f3619cbed2519f505480a0353e9"
+      },
+      "changeType": "edit"
+    }
+  ]
+}
