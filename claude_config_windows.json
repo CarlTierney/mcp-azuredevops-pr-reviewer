@@ -1,0 +1,37 @@
+{
+  "mcpServers": {
+    "azure-pr-reviewer": {
+      "command": "python",
+      "args": ["-m", "azure_pr_reviewer.server"],
+      "cwd": "D:\\OpenDoors\\pr-reviewer",
+      "env": {
+        "AZURE_DEVOPS_ORG": "your-organization-name",
+        "AZURE_DEVOPS_PROJECT": "your-project-name",
+        "AZURE_DEVOPS_PAT": "your-personal-access-token",
+        "REVIEW_MODEL": "claude-3-opus-20240229",
+        "WORKING_DIRECTORY": "D:\\temp\\pr-review",
+        "AUTO_CLEANUP": "true",
+        "MAX_FILES_PER_REVIEW": "5000",
+        "MAX_TOTAL_SIZE_GB": "2",
+        "LOG_LEVEL": "INFO"
+      },
+      "metadata": {
+        "name": "Azure DevOps PR Reviewer",
+        "version": "2.0.0",
+        "description": "Comprehensive PR review with security, test enforcement, and package scanning"
+      }
+    }
+  },
+  "globalSettings": {
+    "defaultTimeout": 300000,
+    "retryAttempts": 3,
+    "retryDelay": 1000
+  },
+  "features": {
+    "security_detection": true,
+    "package_scanning": true,
+    "test_enforcement": true,
+    "full_context_analysis": true,
+    "markdown_output": true
+  }
+}
