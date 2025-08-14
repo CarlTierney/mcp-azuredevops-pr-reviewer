@@ -65,8 +65,7 @@ class QualityAnalyzer:
         self._generate_monthly_insights(df_monthly)
     
     def _generate_monthly_insights(self, df_monthly):
-        """Generate insights from monthly data"""
-        # Generate monthly aggregation
+        """Generate insights from monthly data"""        # Generate monthly aggregation
         monthly_aggregation = []
         for month in sorted(df_monthly['Month'].unique()):
             month_data = df_monthly[df_monthly['Month'] == month]
@@ -83,7 +82,7 @@ class QualityAnalyzer:
                 'Month_Display': display_month,
                 'Active_Developers': len(month_data),
                 'Total_Commits': month_data['Commits'].sum(),
-                'Total_Files_Changed': month_data['Total_Files_Changed'].sum(),
+                'Total_Files_Changed': month_data['Files_Changed'].sum(),
                 'Total_LOC_Added': month_data['LOC_Added'].sum(),
                 'Total_LOC_Deleted': month_data['LOC_Deleted'].sum(),
                 'Total_LOC_Modified': month_data['LOC_Modified'].sum(),
@@ -94,7 +93,7 @@ class QualityAnalyzer:
         
         df_monthly_agg = pd.DataFrame(monthly_aggregation)
         if not df_monthly_agg.empty:
-            print("\n📊 Monthly Team Aggregation:")
+            print("\n[STATS] Monthly Team Aggregation:")
             agg_cols = ['Month_Display', 'Active_Developers', 'Total_Commits', 'Total_LOC_Added', 
                        'Total_LOC_Deleted', 'Avg_Non_Whitespace_Ratio', 'Avg_Quality_Score']
             print(df_monthly_agg[agg_cols].to_string(index=False))
@@ -106,7 +105,7 @@ class QualityAnalyzer:
         # Find most productive months
         top_months = df_monthly_agg.nlargest(3, 'Total_LOC_Added') if not df_monthly_agg.empty else pd.DataFrame()
         if not top_months.empty:
-            print(f"🚀 Most Productive Months:")
+            print(f"[START] Most Productive Months:")
             for _, month_row in top_months.iterrows():
                 print(f"  • {month_row['Month_Display']}: {month_row['Total_LOC_Added']:,} LOC added, {month_row['Active_Developers']} developers")
         
@@ -116,13 +115,13 @@ class QualityAnalyzer:
             early_quality = df_monthly_agg.head(3)['Avg_Quality_Score'].mean()
             quality_trend = recent_quality - early_quality
             
-            print(f"\n📈 Quality Trends:")
+            print(f"\n[CHART] Quality Trends:")
             print(f"  • Recent quality score: {recent_quality:.1f}")
             print(f"  • Quality trend: {'↗️ Improving' if quality_trend > 0 else '↘️ Declining' if quality_trend < 0 else '➡️ Stable'} ({quality_trend:+.1f})")
         
         # Top contributors by month
         if not df_monthly.empty:
-            print(f"\n🏆 Top Contributors by Recent Activity:")
+            print(f"\n[BEST] Top Contributors by Recent Activity:")
             recent_month = df_monthly['Month'].max()
             recent_contributors = df_monthly[df_monthly['Month'] == recent_month].nlargest(3, 'LOC_Added')
             for _, dev_row in recent_contributors.iterrows():
@@ -137,7 +136,7 @@ class QualityAnalyzer:
         if self.analyzer.is_analysis_cached(analysis_name):
             cached_df = self.analyzer.get_cached_dataframe(analysis_name)
             if cached_df is not None:
-                print("📊 Displaying cached monthly quality metrics results:")
+                print("[STATS] Displaying cached monthly quality metrics results:")
                 
                 summary_cols = ['Developer', 'Month_Display', 'Commits', 'LOC_Added', 'LOC_Deleted', 'LOC_Modified', 
                                'Non_Whitespace_Ratio', 'Avg_Cyclomatic_Complexity', 'Code_Quality_Score']
@@ -147,7 +146,7 @@ class QualityAnalyzer:
                 
                 return cached_df
         
-        print("🔍 Running fresh monthly quality metrics analysis...")
+        print("[SEARCH] Running fresh monthly quality metrics analysis...")
         
         # Track metrics by developer and month
         monthly_metrics = defaultdict(lambda: defaultdict(lambda: {
@@ -168,23 +167,42 @@ class QualityAnalyzer:
         # Get repository ID for content analysis
         try:
             repo_id = self.analyzer.get_repository_id()
-            print(f"  ✓ Repository ID obtained: {repo_id}")
+            print(f"  [OK] Repository ID obtained: {repo_id}")
         except Exception as e:
-            print(f"  ⚠️  Warning: Could not get repository ID: {e}")
+            print(f"  [WARNING]  Warning: Could not get repository ID: {e}")
             repo_id = None
         
-        print("📅 Analyzing detailed commits for monthly quality metrics...")
+        print("[DATE] Analyzing detailed commits for monthly quality metrics...")
         total_commits = len(self.analyzer.detailed_commits)
         commit_count = 0
         processed_files = 0
         skipped_files = 0
         
+        # Add time tracking
+        import time
+        start_time = time.time()
+        last_progress_time = start_time
+        elapsed = 0  # Initialize elapsed variable
+        
         for commit_id, changes_data in self.analyzer.detailed_commits.items():
             commit_count += 1
-            if commit_count % 50 == 0:
-                progress_pct = (commit_count / total_commits) * 100
-                print(f"    Monthly analysis: {commit_count:,}/{total_commits:,} ({progress_pct:.1f}%) | Files: {processed_files:,} | Skipped: {skipped_files:,}")
+            current_time = time.time()
+            elapsed = current_time - start_time  # Update elapsed time
             
+            if commit_count % 50 == 0 or (current_time - last_progress_time) > 30:
+                progress_pct = (commit_count / total_commits) * 100
+                commits_per_sec = commit_count / max(elapsed, 1)
+                eta_seconds = (total_commits - commit_count) / max(commits_per_sec, 0.1)
+                
+                print(f"    Monthly analysis: {commit_count:,}/{total_commits:,} ({progress_pct:.1f}%)")
+                print(f"      Files: {processed_files:,} processed | {skipped_files:,} skipped")
+                print(f"      Speed: {commits_per_sec:.1f} commits/sec | ETA: {eta_seconds/60:.1f} minutes")
+                last_progress_time = current_time
+              # Log current processing status for visibility
+            if commit_count % 50 == 0:
+                current_commit_short = commit_id[:8] if commit_id else "unknown"
+                print(f"    [LOCATION] Currently processing commit: {current_commit_short} ({commit_count}/{total_commits})")
+
             # Get commit info and parse date
             commit_info = next((c for c in self.analyzer.commits if c.get('commitId') == commit_id), None)
             if not commit_info:
@@ -286,14 +304,14 @@ class QualityAnalyzer:
                         monthly_metrics[author_key][month_key]['loc_deleted'] += 25
                         monthly_metrics[author_key][month_key]['non_whitespace_deleted'] += 20
         
-        print(f"  ✓ Completed monthly analysis:")
+        print(f"  [OK] Completed monthly analysis:")
         print(f"    - {commit_count:,} commits processed")
         print(f"    - {processed_files:,} files analyzed")
         print(f"    - {skipped_files:,} files skipped")
         print(f"    - {len(monthly_metrics)} developers analyzed")
         
         # Generate monthly quality metrics report
-        print("📊 Generating monthly quality report...")
+        print("[STATS] Generating monthly quality report...")
         monthly_data = self._generate_monthly_report(monthly_metrics)
         
         # Create DataFrame for monthly metrics
@@ -314,7 +332,7 @@ class QualityAnalyzer:
         
         # Display sample of monthly metrics
         if not df_monthly_metrics.empty:
-            print("\n📋 Sample of Monthly Quality Metrics:")
+            print("\n[INFO] Sample of Monthly Quality Metrics:")
             print(df_monthly_metrics.sample(min(len(df_monthly_metrics), 10)).to_string(index=False))
         
         # Create DataFrame and save results
@@ -349,7 +367,7 @@ class QualityAnalyzer:
         }).reset_index().nlargest(3, 'LOC_Added')
         
         if not top_developers.empty:
-            print(f"🌟 Top Developers by LOC Added:")
+            print(f"[STAR] Top Developers by LOC Added:")
             for _, dev_row in top_developers.iterrows():
                 print(f"  • {dev_row['Developer']}: {dev_row['LOC_Added']:,} LOC added, {dev_row['Commits']} commits")
         
@@ -363,10 +381,9 @@ class QualityAnalyzer:
         }).reset_index()
         
         if not active_dev_trends.empty:
-            print(f"\n📈 Monthly Trends for Active Developers:")
+            print(f"\n[CHART] Monthly Trends for Active Developers:")
             for _, trend_row in active_dev_trends.iterrows():
                 print(f"  • {trend_row['Month']}: {trend_row['Developer']} active developers, {trend_row['LOC_Added']:,} LOC added")
-        
         # Complexity and quality score trends
         complexity_trend = df_monthly_metrics.groupby('Month').agg({
             'Avg_Cyclomatic_Complexity': 'mean',
@@ -378,7 +395,7 @@ class QualityAnalyzer:
             early_complexity = complexity_trend.head(3)['Code_Quality_Score'].mean()
             complexity_trend_value = recent_complexity - early_complexity
             
-            print(f"\n📊 Complexity and Quality Score Trends:")
+            print(f"\n[STATS] Complexity and Quality Score Trends:")
             print(f"  • Recent average complexity: {recent_complexity:.2f}")
             print(f"  • Complexity trend: {'↗️ Improving' if complexity_trend_value > 0 else '↘️ Declining' if complexity_trend_value < 0 else '➡️ Stable'} ({complexity_trend_value:+.2f})")
         
@@ -387,7 +404,7 @@ class QualityAnalyzer:
             change_type_distribution = df_monthly_metrics['Change_Types'].apply(lambda x: eval(x) if isinstance(x, str) else {}).apply(pd.Series).fillna(0)
             df_change_distribution = df_monthly_metrics[['Month']].join(change_type_distribution)
             
-            print(f"\n📊 Monthly Distribution of Change Types:")
+            print(f"\n[STATS] Monthly Distribution of Change Types:")
             for month, group in df_change_distribution.groupby('Month'):
                 total_changes = group.iloc[:, 1:].sum().sum()
                 if total_changes > 0:
@@ -401,7 +418,7 @@ class QualityAnalyzer:
             file_type_contribution = df_monthly_metrics['File_Types'].apply(lambda x: eval(x) if isinstance(x, str) else {}).apply(pd.Series).fillna(0)
             df_file_contribution = df_monthly_metrics[['Month']].join(file_type_contribution)
             
-            print(f"\n📊 Monthly File Type Contributions:")
+            print(f"\n[STATS] Monthly File Type Contributions:")
             for month, group in df_file_contribution.groupby('Month'):
                 total_files = group.iloc[:, 1:].sum().sum()
                 if total_files > 0:
@@ -409,3 +426,71 @@ class QualityAnalyzer:
                     for file_type, count in group.iloc[:, 1:].sum().items():
                         pct = (count / total_files) * 100
                         print(f"    - {file_type}: {count} ({pct:.1f}%)")
+    
+    def _generate_monthly_report(self, monthly_metrics):
+        """Generate monthly report data from collected metrics"""
+        monthly_data = []
+        
+        for developer, months_data in monthly_metrics.items():
+            for month_key, metrics in months_data.items():
+                if metrics['commits'] == 0:
+                    continue
+                
+                # Parse month for display
+                try:
+                    year, month = month_key.split('-')
+                    month_name = calendar.month_name[int(month)]
+                    display_month = f"{month_name} {year}"
+                except:
+                    display_month = month_key
+                
+                # Calculate metrics
+                total_files = len(metrics['files_changed'])
+                total_loc_added = metrics['loc_added']
+                total_loc_deleted = metrics['loc_deleted']
+                total_loc_modified = metrics['loc_modified']
+                total_loc_net = total_loc_added - total_loc_deleted
+                
+                total_non_ws_added = metrics['non_whitespace_added']
+                total_non_ws_deleted = metrics['non_whitespace_deleted']
+                total_non_ws_modified = metrics['non_whitespace_modified']
+                total_non_ws_net = total_non_ws_added - total_non_ws_deleted
+                
+                # Calculate ratios
+                total_loc_changes = total_loc_added + total_loc_modified
+                total_non_ws_changes = total_non_ws_added + total_non_ws_modified
+                non_whitespace_ratio = (total_non_ws_changes / max(total_loc_changes, 1)) if total_loc_changes > 0 else 0
+                
+                # Calculate complexity metrics
+                avg_complexity = (sum(metrics['complexity_samples']) / len(metrics['complexity_samples'])) if metrics['complexity_samples'] else 0
+                
+                # Calculate quality score
+                code_quality_score = min(100, (non_whitespace_ratio * 50) + ((10 - min(avg_complexity, 10)) * 5))
+                
+                # Determine primary file type
+                primary_file_type = max(metrics['file_types'].items(), key=lambda x: x[1])[0] if metrics['file_types'] else 'unknown'
+                
+                monthly_data.append({
+                    'Developer': developer,
+                    'Month': month_key,
+                    'Month_Display': display_month,
+                    'Commits': metrics['commits'],
+                    'Files_Changed': total_files,
+                    'LOC_Added': total_loc_added,
+                    'LOC_Deleted': total_loc_deleted,
+                    'LOC_Modified': total_loc_modified,
+                    'LOC_Net_Change': total_loc_net,
+                    'Non_Whitespace_Added': total_non_ws_added,
+                    'Non_Whitespace_Deleted': total_non_ws_deleted,
+                    'Non_Whitespace_Modified': total_non_ws_modified,
+                    'Non_Whitespace_Net': total_non_ws_net,
+                    'Non_Whitespace_Ratio': round(non_whitespace_ratio, 3),
+                    'Avg_Cyclomatic_Complexity': round(avg_complexity, 2),
+                    'Code_Quality_Score': round(code_quality_score, 1),
+                    'Primary_File_Type': primary_file_type,
+                    'Add_Changes': metrics['change_types'].get('add', 0),
+                    'Edit_Changes': metrics['change_types'].get('edit', 0),
+                    'Delete_Changes': metrics['change_types'].get('delete', 0)
+                })
+        
+        return monthly_data

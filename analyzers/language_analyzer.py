@@ -22,19 +22,6 @@ class LanguageAnalyzer:
         """Analyze complexity distribution across ALL files in repository"""
         print("\n=== COMPREHENSIVE LANGUAGE COMPLEXITY DISTRIBUTION ANALYSIS ===")
         
-        # Check if analysis is already cached
-        analysis_name = "language_complexity"
-        if self.analyzer.is_analysis_cached(analysis_name):
-            cached_df = self.analyzer.get_cached_dataframe(analysis_name)
-            if cached_df is not None:
-                print("📊 Displaying cached language complexity results:")
-                display_cols = ['Language_Type', 'Unique_Files', 'Total_LOC', 'Avg_Complexity', 'Complexity_Risk_Score']
-                print("\nTop Language Types by Complexity Risk:")
-                print(cached_df[display_cols].head(10).to_string(index=False))
-                return cached_df
-        
-        print("🔍 Running fresh language complexity analysis...")
-        
         language_metrics = defaultdict(lambda: {
             'files_analyzed': 0,
             'total_loc': 0,
@@ -52,17 +39,17 @@ class LanguageAnalyzer:
         # Get repository ID for content analysis
         try:
             repo_id = self.analyzer.get_repository_id()
-            print(f"  ✓ Repository ID obtained: {repo_id}")
+            print(f"  [OK] Repository ID obtained: {repo_id}")
         except Exception as e:
-            print(f"  ⚠️  Warning: Could not get repository ID: {e}")
+            print(f"  [WARNING]  Warning: Could not get repository ID: {e}")
             repo_id = None
         
         total_commits = len(self.analyzer.detailed_commits)
         if total_commits == 0:
-            print("  ⚠️  No detailed commits available for language analysis")
+            print("  [WARNING]  No detailed commits available for language analysis")
             return pd.DataFrame()
         
-        print(f"🔍 Analyzing {total_commits:,} detailed commits for language complexity...")
+        print(f"[SEARCH] Analyzing {total_commits:,} detailed commits for language complexity...")
         
         # Analyze detailed commits with aggressive progress reporting
         commit_count = 0
@@ -75,14 +62,15 @@ class LanguageAnalyzer:
         import time
         start_time = time.time()
         last_progress_time = start_time
+        elapsed = 0  # Initialize elapsed variable
         
         for commit_id, changes_data in self.analyzer.detailed_commits.items():
             commit_count += 1
             current_time = time.time()
+            elapsed = current_time - start_time  # Update elapsed time each iteration
             
             # Progress reporting every 25 commits OR every 30 seconds
             if commit_count % 25 == 0 or (current_time - last_progress_time) > 30:
-                elapsed = current_time - start_time
                 progress_pct = (commit_count / total_commits) * 100
                 commits_per_sec = commit_count / max(elapsed, 1)
                 eta_seconds = (total_commits - commit_count) / max(commits_per_sec, 0.1)
@@ -92,10 +80,10 @@ class LanguageAnalyzer:
                 print(f"      Speed: {commits_per_sec:.1f} commits/sec | ETA: {eta_seconds/60:.1f} minutes")
                 last_progress_time = current_time
             
-            # Safety check - if analysis is taking too long, abort
-            if elapsed > 3600:  # 1 hour limit
-                print(f"    ⚠️  Analysis taking too long ({elapsed/60:.1f} minutes), aborting...")
-                break
+            # Log current processing status for visibility
+            if commit_count % 50 == 0:
+                current_commit_short = commit_id[:8] if commit_id else "unknown"
+                print(f"    [LOCATION] Currently processing commit: {current_commit_short} ({commit_count}/{total_commits})")
             
             commit_info = next((c for c in self.analyzer.commits if c.get('commitId') == commit_id), None)
             if not commit_info:
@@ -108,10 +96,9 @@ class LanguageAnalyzer:
             if not changes:
                 continue
             
-            # Limit number of changes per commit to prevent hanging on huge commits
+            # Process all changes without artificial limits for comprehensive analysis
             if len(changes) > 500:
-                print(f"      Large commit detected ({len(changes)} changes), sampling first 500...")
-                changes = changes[:500]
+                print(f"      Large commit detected ({len(changes)} changes), processing all changes...")
             
             for change in changes:
                 item = change.get('item', {})
@@ -182,11 +169,11 @@ class LanguageAnalyzer:
             
             # Emergency brake - if too many errors, stop
             if error_files > 1000:
-                print(f"    ⚠️  Too many errors ({error_files}), stopping analysis...")
+                print(f"    [WARNING]  Too many errors ({error_files}), stopping analysis...")
                 break
         
         analysis_time = time.time() - start_time
-        print(f"  ✓ Completed language analysis in {analysis_time/60:.1f} minutes:")
+        print(f"  [OK] Completed language analysis in {analysis_time/60:.1f} minutes:")
         print(f"    - {commit_count:,}/{total_commits:,} commits processed")
         print(f"    - {total_files_processed:,} files analyzed successfully")
         print(f"    - {skipped_files:,} files skipped")
@@ -196,11 +183,11 @@ class LanguageAnalyzer:
         
         # Generate report only if we have meaningful data
         if total_files_processed == 0:
-            print("  ⚠️  No files were successfully analyzed")
+            print("  [WARNING]  No files were successfully analyzed")
             return pd.DataFrame()
         
         # Generate comprehensive language complexity report
-        print("📊 Generating language complexity report...")
+        print("[STATS] Generating language complexity report...")
         complexity_data = []
         
         for file_type, metrics in language_metrics.items():
@@ -263,7 +250,7 @@ class LanguageAnalyzer:
         if not df_language_complexity.empty:
             df_language_complexity = df_language_complexity.sort_values('Complexity_Risk_Score', ascending=False)
             
-            print(f"\n📈 Language Complexity Analysis Results:")
+            print(f"\n[CHART] Language Complexity Analysis Results:")
             print(f"  File types analyzed: {len(df_language_complexity)}")
             print(f"  Total unique files: {sum(df_language_complexity['Unique_Files'])}")
             print(f"  Total file versions processed: {sum(df_language_complexity['Total_File_Versions'])}")
@@ -276,25 +263,22 @@ class LanguageAnalyzer:
             
             output_file = f"{self.analyzer.data_dir}/azdo_language_complexity.csv"
             df_language_complexity.to_csv(output_file, index=False)
-            print(f"💾 Saved language complexity analysis to: {output_file}")
-            
-            # Mark as cached
-            self.analyzer.mark_analysis_cached(analysis_name, output_file)
+            print(f"[SAVED] Saved language complexity analysis to: {output_file}")
             
             # Generate insights
             print(f"\n=== LANGUAGE INSIGHTS ===")
             if not df_language_complexity.empty:
                 highest_risk = df_language_complexity.iloc[0]
-                print(f"🔥 Highest complexity risk: {highest_risk['Language_Type']}")
+                print(f"[HIGH RISK] Highest complexity risk: {highest_risk['Language_Type']}")
                 print(f"   • Risk Score: {highest_risk['Complexity_Risk_Score']}")
                 print(f"   • Unique files: {highest_risk['Unique_Files']}")
                 print(f"   • Average complexity: {highest_risk['Avg_Complexity']}")
                 
                 if len(df_language_complexity) > 1:
                     most_stable = df_language_complexity.iloc[-1]
-                    print(f"✅ Most stable language: {most_stable['Language_Type']}")
+                    print(f"[OK] Most stable language: {most_stable['Language_Type']}")
                     print(f"   • Risk Score: {most_stable['Complexity_Risk_Score']}")
         else:
-            print("⚠️  No language complexity data could be generated")
+            print("[WARNING]  No language complexity data could be generated")
         
         return df_language_complexity

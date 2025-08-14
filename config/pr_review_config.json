@@ -1,0 +1,36 @@
+{
+  "workspace": {
+    "default_directory": "D:\\dev\\prreview",
+    "cleanup_on_exit": false,
+    "cleanup_after_review": false,
+    "always_clean_before_clone": true,
+    "max_repo_size_mb": 500,
+    "shallow_clone": true,
+    "git_timeout_seconds": 300
+  },
+  "code_review": {
+    "analyze_test_coverage": true,
+    "check_security_patterns": true,
+    "check_code_quality": true,
+    "max_files_to_analyze": 50,
+    "max_diff_size_kb": 1000
+  },
+  "mcp_server": {
+    "name": "pr-review-server",
+    "version": "1.0.0",
+    "working_directory": "D:\\dev\\prreview",
+    "tools": [
+      "clone_repository",
+      "analyze_pr",
+      "get_diff",
+      "find_tests",
+      "search_code"
+    ]
+  },
+  "azure_devops": {
+    "api_version": "7.0",
+    "max_pr_fetch": 100,
+    "cache_enabled": true,
+    "cache_directory": "D:\\dev\\prreview\\.cache"
+  }
+}

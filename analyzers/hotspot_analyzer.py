@@ -34,9 +34,9 @@ class HotspotAnalyzer:
             cached_devs_df = self.analyzer.get_cached_dataframe(devs_analysis_name)
             
             if cached_files_df is not None and cached_devs_df is not None:
-                print("📊 Displaying cached hotspots and bus factor results:")
+                print("[STATS] Displaying cached hotspots and bus factor results:")
                 
-                print(f"\n📁 File Hotspots Analysis:")
+                print(f"\n[FILES] File Hotspots Analysis:")
                 print(f"  Total files analyzed: {len(cached_files_df)}")
                 print(f"  Critical files: {sum(cached_files_df['Is_Critical'])}")
                 
@@ -44,7 +44,7 @@ class HotspotAnalyzer:
                 print("\nTop 10 Riskiest Files:")
                 print(top_files.to_string(index=False))
                 
-                print(f"\n👥 Developer Bus Factor Analysis:")
+                print(f"\n[DEVELOPERS] Developer Bus Factor Analysis:")
                 print(f"  Developers analyzed: {len(cached_devs_df)}")
                 
                 dev_summary = cached_devs_df[['Developer', 'Files_Owned', 'Exclusive_Files', 'Bus_Factor_Risk', 'Risk_Level']]
@@ -53,7 +53,7 @@ class HotspotAnalyzer:
                 
                 return cached_files_df, cached_devs_df
         
-        print("🔍 Running fresh bus factor and hotspots analysis...")
+        print("[SEARCH] Running fresh bus factor and hotspots analysis...")
         
         # Track metrics for each file and developer
         file_metrics = defaultdict(lambda: {
@@ -78,22 +78,39 @@ class HotspotAnalyzer:
         })
         
         # Analyze all detailed commits to build file and developer metrics
-        print("🔍 Analyzing file changes across all commits...")
+        print("[SEARCH] Analyzing file changes across all commits...")
         total_commits = len(self.analyzer.detailed_commits)
         commit_count = 0
         processed_files = 0
-        skipped_files = 0
+        skipped_files = 0        # Use global date range for recency calculations instead of hardcoded limit
+        recent_threshold = self.analyzer.date_from_dt.replace(tzinfo=None)
+        current_date = datetime.now().replace(tzinfo=None)  # Keep for fallback cases
         
-        # Get current date for recency calculations
-        current_date = datetime.now().replace(tzinfo=None)
-        recent_threshold = current_date - timedelta(days=90)  # Last 3 months
+        # Add time tracking
+        import time
+        start_time = time.time()
+        last_progress_time = start_time
+        elapsed = 0  # Initialize elapsed variable
         
         for commit_id, changes_data in self.analyzer.detailed_commits.items():
             commit_count += 1
-            if commit_count % 100 == 0:
-                progress_pct = (commit_count / total_commits) * 100
-                print(f"    Hotspot analysis: {commit_count:,}/{total_commits:,} ({progress_pct:.1f}%) | Files: {processed_files:,} | Skipped: {skipped_files:,}")
+            current_time = time.time()
+            elapsed = current_time - start_time  # Update elapsed time
             
+            if commit_count % 100 == 0 or (current_time - last_progress_time) > 30:
+                progress_pct = (commit_count / total_commits) * 100
+                commits_per_sec = commit_count / max(elapsed, 1)
+                eta_seconds = (total_commits - commit_count) / max(commits_per_sec, 0.1)
+                
+                print(f"    Hotspot analysis: {commit_count:,}/{total_commits:,} ({progress_pct:.1f}%)")
+                print(f"      Files: {processed_files:,} processed | {skipped_files:,} skipped")
+                print(f"      Speed: {commits_per_sec:.1f} commits/sec | ETA: {eta_seconds/60:.1f} minutes")
+                last_progress_time = current_time
+              # Log current processing status for visibility
+            if commit_count % 50 == 0:
+                current_commit_short = commit_id[:8] if commit_id else "unknown"
+                print(f"    [LOCATION] Currently processing commit: {current_commit_short} ({commit_count}/{total_commits})")
+
             # Get commit info
             commit_info = next((c for c in self.analyzer.commits if c.get('commitId') == commit_id), None)
             if not commit_info:
@@ -156,12 +173,12 @@ class HotspotAnalyzer:
                 developer_metrics[author_key]['files_owned'].add(path)
                 developer_metrics[author_key]['total_file_changes'] += 1
         
-        print(f"  ✓ Analyzed {len(file_metrics)} unique files across {total_commits:,} commits")
+        print(f"  [OK] Analyzed {len(file_metrics)} unique files across {total_commits:,} commits")
         print(f"    - {processed_files:,} files processed")
         print(f"    - {skipped_files:,} files skipped")
         
         # Calculate file hotspot scores and bus factor risks
-        print("📊 Calculating hotspot scores and bus factor risks...")
+        print("[STATS] Calculating hotspot scores and bus factor risks...")
         file_analysis_data = []
         
         for file_path, metrics in file_metrics.items():
@@ -236,7 +253,7 @@ class HotspotAnalyzer:
             })
         
         # Calculate developer bus factor risks
-        print("👥 Calculating developer bus factor risks...")
+        print("[DEVELOPERS] Calculating developer bus factor risks...")
         developer_analysis_data = []
         total_files = len(file_metrics)
         
@@ -292,7 +309,7 @@ class HotspotAnalyzer:
         if not df_files.empty:
             df_files = df_files.sort_values('Bus_Factor_Risk', ascending=False)
             
-            print(f"\n📁 File Hotspots Analysis:")
+            print(f"\n[FILES] File Hotspots Analysis:")
             print(f"  Total files analyzed: {len(df_files)}")
             print(f"  Critical files: {sum(df_files['Is_Critical'])}")
             print(f"  High risk files (bus factor >= 3.0): {sum(df_files['Bus_Factor_Risk'] >= 3.0)}")
@@ -304,7 +321,7 @@ class HotspotAnalyzer:
             
             output_file = f"{self.analyzer.data_dir}/azdo_file_hotspots_analysis.csv"
             df_files.to_csv(output_file, index=False)
-            print(f"💾 Saved file hotspots to: {output_file}")
+            print(f"[SAVED] Saved file hotspots to: {output_file}")
             
             # Mark as cached
             self.analyzer.mark_analysis_cached(files_analysis_name, output_file)
@@ -323,7 +340,7 @@ class HotspotAnalyzer:
             
             output_file = f"{self.analyzer.data_dir}/azdo_bus_factor_analysis.csv"
             df_developers.to_csv(output_file, index=False)
-            print(f"💾 Saved bus factor analysis to: {output_file}")
+            print(f"[SAVED] Saved bus factor analysis to: {output_file}")
             
             # Mark as cached
             self.analyzer.mark_analysis_cached(devs_analysis_name, output_file)
@@ -334,20 +351,20 @@ class HotspotAnalyzer:
             critical_files = df_files[df_files['Is_Critical'] == True]
             single_dev_files = df_files[df_files['Developers_Count'] == 1]
             
-            print(f"🚨 Risk Summary:")
+            print(f"[RISK] Risk Summary:")
             print(f"  • {len(critical_files)} critical files identified")
             print(f"  • {len(single_dev_files)} files maintained by only one developer")
             print(f"  • {sum(df_files['Bus_Factor_Risk'] >= 4.0)} files with very high bus factor risk")
             
             if not single_dev_files.empty:
-                print(f"\n⚠️  Single-Developer Files (Highest Risk):")
+                print(f"\n[WARNING]  Single-Developer Files (Highest Risk):")
                 for _, file_row in single_dev_files.head(5).iterrows():
                     print(f"    • {file_row['File_Name']} - Developer: {file_row['Developers_List']}")
         
         if not df_developers.empty:
             high_risk_devs = df_developers[df_developers['Bus_Factor_Risk'] >= 3.0]
             if not high_risk_devs.empty:
-                print(f"\n🔑 Key Person Dependencies:")
+                print(f"\n[KEY PERSONS] Key Person Dependencies:")
                 for _, dev_row in high_risk_devs.iterrows():
                     print(f"    • {dev_row['Developer']}: {dev_row['Files_Owned']} files ({dev_row['Ownership_Percentage']:.1f}% of codebase)")
         

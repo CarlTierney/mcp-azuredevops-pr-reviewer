@@ -210,23 +210,23 @@ class HealthTrendsAnalyzer:
         avg_health_score = recent_weeks['Health_Score'].mean()
         health_trend = recent_weeks['Health_Trend'].mean()
         
-        print(f"📊 Current Health Status:")
+        print(f"[STATS] Current Health Status:")
         print(f"   • Average health score (last 4 weeks): {avg_health_score:.1f}/100")
-        print(f"   • Health trend: {'📈 Improving' if health_trend > 0 else '📉 Declining' if health_trend < 0 else '➡️ Stable'}")
+        print(f"   • Health trend: {'[CHART] Improving' if health_trend > 0 else '📉 Declining' if health_trend < 0 else '➡️ Stable'}")
         
         # Identify concerning trends
         if recent_weeks['Maintenance_Ratio'].mean() > 50:
-            print(f"   ⚠️ High maintenance burden: {recent_weeks['Maintenance_Ratio'].mean():.1f}%")
+            print(f"   [WARNING] High maintenance burden: {recent_weeks['Maintenance_Ratio'].mean():.1f}%")
         
         if recent_weeks['Test_Coverage_Trend'].mean() < 20:
-            print(f"   ⚠️ Low test coverage trend: {recent_weeks['Test_Coverage_Trend'].mean():.1f}%")
+            print(f"   [WARNING] Low test coverage trend: {recent_weeks['Test_Coverage_Trend'].mean():.1f}%")
         
         if recent_weeks['Developer_Diversity_Score'].mean() < 40:
-            print(f"   ⚠️ Low developer diversity: {recent_weeks['Developer_Diversity_Score'].mean():.1f}%")
+            print(f"   [WARNING] Low developer diversity: {recent_weeks['Developer_Diversity_Score'].mean():.1f}%")
         
         # Positive indicators
         if recent_weeks['Innovation_Ratio'].mean() > 30:
-            print(f"   ✅ Strong innovation: {recent_weeks['Innovation_Ratio'].mean():.1f}% of commits")
+            print(f"   [OK] Strong innovation: {recent_weeks['Innovation_Ratio'].mean():.1f}% of commits")
         
         if recent_weeks['Stability_Score'].mean() > 80:
-            print(f"   ✅ High stability: {recent_weeks['Stability_Score'].mean():.1f}% stability score")
+            print(f"   [OK] High stability: {recent_weeks['Stability_Score'].mean():.1f}% stability score")

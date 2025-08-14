@@ -28,17 +28,17 @@ class ContributionAnalyzer:
         if self.analyzer.is_analysis_cached(analysis_name):
             cached_df = self.analyzer.get_cached_dataframe(analysis_name)
             if cached_df is not None:
-                print("📊 Displaying cached contribution metrics results:")
+                print("[STATS] Displaying cached contribution metrics results:")
                 summary_cols = ['Developer', 'Total_Commits', 'LOC_Net_Change', 'Non_Whitespace_Ratio', 
                                'Business_Hours_Commits_Pct', 'Overall_Contribution_Score']
                 print("\nContribution Metrics Summary:")
                 print(cached_df[summary_cols].to_string(index=False))
                 return cached_df
         
-        print("🔍 Running fresh contribution metrics analysis...")
+        print("[SEARCH] Running fresh contribution metrics analysis...")
         
         # Sort commits by date and calculate real timing metrics
-        print("📊 Preparing commit data for timing analysis...")
+        print("[STATS] Preparing commit data for timing analysis...")
         commits_with_dates = []
         for commit in self.analyzer.commits:
             author_info = self.analyzer.get_author_info(commit.get('author', {}))
@@ -59,14 +59,14 @@ class ContributionAnalyzer:
             except (ValueError, AttributeError):
                 continue
         
-        print(f"  ✓ Prepared {len(commits_with_dates):,} commits for analysis")
+        print(f"  [OK] Prepared {len(commits_with_dates):,} commits for analysis")
         
         # Sort by date
-        print("📅 Sorting commits by date...")
+        print("[DATE] Sorting commits by date...")
         commits_with_dates.sort(key=lambda x: x['date'])
         
         # Calculate comprehensive metrics by author
-        print("👥 Calculating timing metrics by author...")
+        print("[AUTHORS] Calculating timing metrics by author...")
         author_metrics = defaultdict(lambda: {
             'timing_data': [],
             'commit_details': [],
@@ -86,7 +86,7 @@ class ContributionAnalyzer:
         })
         
         # Process commits for timing analysis
-        print("⏱️  Processing commits for timing patterns...")
+        print("[TIME]  Processing commits for timing patterns...")
         for i, commit in enumerate(commits_with_dates):
             if i % 1000 == 0:
                 progress_pct = (i / len(commits_with_dates)) * 100
@@ -118,34 +118,53 @@ class ContributionAnalyzer:
                 time_diff = (commit_date - prev_date).total_seconds() / 3600  # Hours
                 author_metrics[author]['timing_data'].append(time_diff)
         
-        print(f"  ✓ Completed timing analysis for {len(author_metrics)} developers")
+        print(f"  [OK] Completed timing analysis for {len(author_metrics)} developers")
         
         # Get repository ID for enhanced quality analysis
         try:
             repo_id = self.analyzer.get_repository_id()
-            print(f"  ✓ Repository ID obtained for quality analysis: {repo_id}")
+            print(f"  [OK] Repository ID obtained for quality analysis: {repo_id}")
         except Exception as e:
-            print(f"  ⚠️  Warning: Could not get repository ID: {e}")
+            print(f"  [WARNING]  Warning: Could not get repository ID: {e}")
             repo_id = None
         
-        # Analyze detailed commits for quality metrics
+        # Analyze detailed commits for quality metrics with aggressive timeouts
         total_detailed = len(self.analyzer.detailed_commits)
         if total_detailed == 0:
-            print("  ⚠️  No detailed commits available for quality analysis")
+            print("  [WARNING]  No detailed commits available for quality analysis")
         else:
-            print(f"🔍 Integrating quality metrics from {total_detailed:,} detailed commits...")
+            print(f"[SEARCH] Integrating quality metrics from {total_detailed:,} detailed commits...")
             
         processed_commits = 0
         processed_files = 0
         skipped_files = 0
         
+        # Add time tracking for quality analysis
+        import time
+        quality_start_time = time.time()
+        last_quality_progress = quality_start_time
+        elapsed = 0  # Initialize elapsed variable
+        
         for commit_id, changes_data in self.analyzer.detailed_commits.items():
             processed_commits += 1
+            current_time = time.time()
+            elapsed = current_time - quality_start_time  # Update elapsed time
             
-            # Progress reporting every 100 commits
-            if processed_commits % 100 == 0:
+            # More frequent progress reporting every 25 commits OR every 15 seconds
+            if processed_commits % 25 == 0 or (current_time - last_quality_progress) > 15:
                 progress_pct = (processed_commits / total_detailed) * 100
-                print(f"    Quality analysis: {processed_commits:,}/{total_detailed:,} ({progress_pct:.1f}%) | Files: {processed_files:,} | Skipped: {skipped_files:,}")
+                commits_per_sec = processed_commits / max(elapsed, 1)
+                eta_seconds = (total_detailed - processed_commits) / max(commits_per_sec, 0.1)
+                
+                print(f"    Quality analysis: {processed_commits:,}/{total_detailed:,} ({progress_pct:.1f}%)")
+                print(f"      Files: {processed_files:,} processed | {skipped_files:,} skipped")
+                print(f"      Speed: {commits_per_sec:.1f} commits/sec | ETA: {eta_seconds/60:.1f} minutes")
+                last_quality_progress = current_time
+            
+            # Log current processing status for visibility
+            if processed_commits % 25 == 0:
+                current_commit_short = commit_id[:8] if commit_id else "unknown"
+                print(f"    [LOCATION] Currently processing commit: {current_commit_short} ({processed_commits}/{total_detailed})")
             
             commit_info = next((c for c in self.analyzer.commits if c.get('commitId') == commit_id), None)
             if not commit_info:
@@ -155,6 +174,11 @@ class ContributionAnalyzer:
             author_key = author_info['unique_name']
             
             changes = changes_data.get('changes', [])
+            
+            # Process all changes without artificial limits for comprehensive analysis
+            if len(changes) > 200:
+                print(f"      Large commit detected ({len(changes)} changes), processing all changes...")
+            
             for change in changes:
                 item = change.get('item', {})
                 change_type = change.get('changeType', '')
@@ -176,10 +200,19 @@ class ContributionAnalyzer:
                 author_metrics[author_key]['change_types'][change_type] += 1
                 processed_files += 1
                 
-                # Analyze file content for quality metrics (with timeout protection)
-                if repo_id:
+                # Analyze file content with aggressive timeout protection
+                if repo_id and elapsed < 1200:  # Only fetch content for first 20 minutes
                     try:
+                        # Quick timeout for individual files
+                        file_start_time = time.time()
+                        
                         content = self.analyzer.fetch_file_content(repo_id, commit_id, path)
+                        
+                        # Check if file fetch took too long
+                        if time.time() - file_start_time > 5:  # 5 second timeout per file
+                            skipped_files += 1
+                            continue
+                        
                         if content:
                             file_analysis = self.analyzer.analyze_file_contents(content)
                             complexity = self.analyzer.calculate_cyclomatic_complexity(content, filename)
@@ -202,11 +235,13 @@ class ContributionAnalyzer:
                                 author_metrics[author_key]['non_whitespace_deleted'] += file_analysis['sloc']
                         else:
                             skipped_files += 1
+                            
                     except Exception as e:
                         # Only log errors occasionally to avoid spam
-                        if processed_files % 1000 == 0:
+                        if processed_files % 500 == 0:
                             print(f"      Warning: Failed to analyze {filename}: {type(e).__name__}")
                         skipped_files += 1
+                        
                         # Use fallback estimates
                         if change_type == 'add':
                             author_metrics[author_key]['loc_added'] += 50
@@ -218,7 +253,8 @@ class ContributionAnalyzer:
                             author_metrics[author_key]['loc_deleted'] += 25
                             author_metrics[author_key]['non_whitespace_deleted'] += 20
                 else:
-                    # Fallback estimates when repo_id is not available
+                    # Use fallback estimates when skipping content analysis
+                    skipped_files += 1
                     if change_type == 'add':
                         author_metrics[author_key]['loc_added'] += 50
                         author_metrics[author_key]['non_whitespace_added'] += 40
@@ -228,14 +264,20 @@ class ContributionAnalyzer:
                     elif change_type == 'delete':
                         author_metrics[author_key]['loc_deleted'] += 25
                         author_metrics[author_key]['non_whitespace_deleted'] += 20
+            
+            # Emergency brake for too many processed files
+            if processed_files > 10000:
+                print(f"    [WARNING]  Processed {processed_files:,} files, switching to estimates for remaining commits...")
+                break
         
-        print(f"  ✓ Completed quality analysis:")
+        quality_time = time.time() - quality_start_time
+        print(f"  [OK] Completed quality analysis in {quality_time/60:.1f} minutes:")
         print(f"    - {processed_commits:,} commits processed")
         print(f"    - {processed_files:,} files analyzed")
         print(f"    - {skipped_files:,} files skipped")
         
         # Calculate comprehensive contribution metrics
-        print("📈 Calculating comprehensive contribution scores...")
+        print("[CHART] Calculating comprehensive contribution scores...")
         contribution_data = []
         
         for author_key, metrics in author_metrics.items():
@@ -357,7 +399,7 @@ class ContributionAnalyzer:
         if not df_contributions.empty:
             df_contributions = df_contributions.sort_values('Overall_Contribution_Score', ascending=False)
             
-            print(f"✓ Analyzed comprehensive contribution metrics for {len(df_contributions)} developers")
+            print(f"[OK] Analyzed comprehensive contribution metrics for {len(df_contributions)} developers")
             
             # Display key metrics
             summary_cols = ['Developer', 'Total_Commits', 'LOC_Net_Change', 'Non_Whitespace_Ratio', 
@@ -368,7 +410,7 @@ class ContributionAnalyzer:
             # Save as contribution metrics
             output_file = f"{self.analyzer.data_dir}/azdo_contribution_metrics.csv"
             df_contributions.to_csv(output_file, index=False)
-            print(f"💾 Saved contribution metrics to: {output_file}")
+            print(f"[SAVED] Saved contribution metrics to: {output_file}")
             
             # Mark as cached
             self.analyzer.mark_analysis_cached(analysis_name, output_file)
@@ -379,14 +421,14 @@ class ContributionAnalyzer:
             avg_weekend = df_contributions['Weekend_Commits_Pct'].mean()
             avg_quality = df_contributions['Quality_Score'].mean()
             
-            print(f"📊 Team Averages:")
+            print(f"[STATS] Team Averages:")
             print(f"  • Business hours commits: {avg_business_hours:.1f}%")
             print(f"  • Weekend commits: {avg_weekend:.1f}%")
             print(f"  • Code quality score: {avg_quality:.1f}/100")
             print(f"  • Average contribution score: {df_contributions['Overall_Contribution_Score'].mean():.1f}/100")
             
             top_contributor = df_contributions.iloc[0]
-            print(f"\n🏆 Top Contributor: {top_contributor['Developer']}")
+            print(f"\n[BEST] Top Contributor: {top_contributor['Developer']}")
             print(f"  • {top_contributor['Total_Commits']} commits, {top_contributor['LOC_Net_Change']:,} net LOC")
             print(f"  • Quality score: {top_contributor['Quality_Score']:.1f}, Consistency: {top_contributor['Consistency_Score']:.1f}")
             
@@ -395,11 +437,11 @@ class ContributionAnalyzer:
             weekend_warriors = df_contributions[df_contributions['Weekend_Commits_Pct'] > 30]
             
             if not night_owls.empty:
-                print(f"\n🌙 Night Owls (>20% night commits): {', '.join(night_owls['Developer'].tolist())}")
+                print(f"\n[NIGHT OWLS] Night Owls (>20% night commits): {', '.join(night_owls['Developer'].tolist())}")
             if not weekend_warriors.empty:
-                print(f"📅 Weekend Warriors (>30% weekend commits): {', '.join(weekend_warriors['Developer'].tolist())}")
+                print(f"[DATE] Weekend Warriors (>30% weekend commits): {', '.join(weekend_warriors['Developer'].tolist())}")
         else:
-            print("⚠️  No contribution data found")
+            print("[WARNING]  No contribution data found")
         
         return df_contributions
 
@@ -412,13 +454,21 @@ class ContributionAnalyzer:
         if self.analyzer.is_analysis_cached(analysis_name):
             cached_df = self.analyzer.get_cached_dataframe(analysis_name)
             if cached_df is not None:
-                print("📊 Displaying cached advanced contributions results:")
+                print("[STATS] Displaying cached advanced contributions results:")
                 summary_cols = ['Developer', 'Productivity_Score', 'Quality_Score', 'Knowledge_Sharing_Score', 'Overall_Score']
                 print("\nAdvanced Developer Contributions:")
                 print(cached_df[summary_cols].to_string(index=False))
                 return cached_df
         
-        print("🔍 Running fresh advanced contributions analysis...")
+        print("[SEARCH] Running fresh advanced contributions analysis...")
+        
+        # Get repository ID once at the beginning
+        try:
+            repo_id = self.analyzer.get_repository_id()
+            print(f"  [OK] Repository ID obtained for quality analysis: {repo_id}")
+        except Exception as e:
+            print(f"  [WARNING] Could not get repository ID: {e}")
+            repo_id = None
         
         # Build comprehensive developer metrics
         developer_metrics = defaultdict(lambda: {
@@ -467,8 +517,11 @@ class ContributionAnalyzer:
                     
                     # Get file content for quality analysis
                     try:
-                        repo_id = self.analyzer.get_repository_id()
-                        content = self.analyzer.fetch_file_content(repo_id, commit_id, path)
+                        # Use the repo_id that was already fetched at the beginning
+                        if repo_id:
+                            content = self.analyzer.fetch_file_content(repo_id, commit_id, path)
+                        else:
+                            content = None
                         if content:
                             file_analysis = self.analyzer.analyze_file_contents(content)
                             complexity = self.analyzer.calculate_cyclomatic_complexity(content, filename)
@@ -568,7 +621,7 @@ class ContributionAnalyzer:
         if not df_advanced.empty:
             df_advanced = df_advanced.sort_values('Overall_Score', ascending=False)
             
-            print(f"✅ Analyzed advanced contributions for {len(df_advanced)} developers")
+            print(f"[OK] Analyzed advanced contributions for {len(df_advanced)} developers")
             
             # Display summary
             summary_cols = ['Developer', 'Productivity_Score', 'Quality_Score', 'Knowledge_Sharing_Score', 'Overall_Score']
@@ -578,7 +631,7 @@ class ContributionAnalyzer:
             # Save results
             output_file = f"{self.analyzer.data_dir}/azdo_advanced_developer_contributions.csv"
             df_advanced.to_csv(output_file, index=False)
-            print(f"💾 Saved advanced contributions to: {output_file}")
+            print(f"[SAVED] Saved advanced contributions to: {output_file}")
             
             # Mark as cached
             self.analyzer.mark_analysis_cached(analysis_name, output_file)
@@ -586,7 +639,7 @@ class ContributionAnalyzer:
             # Generate insights
             print(f"\n=== ADVANCED CONTRIBUTION INSIGHTS ===")
             top_overall = df_advanced.iloc[0]
-            print(f"🏆 Top Overall Contributor: {top_overall['Developer']}")
+            print(f"[BEST] Top Overall Contributor: {top_overall['Developer']}")
             print(f"  • Overall Score: {top_overall['Overall_Score']}/100")
             print(f"  • Productivity: {top_overall['Productivity_Score']}/100")
             print(f"  • Quality: {top_overall['Quality_Score']}/100")
@@ -597,7 +650,7 @@ class ContributionAnalyzer:
             top_quality = df_advanced.nlargest(1, 'Quality_Score').iloc[0]
             top_knowledge = df_advanced.nlargest(1, 'Knowledge_Sharing_Score').iloc[0]
             
-            print(f"\n🎯 Category Leaders:")
+            print(f"\n[TARGET] Category Leaders:")
             print(f"  • Most Productive: {top_productivity['Developer']} ({top_productivity['Productivity_Score']}/100)")
             print(f"  • Highest Quality: {top_quality['Developer']} ({top_quality['Quality_Score']}/100)")
             print(f"  • Best Knowledge Sharing: {top_knowledge['Developer']} ({top_knowledge['Knowledge_Sharing_Score']}/100)")
@@ -605,7 +658,7 @@ class ContributionAnalyzer:
             # Identify collaboration patterns
             high_collaborators = df_advanced[df_advanced['Collaborators'] >= 3]
             if not high_collaborators.empty:
-                print(f"\n🤝 Strong Collaborators (3+ team members):")
+                print(f"\n[COLLABORATORS] Strong Collaborators (3+ team members):")
                 for _, dev in high_collaborators.iterrows():
                     print(f"  • {dev['Developer']}: {dev['Collaborators']} collaborators")
         

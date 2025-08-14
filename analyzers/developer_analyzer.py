@@ -27,14 +27,14 @@ class DeveloperAnalyzer:
         if self.analyzer.is_analysis_cached(analysis_name):
             cached_df = self.analyzer.get_cached_dataframe(analysis_name)
             if cached_df is not None:
-                print("📊 Displaying cached developer activity results:")
+                print("[STATS] Displaying cached developer activity results:")
                 summary_cols = ['Developer', 'Total_Commits', 'Total_Files_Changed', 'LOC_Net_Change', 
                                'Primary_File_Type', 'Most_Active_Day', 'Consistency_Ratio']
                 print("\nDeveloper Activity Summary:")
                 print(cached_df[summary_cols].to_string(index=False))
                 return cached_df
         
-        print("🔍 Running fresh developer activity analysis...")
+        print("[SEARCH] Running fresh developer activity analysis...")
         
         developer_metrics = defaultdict(lambda: {
             'total_commits': 0,
@@ -54,12 +54,12 @@ class DeveloperAnalyzer:
         
         try:
             repo_id = self.analyzer.get_repository_id()
-            print(f"  ✓ Repository ID obtained: {repo_id}")
+            print(f"  [OK] Repository ID obtained: {repo_id}")
         except Exception as e:
-            print(f"  ⚠️  Warning: Could not get repository ID: {e}")
+            print(f"  [WARNING]  Warning: Could not get repository ID: {e}")
             repo_id = None
         
-        print("📊 Analyzing commit patterns and code metrics...")
+        print("[STATS] Analyzing commit patterns and code metrics...")
         
         # Process all commits for basic activity
         total_commits = len(self.analyzer.commits)
@@ -95,27 +95,39 @@ class DeveloperAnalyzer:
                 print(f"    Warning: Error processing commit {commit.get('commitId', 'unknown')}: {type(e).__name__}")
                 continue
         
-        print(f"  ✓ Completed basic commit processing for {len(developer_metrics)} developers")
+        print(f"  [OK] Completed basic commit processing for {len(developer_metrics)} developers")
         
         # Process detailed commits for quality metrics
         total_detailed = len(self.analyzer.detailed_commits)
-        if total_detailed == 0:
-            print("  ⚠️  No detailed commits available for quality analysis")
-        else:
-            print(f"  Processing {total_detailed:,} detailed commits for quality metrics...")
-            
         processed_commits = 0
         processed_files = 0
         skipped_files = 0
         
+        # Add time tracking for detailed commits processing
+        import time
+        detailed_start_time = time.time()
+        last_detailed_progress = detailed_start_time
+        elapsed = 0  # Initialize elapsed variable
+        
         for commit_id, changes_data in self.analyzer.detailed_commits.items():
             processed_commits += 1
+            current_time = time.time()
+            elapsed = current_time - detailed_start_time  # Update elapsed time
             
-            # Progress reporting every 50 commits
-            if processed_commits % 50 == 0:
+            # Progress reporting every 100 commits OR every 30 seconds
+            if processed_commits % 100 == 0 or (current_time - last_detailed_progress) > 30:
                 progress_pct = (processed_commits / total_detailed) * 100
-                print(f"    Detailed commits: {processed_commits:,}/{total_detailed:,} ({progress_pct:.1f}%) | Files processed: {processed_files:,} | Skipped: {skipped_files:,}")
-            
+                commits_per_sec = processed_commits / max(elapsed, 1)
+                eta_seconds = (total_detailed - processed_commits) / max(commits_per_sec, 0.1)
+                
+                print(f"    Processing detailed commits: {processed_commits}/{total_detailed} ({progress_pct:.1f}%)")
+                print(f"      Speed: {commits_per_sec:.1f} commits/sec | ETA: {eta_seconds/60:.1f} minutes")
+                last_detailed_progress = current_time
+              # Log current processing status for visibility
+            if processed_commits % 50 == 0:
+                current_commit_short = commit_id[:8] if commit_id else "unknown"
+                print(f"    [LOCATION] Currently processing commit: {current_commit_short} ({processed_commits}/{total_detailed})")
+
             commit_info = next((c for c in self.analyzer.commits if c.get('commitId') == commit_id), None)
             if not commit_info:
                 continue
@@ -195,13 +207,13 @@ class DeveloperAnalyzer:
                     elif change_type == 'delete':
                         developer_metrics[author_key]['loc_deleted'] += 25
         
-        print(f"  ✓ Completed detailed commit processing:")
+        print(f"  [OK] Completed detailed commit processing:")
         print(f"    - {processed_commits:,} commits processed")
         print(f"    - {processed_files:,} files analyzed")
         print(f"    - {skipped_files:,} files skipped")
         
         # Generate activity analysis
-        print("📈 Generating developer activity report...")
+        print("[CHART] Generating developer activity report...")
         activity_data = []
         
         for author_key, metrics in developer_metrics.items():
@@ -256,7 +268,7 @@ class DeveloperAnalyzer:
         if not df_activity.empty:
             df_activity = df_activity.sort_values('Total_Commits', ascending=False)
             
-            print(f"✓ Analyzed activity for {len(df_activity)} developers")
+            print(f"[OK] Analyzed activity for {len(df_activity)} developers")
             
             # Display summary
             summary_cols = ['Developer', 'Total_Commits', 'Total_Files_Changed', 'LOC_Net_Change', 
@@ -267,7 +279,7 @@ class DeveloperAnalyzer:
             # Save results
             output_file = f"{self.analyzer.data_dir}/azdo_developer_activity.csv"
             df_activity.to_csv(output_file, index=False)
-            print(f"💾 Saved results to: {output_file}")
+            print(f"[SAVED] Saved results to: {output_file}")
             
             # Mark as cached
             self.analyzer.mark_analysis_cached(analysis_name, output_file)
@@ -277,18 +289,18 @@ class DeveloperAnalyzer:
             total_commits = df_activity['Total_Commits'].sum()
             total_files = df_activity['Total_Files_Changed'].sum()
             
-            print(f"📊 Team Activity Summary:")
+            print(f"[STATS] Team Activity Summary:")
             print(f"  • Total commits: {total_commits:,}")
             print(f"  • Total files changed: {total_files:,}")
             print(f"  • Average commits per developer: {total_commits / len(df_activity):.1f}")
             
             top_contributor = df_activity.iloc[0]
-            print(f"\n🏆 Most Active Developer: {top_contributor['Developer']}")
+            print(f"\n[BEST] Most Active Developer: {top_contributor['Developer']}")
             print(f"  • {top_contributor['Total_Commits']} commits ({top_contributor['Total_Commits']/total_commits*100:.1f}% of total)")
             print(f"  • {top_contributor['Total_Files_Changed']} files changed")
             print(f"  • Most active on {top_contributor['Most_Active_Day']}s at {top_contributor['Most_Active_Hour']}:00")
         else:
-            print("⚠️  No developer activity data found")
+            print("[WARNING]  No developer activity data found")
         
         return df_activity
 
@@ -301,13 +313,13 @@ class DeveloperAnalyzer:
         if self.analyzer.is_analysis_cached(analysis_name):
             cached_df = self.analyzer.get_cached_dataframe(analysis_name)
             if cached_df is not None:
-                print("📊 Displaying cached pull request results:")
+                print("[STATS] Displaying cached pull request results:")
                 summary_cols = ['PR_ID', 'Title', 'Status', 'Author', 'Duration_Hours', 'Reviewer_Count', 'Approvals']
                 print("\nRecent Pull Requests:")
                 print(cached_df.head(10)[summary_cols].to_string(index=False))
                 return cached_df
         
-        print("🔍 Running fresh pull request analysis...")
+        print("[SEARCH] Running fresh pull request analysis...")
         
         if not self.analyzer.pull_requests:
             print("No pull request data available for analysis")
@@ -380,7 +392,7 @@ class DeveloperAnalyzer:
         df_prs = pd.DataFrame(pr_metrics)
         
         if not df_prs.empty:
-            print(f"✓ Analyzed {len(df_prs)} pull requests")
+            print(f"[OK] Analyzed {len(df_prs)} pull requests")
             
             # Calculate summary statistics
             completed_prs = df_prs[df_prs['Is_Completed'] == True]
@@ -400,7 +412,7 @@ class DeveloperAnalyzer:
             
             # Generate insights
             print(f"\n=== PULL REQUEST INSIGHTS ===")
-            print(f"📊 PR Statistics:")
+            print(f"[STATS] PR Statistics:")
             print(f"  • Total PRs: {len(df_prs)}")
             print(f"  • Completed: {sum(df_prs['Is_Completed'])}")
             print(f"  • Abandoned: {sum(df_prs['Is_Abandoned'])}")
@@ -410,7 +422,7 @@ class DeveloperAnalyzer:
             # Top contributors
             author_counts = df_prs['Author'].value_counts()
             if not author_counts.empty:
-                print(f"\n🏆 Top PR Authors:")
+                print(f"\n[BEST] Top PR Authors:")
                 for author, count in author_counts.head(3).items():
                     print(f"  • {author}: {count} PRs")
         
