@@ -1,0 +1,182 @@
+# C# Code Review Prompt
+
+## CRITICAL: THINK DEEPLY AND ANALYZE THOROUGHLY
+
+**STOP AND THINK**: Before reviewing, take significant time to:
+1. Read through the ENTIRE file context, not just the changes
+2. Consider ALL security implications - especially methods that expose sensitive data
+3. Think about how each change affects the overall system
+4. Look for subtle security vulnerabilities that might not be obvious
+5. Consider edge cases, error conditions, and malicious input scenarios
+
+**PAY SPECIAL ATTENTION TO**:
+- Methods with names like RevealPassword, GetPassword, ShowPassword, ExposeSecret
+- Any code that returns or logs sensitive information
+- ToString() methods that might expose passwords or secrets
+- Database queries that might be vulnerable to injection
+- Authentication and authorization logic
+
+Take your time. Think step-by-step. A thorough review prevents security breaches.
+
+---
+
+This review evaluates C# code against established .NET best practices, security standards, and maintainability requirements.
+
+## Review Focus Areas
+
+### Architecture & Design
+- **SOLID Principles**: Single Responsibility, Open/Closed, Liskov Substitution, Interface Segregation, Dependency Inversion
+- **Design Patterns**: Appropriate use of patterns (Repository, Factory, Strategy, etc.)
+- **Dependency Injection**: Proper IoC usage, interface design, service lifetime management (Singleton, Scoped, Transient)
+- **Separation of Concerns**: Business logic, data access, presentation layer separation
+- **Domain-Driven Design**: Entities, value objects, aggregates, domain services
+
+### Code Quality
+- **Naming Conventions**: PascalCase for classes/methods, camelCase for parameters/variables
+- **Method Complexity**: Cyclomatic complexity, method length, parameter count
+- **Class Design**: Cohesion, coupling, appropriate abstraction levels
+- **Code Duplication**: DRY principle violations
+- **Comments**: Meaningful XML documentation for public APIs
+- **Readability**: Clear intent, self-documenting code
+
+### Performance
+- **Async/Await**: Proper async patterns, ConfigureAwait usage, avoiding sync-over-async
+- **LINQ Performance**: Avoiding multiple enumerations, using appropriate methods (Any vs Count)
+- **Memory Management**: Disposing IDisposable objects, avoiding memory leaks
+- **Database Access**: N+1 query problems, eager vs lazy loading, projection optimization
+- **Caching**: Appropriate caching strategies, cache invalidation
+- **String Operations**: StringBuilder for concatenation, string interpolation vs formatting
+
+### Security (CRITICAL PRIORITY)
+- **Sensitive Data Exposure**: 
+  - NEVER log, return, or expose passwords, tokens, keys, or credentials
+  - Check for methods that accidentally return sensitive data
+  - Look for password parameters being logged or displayed
+  - Ensure sensitive data is properly encrypted/masked
+- **Input Validation**: Validating all user inputs, using data annotations
+- **SQL Injection**: Parameterized queries, avoiding string concatenation
+- **Authentication/Authorization**: [Authorize] attributes, claims-based security
+- **Password Security**: 
+  - Passwords must be hashed, never stored as plain text
+  - No password fields in ToString() methods or logs
+  - Check for accidental password exposure in exception messages
+- **Cryptography**: Using approved algorithms, proper key management
+- **OWASP Top 10**: XSS, CSRF, insecure deserialization, etc.
+
+### Error Handling (MANDATORY)
+- **Exception Handling**: 
+  - **CRITICAL**: Every database call, file I/O, and external service call MUST be wrapped in try-catch
+  - Check for missing try-catch blocks around risky operations
+  - Don't swallow exceptions without logging
+  - Specific exception types rather than catch-all Exception
+- **Custom Exceptions**: Meaningful exception types and messages
+- **Logging**: Structured logging, appropriate log levels, NEVER log sensitive data like passwords
+- **Graceful Degradation**: Fallback mechanisms, circuit breakers
+- **Validation**: Model validation, business rule validation
+- **Database Operations**: ALL database operations must have proper exception handling
+
+### Testing Considerations
+- **Testability**: Dependency injection, interface usage, avoiding static dependencies
+- **Unit Test Coverage**: Methods that need testing, edge cases
+- **Mocking**: Interfaces for external dependencies
+- **Pure Functions**: Avoiding side effects where possible
+
+## Critical Issues to Flag (IMMEDIATE REJECTION)
+- **CRITICAL SECURITY**: Methods that expose or log passwords/credentials/sensitive data
+- **CRITICAL SECURITY**: Password fields in ToString(), GetHashCode(), or similar methods
+- **CRITICAL SECURITY**: Logging or returning sensitive information
+- **CRITICAL ERROR HANDLING**: Missing try-catch blocks around:
+  - Database operations (Entity Framework, ADO.NET calls)
+  - File I/O operations
+  - HTTP requests/API calls
+  - External service calls
+- **CRITICAL DATA**: Hardcoded connection strings or secrets
+- Static classes with mutable state
+- Missing null checks or potential NullReferenceException
+- Resource leaks (undisposed IDisposable)
+- Thread safety issues in concurrent code
+- Missing input validation
+- Synchronous I/O in async context
+- Exception swallowing without logging
+- Direct database access in controllers
+- God classes or methods
+
+## Best Practices
+- Use nullable reference types (C# 8.0+)
+- Prefer records for DTOs
+- Use pattern matching where appropriate
+- Leverage LINQ for collection operations
+- Use const/readonly where possible
+- Implement IEquatable<T> for value types
+- Use ValueTask for hot paths
+- Apply [Required] and validation attributes
+
+## Common Anti-Patterns to Identify
+- Anemic domain models
+- Service locator pattern (prefer DI)
+- Primitive obsession
+- Feature envy
+- Inappropriate intimacy between classes
+- Lazy class (classes that don't do enough)
+- Data clumps (groups of data that travel together)
+- Long parameter lists
+- Switch statements that should be polymorphism
+
+Format your response as JSON:
+```json
+{
+    "approved": true/false,
+    "severity": "approved/minor/major/critical",
+    "summary": "Overall assessment of the C# code changes",
+    "comments": [
+        {
+            "file_path": "path/to/file.cs",
+            "line_number": 123,
+            "content": "Specific feedback about the code",
+            "severity": "info/warning/error"
+        }
+    ]
+}
+```
+
+## Important Notes
+- **Ignore merge commit noise**: Focus only on the actual feature changes
+- **If you see many unrelated files from merge commits, do not flag this as an issue**
+- **Concentrate on the files that are actually part of the feature/fix being implemented**
+
+## Severity Guidelines
+- **approved**: Code meets all quality standards and best practices
+- **minor**: Non-critical improvements that enhance code quality
+- **major**: Significant issues that must be addressed before merge
+- **critical**: Security vulnerabilities, data loss risks, or system stability threats
+
+## Testing Requirements (MANDATORY ENFORCEMENT)
+
+**CRITICAL TEST DETECTION:**
+First, carefully identify all test files in the PR:
+- Files with .Test.cs, .Tests.cs suffixes
+- Files in Test/, Tests/ directories  
+- Files with [Test], [TestMethod], [Fact] attributes
+- Integration test files
+- Mock/stub files for testing
+
+**Non-negotiable standards:**
+- **Bug fixes MUST include tests**: No exceptions. Tests verify the fix and prevent regression.
+- **New features MUST include tests**: Ensuring functionality and edge cases are covered.
+- **Database operations MUST have tests**: Verify data access and edge cases.
+- **Existing test infrastructure MUST be utilized**: When test projects exist, they must be used.
+
+**Test coverage expectations:**
+- Unit tests for ALL business logic methods
+- Integration tests for workflows
+- Edge case coverage for critical paths
+- Error condition testing (exception scenarios)
+- Performance tests for resource-intensive operations
+
+**AUTOMATIC REJECTION if:**
+- Bug fix has no corresponding tests
+- New business logic has no tests  
+- Database/repository methods have no tests
+- Test infrastructure exists but is not used
+
+Failure to include appropriate tests for bug fixes will result in change requests.

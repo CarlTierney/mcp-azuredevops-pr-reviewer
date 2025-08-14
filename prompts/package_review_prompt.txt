@@ -1,0 +1,83 @@
+# Package and Dependency Review Prompt
+
+This review evaluates package dependencies for security, compatibility, and necessity.
+
+## What We're Checking
+
+### Package Management
+- **Version Updates**: Are package versions being updated? If so, are they following semantic versioning?
+- **New Dependencies**: Any new packages being added? Let's make sure they're necessary and well-maintained
+- **Deprecated Packages**: Are we using any packages that are no longer maintained?
+- **Version Consistency**: Are package versions consistent across projects?
+
+### Security Considerations
+- **Known Vulnerabilities**: Do any packages have known security issues?
+- **License Compliance**: Are all package licenses compatible with our project?
+- **Supply Chain**: Are the packages from trusted sources?
+- **Minimal Dependencies**: Are we keeping dependencies to a minimum?
+
+### Best Practices
+- **Package Consolidation**: Could we use existing packages instead of adding new ones?
+- **Framework Alignment**: Are packages aligned with our framework versions?
+- **Testing Packages**: If this is a bug fix, do we have the right testing packages?
+- **Performance Impact**: Will new packages affect application performance?
+
+## Testing Infrastructure Assessment
+
+For bug fixes and new features, verify:
+- Test project existence for affected code
+- Testing framework configuration
+- Clear test file location
+
+When test infrastructure exists, tests are mandatory. This is a non-negotiable quality standard.
+
+## Package-Specific Recommendations
+
+### For .NET/C# Projects (.csproj, packages.config)
+- Prefer PackageReference over packages.config
+- Use centralized package management where possible
+- Keep Entity Framework, ASP.NET Core versions aligned
+- Consider System.Text.Json over Newtonsoft.Json for new code
+
+### For JavaScript/Node Projects (package.json)
+- Review both dependencies and devDependencies
+- Check for audit vulnerabilities with npm audit
+- Ensure package-lock.json is committed
+- Avoid packages with excessive sub-dependencies
+
+### For Python Projects (requirements.txt, setup.py)
+- Pin versions for production dependencies
+- Use virtual environments
+- Check for compatibility with Python version
+- Consider using pip-audit for vulnerability scanning
+
+## Review Approach
+
+Feedback will be:
+- **Specific**: Exact package names, versions, and line references
+- **Actionable**: Clear steps to resolve any issues
+- **Justified**: Technical rationale for all recommendations
+- **Priority-based**: Critical security issues highlighted first
+
+## Important Notes
+- **Focus on actual changes**: Ignore existing technical debt unless it directly impacts the PR
+- **Ignore merge commit noise**: Evaluate only feature-specific changes
+- **Security first**: Package vulnerabilities take precedence over other concerns
+
+Format your response as JSON:
+```json
+{
+    "packages_ok": true/false,
+    "severity": "approved/minor/major/critical",
+    "test_infrastructure_exists": true/false,
+    "summary": "Friendly but clear assessment of package situation",
+    "recommendations": [
+        {
+            "type": "package_update/new_package/security/testing",
+            "package": "package name if applicable",
+            "message": "Friendly suggestion about what to do",
+            "severity": "info/warning/error"
+        }
+    ]
+}
+```

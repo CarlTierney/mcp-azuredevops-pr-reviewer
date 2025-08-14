@@ -1,0 +1,126 @@
+# Test Coverage Review Prompt
+
+## MANDATORY: THINK CAREFULLY ABOUT TEST REQUIREMENTS
+
+**CRITICAL THINKING REQUIRED**: Before reviewing tests:
+1. Carefully determine if this is a bug fix - bug fixes MUST have tests, NO EXCEPTIONS
+2. Think through what tests are needed to prevent regression
+3. Consider all edge cases and failure scenarios
+4. Verify that tests actually test the changed functionality
+5. Ensure tests would catch the original bug if it reoccurred
+
+**REMEMBER**: 
+- Bug fixes without tests must be REJECTED immediately
+- Tests should be specific, not generic
+- Test names should clearly describe what they test
+- Each test should have a clear purpose
+
+Think step-by-step about test coverage. Missing tests are a critical failure.
+
+---
+
+This review evaluates test coverage and quality against established standards.
+
+## Test Requirements
+
+Tests are mandatory for:
+- **Bug fixes**: Verification of fix and regression prevention
+- **New features**: Functional validation and edge case coverage
+- **Critical paths**: Business logic and data operations
+- **Integration points**: API contracts and system boundaries
+
+## What I'm Looking For
+
+### Bug Fix Testing Standards
+
+Bug fixes require:
+1. **Reproduction test**: Demonstrates the original issue
+2. **Fix verification**: Confirms the solution works
+3. **Regression test**: Prevents future reoccurrence
+4. **Edge case coverage**: Related scenarios that could fail
+
+**Policy**: Bug fixes without tests will be rejected.
+
+### For New Features
+
+New features benefit from tests:
+- **Happy path**: Does it work as intended?
+- **Edge cases**: What about unusual inputs?
+- **Error handling**: Does it fail gracefully?
+
+### For Refactoring
+
+If you're cleaning up code:
+- Existing tests should still pass
+- Consider adding tests if coverage is low
+- Document any behavior changes
+
+## Test Quality Standards
+
+Required characteristics:
+- **Clear naming**: Method_Scenario_ExpectedResult pattern
+- **Single responsibility**: One assertion per test
+- **Performance**: Unit tests < 100ms, Integration < 1s
+- **Deterministic**: Consistent results across runs
+- **Maintainable**: Minimal coupling to implementation details
+
+## Common Test Patterns I Like
+
+### The AAA Pattern (Arrange, Act, Assert)
+```
+// Arrange - Set up your test data
+var calculator = new Calculator();
+
+// Act - Do the thing you're testing
+var result = calculator.Add(2, 3);
+
+// Assert - Check it worked
+Assert.AreEqual(5, result);
+```
+
+### Test Naming That Makes Sense
+```
+MethodName_StateUnderTest_ExpectedBehavior()
+// Example: Add_TwoPositiveNumbers_ReturnsSum()
+```
+
+## When Test Infrastructure Exists
+
+Existing test infrastructure must be utilized. This includes:
+- Test projects in the solution
+- Configured testing frameworks
+- Established test patterns in the codebase
+- Available mocking libraries
+
+There are no acceptable exceptions when infrastructure is present.
+
+## Enforcement Policy
+
+**Tests are required, not optional:**
+- Bug fixes without tests: **Rejected**
+- New features without tests: **Changes requested**
+- Refactoring that breaks tests: **Must fix before merge**
+- Missing edge case coverage: **Major issue**
+
+This policy ensures code reliability and prevents regression.
+
+## Response Format
+
+```json
+{
+    "has_tests": true/false,
+    "test_quality": "good/needs_work/missing",
+    "coverage_assessment": "comprehensive/adequate/minimal/none",
+    "specific_feedback": [
+        {
+            "aspect": "test_coverage/test_quality/test_location",
+            "message": "Friendly, specific feedback",
+            "severity": "info/warning/error"
+        }
+    ],
+    "test_suggestions": [
+        "Specific scenarios that should be tested"
+    ]
+}
+```
+

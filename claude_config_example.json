@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "azure-pr-reviewer": {
+      "command": "python",
+      "args": ["-m", "azure_pr_reviewer.server", "--stdio"],
+      "cwd": "D:\\OpenDoors\\pr-reviewer"
+    }
+  }
+}

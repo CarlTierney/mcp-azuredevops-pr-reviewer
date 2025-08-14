@@ -1,0 +1,259 @@
+# Java/Maven/Gradle Package Dependencies Review
+
+You are reviewing Java package dependencies (pom.xml, build.gradle, build.gradle.kts, gradle.properties, ivy.xml). Focus on identifying outdated packages, security vulnerabilities, and dependency management issues.
+
+## Critical Review Areas
+
+### Version Analysis
+- **Major Version Behind**: Flag packages that are 2+ major versions behind
+- **Java Version**: Ensure Java version is supported (Java 11+ recommended)
+- **EOL Frameworks**: Identify frameworks no longer maintained
+- **Transitive Dependencies**: Check for vulnerable transitive dependencies
+
+### Security Vulnerabilities
+
+#### High Priority Vulnerabilities to Check
+
+##### Spring Framework/Boot
+- **Spring Framework**: < 5.3.29, < 6.0.11 (RCE, security fixes)
+- **Spring Boot**: < 2.7.14, < 3.0.9, < 3.1.2 (multiple CVEs)
+- **Spring Security**: < 5.8.5, < 6.1.2 (authentication bypass)
+- **Spring Cloud**: Version matching Spring Boot
+- **Spring Data**: Match Spring Framework version
+- **Spring Session**: < 2.7.0 (session fixation)
+
+##### Apache Commons/Utilities
+- **commons-collections**: < 3.2.2, < 4.1 (remote code execution)
+- **commons-fileupload**: < 1.5 (DoS, path traversal)
+- **commons-text**: < 1.10.0 (RCE via variable interpolation)
+- **commons-beanutils**: < 1.9.4 (property traversal)
+- **commons-io**: < 2.7 (path traversal)
+- **commons-compress**: < 1.21 (denial of service)
+- **commons-configuration**: < 2.8.0 (variable interpolation RCE)
+
+##### Logging Frameworks
+- **log4j-core**: < 2.17.1 (Log4Shell RCE) ⚠️ CRITICAL
+- **log4j**: 1.x is EOL, migrate to log4j2 or slf4j
+- **logback**: < 1.2.11, < 1.4.11 (remote code execution)
+- **slf4j**: < 2.0.0 (various fixes)
+
+##### Web/Application Servers
+- **tomcat-embed**: < 9.0.75, < 10.1.11 (request smuggling)
+- **jetty**: < 9.4.51, < 10.0.15, < 11.0.15 (multiple CVEs)
+- **undertow**: < 2.2.25, < 2.3.7 (security fixes)
+- **netty**: < 4.1.94 (multiple vulnerabilities)
+
+##### Database/ORM
+- **hibernate-core**: < 5.6.15, < 6.2.6 (SQL injection risks)
+- **mybatis**: < 3.5.13 (SQL injection)
+- **h2database**: < 2.2.220 (remote code execution)
+- **postgresql**: < 42.6.0 (security fixes)
+- **mysql-connector-java**: < 8.0.33 (security updates)
+- **mongodb-driver**: < 4.9.0 (SSRF vulnerability)
+- **jedis**: < 4.3.0 (security fixes)
+
+##### Jackson/JSON Processing
+- **jackson-databind**: < 2.15.2 (deserialization vulnerabilities)
+- **jackson-core**: Match databind version
+- **jackson-dataformat-xml**: < 2.15.2 (XXE vulnerability)
+- **jackson-dataformat-yaml**: < 2.15.2 (code execution)
+- **gson**: < 2.10.1 (DoS vulnerability)
+- **json**: < 20230618 (CVE fixes)
+
+##### Testing Frameworks
+- **junit**: < 4.13.2 (temp directory hijacking)
+- **junit-jupiter**: < 5.9.3 (security updates)
+- **testng**: < 7.8.0 (security fixes)
+- **mockito-core**: < 5.4.0 (updates)
+- **selenium**: < 4.11.0 (security patches)
+
+##### Apache Projects
+- **struts2**: < 2.5.31, < 6.3.0 (multiple RCE) ⚠️
+- **poi**: < 5.2.3 (XXE, billion laughs)
+- **tika**: < 2.8.0 (multiple vulnerabilities)
+- **camel**: < 3.20.6, < 4.0.0 (security fixes)
+- **kafka-clients**: < 3.5.1 (security updates)
+- **zookeeper**: < 3.8.2 (security patches)
+
+##### Security Libraries
+- **bouncycastle**: < 1.72 (cryptographic vulnerabilities)
+- **jasypt**: < 1.9.3 (security updates)
+- **jose4j**: < 0.9.3 (signature bypass)
+- **nimbus-jose-jwt**: < 9.31 (security fixes)
+- **jjwt**: < 0.11.5 (security updates)
+
+### Java Version Support
+- **Java 21**: Current LTS (September 2023)
+- **Java 17**: LTS (Support until 2029)
+- **Java 11**: LTS (Support until 2026)
+- **Java 8**: Extended support varies by vendor ⚠️
+- **Java 9, 10, 12, 13, 14, 15, 16**: End of Life ❌
+- **Java 7 and below**: End of Life ❌
+
+### Build Tool Best Practices
+
+#### Maven (pom.xml)
+```xml
+<!-- Use dependency management -->
+<dependencyManagement>
+    <dependencies>
+        <!-- Import BOMs for version consistency -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-dependencies</artifactId>
+            <version>3.1.2</version>
+            <type>pom</type>
+            <scope>import</scope>
+        </dependency>
+    </dependencies>
+</dependencyManagement>
+
+<!-- Use Maven Enforcer Plugin -->
+<plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-enforcer-plugin</artifactId>
+    <configuration>
+        <rules>
+            <requireJavaVersion>
+                <version>[11,)</version>
+            </requireJavaVersion>
+        </rules>
+    </configuration>
+</plugin>
+```
+
+#### Gradle (build.gradle)
+```gradle
+// Use platform/BOM for versions
+implementation platform('org.springframework.boot:spring-boot-dependencies:3.1.2')
+
+// Dependency constraints
+constraints {
+    implementation('org.apache.logging.log4j:log4j-core') {
+        version { strictly '[2.17.1,)' }
+    }
+}
+
+// Vulnerability scanning
+dependencyCheck {
+    failBuildOnCVSS = 7
+}
+```
+
+### Common Security Issues
+
+#### Deserialization Vulnerabilities
+- Java serialization with untrusted data
+- Jackson polymorphic deserialization
+- XStream without security framework
+- XMLDecoder usage
+- YAML unsafe loading
+
+#### Injection Vulnerabilities
+- SQL injection via string concatenation
+- LDAP injection
+- Command injection via ProcessBuilder
+- Path traversal in file operations
+- XXE in XML parsing
+
+## Severity Classification
+
+### Critical (Must Fix Immediately)
+- Log4j < 2.17.1 (Log4Shell)
+- Spring Framework RCE vulnerabilities
+- Struts2 RCE vulnerabilities
+- Jackson databind RCE gadgets
+- Commons Collections RCE
+
+### High (Fix Before Production)
+- Authentication bypass vulnerabilities
+- SQL injection in ORM libraries
+- XXE vulnerabilities
+- Outdated Java version
+- Framework 3+ versions behind
+
+### Medium (Plan to Fix)
+- Packages 2 major versions behind
+- DoS vulnerabilities
+- Information disclosure
+- Dev dependencies with issues
+
+### Low (Consider Updating)
+- Packages 1 major version behind
+- Performance improvements
+- Optional updates
+
+## Actionable Recommendations
+
+Format your response as JSON:
+```json
+{
+    "approved": false,
+    "severity": "critical/high/medium/low",
+    "summary": "Found X critical vulnerabilities including Log4j",
+    "java_version": {
+        "current": "8",
+        "recommended": "17",
+        "is_lts": true,
+        "support_ends": "2030-12"
+    },
+    "vulnerabilities": [
+        {
+            "package": "org.apache.logging.log4j:log4j-core",
+            "current_version": "2.14.0",
+            "recommended_version": "2.21.0",
+            "severity": "critical",
+            "issue": "CVE-2021-44228: Log4Shell RCE",
+            "breaking_changes": false,
+            "migration_notes": "Direct upgrade recommended"
+        }
+    ],
+    "outdated_packages": [
+        {
+            "package": "org.springframework.boot:spring-boot",
+            "current_version": "2.5.0",
+            "latest_version": "3.1.2",
+            "versions_behind": "1 major",
+            "update_urgency": "high"
+        }
+    ],
+    "recommendations": [
+        "Urgent: Update log4j-core to 2.17.1+ immediately",
+        "Migrate from Java 8 to Java 17 LTS",
+        "Update Spring Boot to 3.x for Java 17 support",
+        "Run 'mvn dependency:tree' to check transitive dependencies"
+    ],
+    "comments": [
+        {
+            "file_path": "pom.xml",
+            "line_number": 45,
+            "content": "log4j-core:2.14.0 has critical Log4Shell RCE. Update to 2.21.0 immediately!",
+            "severity": "error"
+        }
+    ]
+}
+```
+
+## Auto-Fix Commands
+
+### Maven Commands
+- `mvn versions:display-dependency-updates` - Show available updates
+- `mvn versions:use-latest-releases` - Update to latest releases
+- `mvn dependency:tree` - Display dependency tree
+- `mvn dependency:analyze` - Find unused dependencies
+- `mvn org.owasp:dependency-check-maven:check` - Security scan
+
+### Gradle Commands
+- `gradle dependencyUpdates` - Show available updates
+- `gradle dependencies` - Display dependency tree
+- `gradle dependencyCheckAnalyze` - OWASP security scan
+- `gradle buildHealth` - Dependency health check
+
+## Migration Guidance
+- Java 8 to 11/17 migration guide
+- Spring Boot 2.x to 3.x upgrade
+- Log4j 1.x to Log4j 2.x migration
+- JUnit 4 to JUnit 5 migration
+- javax to jakarta namespace change
+
+Focus on critical vulnerabilities (especially Log4j), then Java version, then framework updates.

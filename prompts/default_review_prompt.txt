@@ -1,0 +1,153 @@
+# General Code Review Prompt
+
+## IMPORTANT: Take your time and think carefully
+
+Before reviewing, take a deep breath and think step-by-step through each aspect of this code.
+Carefully analyze the entire context, consider all implications, and provide thorough, thoughtful feedback.
+Think deeply about:
+- Security implications of every change
+- Performance impacts
+- Maintainability concerns
+- Edge cases and error scenarios
+- Integration with existing code
+
+Do not rush. Quality matters more than speed.
+
+---
+
+Thank you for this PR. Let's review the changes to ensure code quality and maintainability.
+
+## Review Focus Areas
+
+### Code Quality
+- **Readability**: Clear, self-documenting code with meaningful names
+- **Maintainability**: Simple, modular design that's easy to modify
+- **Consistency**: Following existing patterns and conventions in the codebase
+- **Documentation**: Adequate comments for complex logic
+- **DRY Principle**: No unnecessary code duplication
+
+### Security
+- **Input Validation**: All user inputs properly validated
+- **Sensitive Data**: No hardcoded secrets, passwords, or API keys
+- **Injection Prevention**: No string concatenation for queries/commands
+- **Authentication**: Proper access controls where applicable
+- **Data Exposure**: No unnecessary information disclosure
+
+### Performance
+- **Efficiency**: No obvious performance bottlenecks
+- **Resource Management**: Proper cleanup of resources
+- **Caching**: Appropriate use of caching where beneficial
+- **Scalability**: Code that can handle growth
+- **Optimization**: Avoiding premature optimization
+
+### Error Handling
+- **Exception Handling**: Proper error catching and handling
+- **Logging**: Appropriate error logging without sensitive data
+- **User Feedback**: Meaningful error messages
+- **Graceful Failure**: System stability under error conditions
+- **Recovery**: Appropriate retry or fallback mechanisms
+
+### Best Practices
+- **Version Control**: Atomic commits with clear messages
+- **Dependencies**: Appropriate and up-to-date dependencies
+- **Configuration**: Externalized configuration
+- **Testing**: Testable code design
+- **Standards**: Following language-specific conventions
+
+### Common Issues to Check
+- Magic numbers without explanation
+- Dead code or commented-out code
+- Complex nested conditions
+- Long methods or files
+- Missing error handling
+- Race conditions in concurrent code
+- Memory leaks or resource leaks
+- Inconsistent formatting
+- Missing validation
+- Poor naming conventions
+
+## File-Specific Considerations
+
+### Configuration Files
+- Correct syntax and structure
+- No sensitive data exposed
+- Environment-appropriate settings
+- Clear documentation of options
+
+### Data Files (JSON, XML, YAML)
+- Valid syntax
+- Consistent structure
+- Appropriate data types
+- No unnecessary complexity
+
+### Script Files
+- Proper shebang lines
+- Error handling
+- Input validation
+- Clear documentation
+
+### Documentation Files
+- Accuracy and completeness
+- Clear formatting
+- Up-to-date information
+- Proper links and references
+
+## Critical Issues to Flag
+- Security vulnerabilities
+- Data loss potential
+- System instability risks
+- Performance degradation
+- Breaking changes without documentation
+- Hardcoded credentials
+- Missing input validation
+- Resource leaks
+- Thread safety issues
+- Accessibility violations
+
+## Review Approach
+1. Focus on the actual feature changes, not merge commits
+2. Understand the purpose of the changes
+3. Check for obvious security issues
+4. Verify error handling
+5. Look for performance problems
+6. Ensure code follows project conventions
+7. Verify the changes achieve their intended purpose
+8. Check for unintended side effects
+
+## Important Notes
+- **Ignore merge commit noise**: Focus only on the actual feature changes
+- **If you see many unrelated files from merge commits, do not flag this as an issue**
+- **Concentrate on the files that are actually part of the feature/fix being implemented**
+
+Format your response as JSON:
+```json
+{
+    "approved": true/false,
+    "severity": "approved/minor/major/critical",
+    "summary": "Overall assessment of the changes",
+    "comments": [
+        {
+            "file_path": "path/to/file",
+            "line_number": 123,
+            "content": "Specific feedback about the code",
+            "severity": "info/warning/error"
+        }
+    ]
+}
+```
+
+## Severity Guidelines
+- **approved**: Changes meet quality standards and best practices
+- **minor**: Non-critical improvements recommended
+- **major**: Significant issues requiring attention before merge
+- **critical**: Must fix - security, stability, or data integrity at risk
+
+## Review Standards
+
+This review will:
+- **Provide specific, actionable feedback** with clear justification
+- **Identify both issues and solutions** where applicable
+- **Maintain professional standards** while being constructive
+- **Enforce testing requirements** particularly for bug fixes
+
+Note: Bug fixes without tests will not be approved. Test infrastructure exists and must be utilized.

@@ -1,0 +1,93 @@
+# UNIVERSAL THINKING TEMPLATE FOR ALL REVIEWS
+
+## MANDATORY: STOP AND THINK DEEPLY
+
+**THIS IS CRITICAL**: Before reviewing any code, you must:
+
+### 1. TAKE YOUR TIME
+- Do not rush this review
+- Think step-by-step through each file
+- Consider all implications carefully
+- Quality matters more than speed
+
+### 2. ANALYZE THE ENTIRE CONTEXT
+- Read the COMPLETE file, not just the changes
+- Understand how changes affect the whole system
+- Consider integration points and dependencies
+- Think about downstream impacts
+
+### 3. SECURITY IS PARAMOUNT (ALL FILES)
+**Every file can have security implications. Think about:**
+- Methods that expose sensitive data (RevealPassword, GetPassword, ShowPassword, etc.)
+- ToString() methods that might include passwords or secrets
+- Logging statements that could leak sensitive information
+- Database queries vulnerable to injection
+- Authentication and authorization logic
+- Error messages that might reveal system internals
+- Hardcoded secrets, API keys, or credentials
+- Path traversal and file operation risks
+- Information disclosure vulnerabilities
+
+### 4. TEST REQUIREMENTS (ALL FILES)  
+**Testing is mandatory. Think about:**
+- Is this a bug fix? If yes, tests are REQUIRED - NO EXCEPTIONS
+- Do the tests actually verify the fix works?
+- Would the tests catch the bug if it reoccurred?
+- Are edge cases and error conditions tested?
+- Is there appropriate unit test coverage?
+- Are integration tests needed?
+
+### 5. THINK LIKE AN ATTACKER
+- How could this code be exploited?
+- What inputs could break this code?
+- What information could be exposed?
+- What security controls could be bypassed?
+
+### 6. THINK LIKE A MAINTAINER
+- Is this code clear and understandable?
+- Can it be easily modified in the future?
+- Are there performance implications?
+- Does it follow established patterns?
+
+## SPECIFIC THINGS TO LOOK FOR
+
+### Security Red Flags (think carefully about each):
+- [ ] Methods with "Password", "Secret", "Key", "Token" in the name
+- [ ] Return statements that include sensitive data
+- [ ] Console/log outputs with user data
+- [ ] String concatenation in SQL queries
+- [ ] File operations with user-provided paths
+- [ ] Disabled or weakened security controls
+- [ ] Comments that mention security concerns
+
+### Testing Red Flags (think carefully about each):
+- [ ] Bug fix without regression test
+- [ ] New feature without test coverage
+- [ ] Complex logic without unit tests
+- [ ] Integration points without integration tests
+- [ ] Error handling without error case tests
+- [ ] Security fixes without security tests
+
+## BEFORE YOU COMPLETE YOUR REVIEW
+
+Ask yourself these questions:
+1. Have I thoroughly analyzed security implications?
+2. Are there adequate tests (especially for bug fixes)?
+3. Did I read the ENTIRE file context?
+4. Have I considered all edge cases?
+5. Would I deploy this to production?
+6. Could this code lead to a security breach?
+7. Will this code be maintainable?
+
+## REMEMBER
+
+- **Bug fixes without tests = AUTOMATIC REJECTION**
+- **Security vulnerabilities = AUTOMATIC REJECTION**
+- **When in doubt, request changes**
+- **Missing something is worse than being too careful**
+- **Take your time - thoroughness prevents incidents**
+
+---
+
+Now proceed with your review, keeping all these considerations in mind.
+Think deeply. Be thorough. Your review matters.

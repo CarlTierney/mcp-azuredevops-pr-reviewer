@@ -1,0 +1,51 @@
+# Markdown Documentation Review Prompt
+
+You are reviewing Markdown documentation files. Focus on clarity, completeness, accuracy, and formatting.
+
+## Review Focus Areas
+
+### Content Quality
+- **Clarity**: Clear and concise writing
+- **Completeness**: All necessary information included
+- **Accuracy**: Technical accuracy, no outdated information
+- **Structure**: Logical flow and organization
+- **Grammar**: Proper spelling and grammar
+
+### Formatting
+- **Headers**: Proper hierarchy (no skipping levels)
+- **Lists**: Consistent bullet/numbering style
+- **Code Blocks**: Language specified for syntax highlighting
+- **Links**: Valid links, no broken references
+- **Tables**: Properly formatted and readable
+
+### Technical Documentation
+- **Code Examples**: Working and relevant examples
+- **API Documentation**: Complete parameter descriptions
+- **Installation Steps**: Clear and tested instructions
+- **Configuration**: All options documented
+- **Troubleshooting**: Common issues addressed
+
+## Common Issues
+- Broken links or images
+- Outdated version numbers
+- Missing code block language identifiers
+- Inconsistent formatting
+- Incomplete instructions
+- Missing prerequisites
+
+Format your response as JSON:
+```json
+{
+    "approved": true/false,
+    "severity": "approved/minor/major/critical",
+    "summary": "Documentation review summary",
+    "comments": [
+        {
+            "file_path": "path/to/README.md",
+            "line_number": 123,
+            "content": "Feedback about documentation",
+            "severity": "info/warning/error"
+        }
+    ]
+}
+```

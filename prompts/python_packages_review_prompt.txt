@@ -1,0 +1,248 @@
+# Python Package Dependencies Review
+
+You are reviewing Python package dependencies (requirements.txt, setup.py, pyproject.toml, Pipfile, poetry.lock, conda environment files). Focus on identifying outdated packages, security vulnerabilities, and dependency management issues.
+
+## Critical Review Areas
+
+### Version Analysis
+- **Major Version Behind**: Flag packages that are 2+ major versions behind
+- **Python Version**: Ensure Python version is supported (3.8+ recommended)
+- **EOL Packages**: Identify packages no longer maintained
+- **Incompatible Versions**: Check for version conflicts
+
+### Security Vulnerabilities
+
+#### High Priority Vulnerabilities to Check
+
+##### Web Frameworks
+- **Django**: < 3.2.20, < 4.1.10, < 4.2.4 (SQL injection, XSS)
+- **Flask**: < 2.2.5 (security fixes)
+- **FastAPI**: < 0.100.0 (security updates)
+- **Werkzeug**: < 2.2.3 (security patches)
+- **Jinja2**: < 2.11.3 (XSS vulnerability)
+- **tornado**: < 6.3.2 (open redirect)
+
+##### Data Science/ML Packages
+- **numpy**: < 1.22.0 (buffer overflow)
+- **pandas**: < 1.5.3 (arbitrary code execution)
+- **tensorflow**: < 2.11.1 (multiple CVEs)
+- **torch/pytorch**: < 1.13.1 (arbitrary code execution)
+- **scikit-learn**: < 1.2.0 (security fixes)
+- **jupyter**: < 6.4.12 (XSS vulnerabilities)
+- **notebook**: < 6.4.12 (multiple vulnerabilities)
+- **PIL/Pillow**: < 9.3.0 (multiple CVEs)
+
+##### Common Utilities
+- **requests**: < 2.31.0 (security fixes)
+- **urllib3**: < 1.26.17 (security issues)
+- **cryptography**: < 41.0.0 (security updates)
+- **paramiko**: < 2.11.0 (security fixes)
+- **PyYAML**: < 5.4 (arbitrary code execution)
+- **lxml**: < 4.9.3 (XXE vulnerability)
+- **BeautifulSoup4**: Use with secure parser
+- **SQLAlchemy**: < 1.4.46 (SQL injection risks)
+
+##### Authentication/Security
+- **PyJWT**: < 2.4.0 (signature bypass)
+- **python-jose**: < 3.3.0 (algorithm confusion)
+- **authlib**: < 1.2.0 (security fixes)
+- **bcrypt**: < 4.0.0 (timing attacks)
+- **passlib**: < 1.7.4 (security updates)
+- **oauthlib**: < 3.2.0 (redirect vulnerability)
+
+##### Database Drivers
+- **psycopg2**: < 2.9.5 (SQL injection)
+- **pymongo**: < 4.0.0 (security updates)
+- **redis**: < 4.5.4 (security fixes)
+- **mysql-connector-python**: < 8.0.32
+- **pyodbc**: < 4.0.35 (buffer overflow)
+
+##### CLI/System Packages
+- **subprocess32**: Deprecated, use subprocess
+- **pycrypto**: Deprecated, use cryptography
+- **python-gnupg**: < 0.5.0 (shell injection)
+- **fabric**: < 2.7.0 (security updates)
+- **ansible**: < 2.9.27 (multiple CVEs)
+
+### Python Version Support
+- **Python 3.12**: Current (October 2023)
+- **Python 3.11**: Current (October 2022)
+- **Python 3.10**: Supported until October 2026
+- **Python 3.9**: Supported until October 2025
+- **Python 3.8**: Supported until October 2024
+- **Python 3.7**: End of Life (June 2023) ❌
+- **Python 2.7**: End of Life (January 2020) ❌
+
+### Package Management Best Practices
+
+#### Requirements File Formats
+- **requirements.txt**: Pin exact versions for production
+- **requirements-dev.txt**: Separate development dependencies
+- **pyproject.toml**: Modern Python packaging standard
+- **setup.py**: Include install_requires with ranges
+- **Pipfile/Pipfile.lock**: Pipenv management
+- **poetry.lock**: Poetry exact versions
+
+#### Version Pinning Strategies
+```python
+# Good for production
+package==1.2.3  # Exact version
+
+# Good for libraries
+package>=1.2,<2.0  # Compatible release
+
+# Avoid in production
+package  # No version (latest)
+package>=1.0  # No upper bound
+package~=1.2  # Compatible but unclear
+```
+
+### Common Security Issues
+
+#### Code Execution Risks
+- **eval()/exec()**: With user input
+- **pickle**: Deserializing untrusted data
+- **yaml.load()**: Use yaml.safe_load()
+- **subprocess**: Shell=True with user input
+- **os.system()**: Command injection
+
+#### Web Security
+- **SQL Injection**: Raw SQL queries
+- **XSS**: Unescaped user input in templates
+- **CSRF**: Missing CSRF tokens
+- **XXE**: XML parsing vulnerabilities
+- **SSRF**: Unvalidated URLs in requests
+
+### Framework-Specific Checks
+
+#### Django Projects
+- Django version matches Python version
+- django-extensions security
+- django-debug-toolbar not in production
+- SECRET_KEY not hardcoded
+- ALLOWED_HOSTS configured
+
+#### Flask Projects
+- Flask-Security updates
+- Flask-Login vulnerabilities
+- Flask-WTF for CSRF
+- Werkzeug debug mode off
+
+#### FastAPI Projects
+- Pydantic version compatibility
+- Starlette security updates
+- python-multipart vulnerabilities
+- JWT implementation security
+
+#### Data Science Projects
+- Jupyter kernel security
+- nbconvert vulnerabilities
+- IPython version
+- matplotlib backend security
+
+## Severity Classification
+
+### Critical (Must Fix Immediately)
+- Remote code execution vulnerabilities
+- SQL injection in database packages
+- Authentication bypass vulnerabilities
+- Known exploited vulnerabilities
+- Python 2.7 usage in production
+
+### High (Fix Before Production)
+- XSS in web frameworks
+- Deserialization vulnerabilities
+- Packages 3+ major versions behind
+- End-of-life Python versions
+- Cryptographic weaknesses
+
+### Medium (Plan to Fix)
+- Packages 2 major versions behind
+- Information disclosure risks
+- Dev dependencies with vulnerabilities
+- Deprecated packages in use
+
+### Low (Consider Updating)
+- Packages 1 major version behind
+- Performance improvements available
+- Optional security enhancements
+
+## Actionable Recommendations
+
+Format your response as JSON:
+```json
+{
+    "approved": false,
+    "severity": "critical/high/medium/low",
+    "summary": "Found X critical, Y high severity issues",
+    "python_version": {
+        "current": "3.7",
+        "recommended": "3.11",
+        "support_ends": "2023-06-27",
+        "is_eol": true
+    },
+    "vulnerabilities": [
+        {
+            "package": "Django",
+            "current_version": "2.2.0",
+            "recommended_version": "4.2.4",
+            "severity": "critical",
+            "issue": "CVE-2023-XXXX: SQL injection vulnerability",
+            "breaking_changes": true,
+            "migration_notes": "See Django 3.0 and 4.0 release notes"
+        }
+    ],
+    "outdated_packages": [
+        {
+            "package": "requests",
+            "current_version": "2.20.0",
+            "latest_version": "2.31.0",
+            "versions_behind": "11 minor versions",
+            "update_urgency": "high"
+        }
+    ],
+    "deprecated_packages": [
+        {
+            "package": "pycrypto",
+            "replacement": "cryptography",
+            "reason": "No longer maintained, security vulnerabilities"
+        }
+    ],
+    "recommendations": [
+        "Upgrade Python from 3.7 to 3.11",
+        "Run 'pip-audit' to scan for vulnerabilities",
+        "Replace pycrypto with cryptography",
+        "Pin all production dependencies"
+    ],
+    "comments": [
+        {
+            "file_path": "requirements.txt",
+            "line_number": 5,
+            "content": "Django==2.2.0 has critical SQL injection vulnerability. Update to 4.2.4+",
+            "severity": "error"
+        }
+    ]
+}
+```
+
+## Auto-Fix Commands
+Suggest appropriate commands:
+- `pip-audit` - Scan for known vulnerabilities
+- `pip list --outdated` - List outdated packages
+- `pip install --upgrade [package]` - Update specific package
+- `pip-compile --upgrade` - Update pip-tools requirements
+- `poetry update` - Update Poetry dependencies
+- `pipenv update` - Update Pipenv dependencies
+- `safety check` - Security vulnerability scan
+- `bandit -r .` - Security linting for code
+
+## Migration Guidance
+Provide guidance for major updates:
+- Python 2 to Python 3 migration
+- Django major version upgrades
+- Flask 1.x to 2.x migration
+- SQLAlchemy 1.x to 2.x changes
+- Pandas API changes
+- NumPy breaking changes
+
+Focus on security vulnerabilities, Python version support, then general updates. Always note breaking changes.

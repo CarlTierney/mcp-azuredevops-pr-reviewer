@@ -1,0 +1,485 @@
+"""MCP server for Azure DevOps PR reviews using Claude CLI"""
+
+import asyncio
+import logging
+import json
+from typing import Any, Dict, List, Optional
+from mcp.server import FastMCP
+from mcp.types import TextContent, Tool
+from pydantic import BaseModel
+
+from .azure_client import AzureDevOpsClient
+from .code_reviewer import CodeReviewer
+from .config import Settings
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+
+class AzurePRReviewerServer:
+    def __init__(self):
+        self.server = FastMCP("azure-pr-reviewer")
+        self.settings = Settings()
+        self.settings.validate_settings()
+        self.azure_client = AzureDevOpsClient(self.settings)
+        self.code_reviewer = CodeReviewer(self.settings)
+        self._setup_tools()
+        
+    def _setup_tools(self):
+        """Register MCP tools"""
+        
+        @self.server.tool()
+        async def list_prs_needing_my_review(
+            repository_id: str,
+            project: Optional[str] = None,
+            organization: Optional[str] = None
+        ) -> str:
+            """List pull requests that need your review or approval
+            
+            This tool filters PRs to show only those that:
+            - You are assigned as a reviewer but haven't approved yet
+            - Have no reviewers assigned
+            - Are waiting for your vote/approval
+            
+            Args:
+                repository_id: Repository name or ID
+                project: Project name (uses env var if not provided)
+                organization: Azure DevOps organization name (uses env var if not provided)
+            
+            Returns:
+                List of PRs needing your attention with status details
+            """
+            try:
+                # Use environment variables if not provided
+                org = organization or self.settings.azure_organization
+                if not org:
+                    return "Error: Azure DevOps organization not configured. Set AZURE_DEVOPS_ORG environment variable."
+                
+                proj = project or self.settings.azure_project
+                if not proj:
+                    return "Error: Azure DevOps project not specified. Provide project parameter or set AZURE_DEVOPS_PROJECT environment variable."
+                
+                prs_needing_review = await self.azure_client.list_prs_needing_review(
+                    org, proj, repository_id
+                )
+                
+                pr_list = []
+                for pr_info in prs_needing_review:
+                    pr = pr_info["pr"]
+                    pr_list.append({
+                        "id": pr.pull_request_id,
+                        "title": pr.title,
+                        "author": pr.created_by.display_name if pr.created_by else "Unknown",
+                        "creation_date": pr.creation_date.isoformat() if pr.creation_date else "Unknown",
+                        "source_branch": pr.source_ref_name.replace("refs/heads/", ""),
+                        "target_branch": pr.target_ref_name.replace("refs/heads/", ""),
+                        "reason": pr_info["reason"],
+                        "your_status": pr_info["vote_status"],
+                        "is_reviewer": pr_info["is_reviewer"]
+                    })
+                
+                return json.dumps({
+                    "status": "success",
+                    "count": len(pr_list),
+                    "message": f"Found {len(pr_list)} PR(s) needing your review",
+                    "pull_requests": pr_list
+                }, indent=2)
+            except Exception as e:
+                logger.error(f"Error listing PRs needing review: {e}")
+                return f"Error listing pull requests needing review: {str(e)}"
+        
+        @self.server.tool()
+        async def list_pull_requests(
+            repository_id: str,
+            status: str = "active",
+            project: Optional[str] = None,
+            organization: Optional[str] = None
+        ) -> str:
+            """List pull requests from Azure DevOps repository
+            
+            Args:
+                repository_id: Repository name or ID
+                status: PR status (active/completed/abandoned)
+                project: Project name (uses env var if not provided)
+                organization: Azure DevOps organization name (uses env var if not provided)
+            
+            Returns:
+                List of pull requests with details
+            """
+            try:
+                # Use environment variables if not provided
+                org = organization or self.settings.azure_organization
+                if not org:
+                    return "Error: Azure DevOps organization not configured. Set AZURE_DEVOPS_ORG environment variable."
+                
+                proj = project or self.settings.azure_project
+                if not proj:
+                    return "Error: Azure DevOps project not specified. Provide project parameter or set AZURE_DEVOPS_PROJECT environment variable."
+                
+                prs = await self.azure_client.list_pull_requests(
+                    org, proj, repository_id, status
+                )
+                
+                pr_list = []
+                for pr in prs:
+                    pr_list.append({
+                        "id": pr.pull_request_id,
+                        "title": pr.title,
+                        "description": pr.description,
+                        "status": pr.status,
+                        "created_by": pr.created_by.display_name if pr.created_by else "Unknown",
+                        "creation_date": pr.creation_date.isoformat() if pr.creation_date else "Unknown",
+                        "source_branch": pr.source_ref_name,
+                        "target_branch": pr.target_ref_name
+                    })
+                
+                return json.dumps({
+                    "status": "success",
+                    "count": len(pr_list),
+                    "pull_requests": pr_list
+                }, indent=2)
+            except Exception as e:
+                logger.error(f"Error listing PRs: {e}")
+                return f"Error listing pull requests: {str(e)}"
+        
+        @self.server.tool()
+        async def get_pull_request(
+            repository_id: str,
+            pull_request_id: int,
+            project: Optional[str] = None,
+            organization: Optional[str] = None
+        ) -> str:
+            """Get details of a specific pull request
+            
+            Args:
+                repository_id: Repository name or ID
+                pull_request_id: PR number
+                project: Project name (uses env var if not provided)
+                organization: Azure DevOps organization name (uses env var if not provided)
+            
+            Returns:
+                Detailed PR information
+            """
+            try:
+                # Use environment variables if not provided
+                org = organization or self.settings.azure_organization
+                if not org:
+                    return "Error: Azure DevOps organization not configured. Set AZURE_DEVOPS_ORG environment variable."
+                
+                proj = project or self.settings.azure_project
+                if not proj:
+                    return "Error: Azure DevOps project not specified. Provide project parameter or set AZURE_DEVOPS_PROJECT environment variable."
+                
+                pr = await self.azure_client.get_pull_request(
+                    org, proj, repository_id, pull_request_id
+                )
+                
+                pr_details = {
+                    "id": pr.pull_request_id,
+                    "title": pr.title,
+                    "description": pr.description,
+                    "status": pr.status,
+                    "created_by": pr.created_by.display_name if pr.created_by else "Unknown",
+                    "creation_date": pr.creation_date.isoformat() if pr.creation_date else "Unknown",
+                    "source_branch": pr.source_ref_name,
+                    "target_branch": pr.target_ref_name,
+                    "merge_status": pr.merge_status if hasattr(pr, 'merge_status') else None,
+                    "reviewers": [r.display_name for r in pr.reviewers] if pr.reviewers else []
+                }
+                
+                return json.dumps({
+                    "status": "success",
+                    "pull_request": pr_details
+                }, indent=2)
+            except Exception as e:
+                logger.error(f"Error getting PR: {e}")
+                return f"Error getting pull request: {str(e)}"
+        
+        @self.server.tool()
+        async def get_pr_for_review(
+            repository_id: str,
+            pull_request_id: int,
+            project: Optional[str] = None,
+            organization: Optional[str] = None
+        ) -> str:
+            """Get pull request changes formatted for Claude CLI review
+            
+            This tool fetches PR details and changes, then returns them in a format
+            ready for Claude to review. Use this to prepare a PR for code review.
+            
+            Args:
+                repository_id: Repository name or ID
+                pull_request_id: PR number
+                project: Project name (uses env var if not provided)
+                organization: Azure DevOps organization name (uses env var if not provided)
+            
+            Returns:
+                PR details and changes ready for review
+            """
+            try:
+                # Use environment variables if not provided
+                org = organization or self.settings.azure_organization
+                if not org:
+                    return "Error: Azure DevOps organization not configured. Set AZURE_DEVOPS_ORG environment variable."
+                
+                proj = project or self.settings.azure_project
+                if not proj:
+                    return "Error: Azure DevOps project not specified. Provide project parameter or set AZURE_DEVOPS_PROJECT environment variable."
+                
+                logger.info(f"Fetching PR {pull_request_id} for review")
+                
+                # Get PR details
+                pr = await self.azure_client.get_pull_request(
+                    org, proj, repository_id, pull_request_id
+                )
+                
+                # Get PR changes
+                changes = await self.azure_client.get_pull_request_changes(
+                    org, proj, repository_id, pull_request_id
+                )
+                
+                # Prepare review data
+                review_data = self.code_reviewer.prepare_review_data(pr, changes)
+                
+                # Get review instructions
+                instructions = self.code_reviewer.get_review_instructions()
+                
+                return json.dumps({
+                    "status": "success",
+                    "pr_id": pull_request_id,
+                    "review_instructions": instructions,
+                    "pr_details": review_data.pr_details,
+                    "review_context": review_data.review_prompt,
+                    "file_count": len(changes),
+                    "file_types": review_data.file_type_summary,
+                    "message": "PR data prepared with file-type specific review prompts."
+                }, indent=2)
+                
+            except Exception as e:
+                logger.error(f"Error preparing PR for review: {e}")
+                return f"Error preparing pull request for review: {str(e)}"
+        
+        @self.server.tool()
+        async def post_review_comments(
+            repository_id: str,
+            pull_request_id: int,
+            review_json: str,
+            project: Optional[str] = None,
+            organization: Optional[str] = None
+        ) -> str:
+            """Post review comments from Claude's analysis to Azure DevOps
+            
+            After Claude reviews a PR, use this tool to post the comments back to Azure DevOps.
+            
+            Args:
+                repository_id: Repository name or ID
+                pull_request_id: PR number
+                review_json: JSON string with review results containing:
+                    - approved: boolean
+                    - severity: string (approved/minor/major/critical)
+                    - summary: string
+                    - comments: array of comment objects
+                project: Project name (uses env var if not provided)
+                organization: Azure DevOps organization name (uses env var if not provided)
+            
+            Returns:
+                Status of posted comments
+            """
+            try:
+                # Use environment variables if not provided
+                org = organization or self.settings.azure_organization
+                if not org:
+                    return "Error: Azure DevOps organization not configured. Set AZURE_DEVOPS_ORG environment variable."
+                
+                proj = project or self.settings.azure_project
+                if not proj:
+                    return "Error: Azure DevOps project not specified. Provide project parameter or set AZURE_DEVOPS_PROJECT environment variable."
+                
+                # Parse the review JSON
+                review_data = json.loads(review_json)
+                parsed_review = self.code_reviewer.parse_review_response(review_data)
+                
+                # Use the new integrated posting method
+                result = await self.azure_client.post_review_to_azure(
+                    org, proj, repository_id, pull_request_id,
+                    parsed_review
+                )
+                
+                # Log results
+                if result["errors"]:
+                    logger.warning(f"Some errors occurred during posting: {result['errors']}")
+                
+                return json.dumps({
+                    "status": "success" if not result["errors"] else "partial_success",
+                    "pr_id": pull_request_id,
+                    "comments_posted": result["comments_posted"],
+                    "vote_updated": result["vote_updated"],
+                    "review_status": parsed_review["severity"],
+                    "approved": parsed_review["approved"],
+                    "errors": result["errors"]
+                }, indent=2)
+                
+            except json.JSONDecodeError as e:
+                logger.error(f"Error parsing review JSON: {e}")
+                return f"Error: Invalid JSON format in review_json parameter"
+            except Exception as e:
+                logger.error(f"Error posting review comments: {e}")
+                return f"Error posting review comments: {str(e)}"
+        
+        @self.server.tool()
+        async def add_pr_comment(
+            repository_id: str,
+            pull_request_id: int,
+            comment: str,
+            file_path: Optional[str] = None,
+            line_number: Optional[int] = None,
+            project: Optional[str] = None,
+            organization: Optional[str] = None
+        ) -> str:
+            """Add a single comment to a pull request
+            
+            Args:
+                repository_id: Repository name or ID
+                pull_request_id: PR number
+                comment: Comment text
+                file_path: Optional file path for inline comment
+                line_number: Optional line number for inline comment
+                project: Project name (uses env var if not provided)
+                organization: Azure DevOps organization name (uses env var if not provided)
+            
+            Returns:
+                Success/failure status
+            """
+            try:
+                # Use environment variables if not provided
+                org = organization or self.settings.azure_organization
+                if not org:
+                    return "Error: Azure DevOps organization not configured. Set AZURE_DEVOPS_ORG environment variable."
+                
+                proj = project or self.settings.azure_project
+                if not proj:
+                    return "Error: Azure DevOps project not specified. Provide project parameter or set AZURE_DEVOPS_PROJECT environment variable."
+                
+                comment_data = {
+                    "content": comment,
+                    "file_path": file_path,
+                    "line_number": line_number
+                }
+                
+                result = await self.azure_client.add_pull_request_comments(
+                    org, proj, repository_id, pull_request_id,
+                    [comment_data]
+                )
+                
+                return f"Comment added to PR #{pull_request_id}"
+            except Exception as e:
+                logger.error(f"Error adding comment: {e}")
+                return f"Error adding comment: {str(e)}"
+        
+        @self.server.tool()
+        async def approve_pull_request(
+            repository_id: str,
+            pull_request_id: int,
+            confirm: bool = False,
+            comment: Optional[str] = None,
+            project: Optional[str] = None,
+            organization: Optional[str] = None
+        ) -> str:
+            """Approve a pull request in Azure DevOps
+            
+            IMPORTANT: This action will approve the PR on your behalf. Please review carefully before approving.
+            
+            Args:
+                repository_id: Repository name or ID
+                pull_request_id: PR number to approve
+                confirm: Must be set to True to confirm the approval action
+                comment: Optional approval comment to add
+                project: Project name (uses env var if not provided)
+                organization: Azure DevOps organization name (uses env var if not provided)
+            
+            Returns:
+                Confirmation of approval or error message
+            """
+            try:
+                # Require explicit confirmation
+                if not confirm:
+                    return (
+                        "⚠️ APPROVAL CONFIRMATION REQUIRED ⚠️\n\n"
+                        f"You are about to approve PR #{pull_request_id} in {repository_id}.\n"
+                        "This action will mark the PR as approved on your behalf.\n\n"
+                        "To confirm this action, please set the 'confirm' parameter to True.\n"
+                        "Example: approve_pull_request(project='...', repository_id='...', "
+                        f"pull_request_id={pull_request_id}, confirm=True)"
+                    )
+                
+                # Use environment variables if not provided
+                org = organization or self.settings.azure_organization
+                if not org:
+                    return "Error: Azure DevOps organization not configured. Set AZURE_DEVOPS_ORG environment variable."
+                
+                proj = project or self.settings.azure_project
+                if not proj:
+                    return "Error: Azure DevOps project not specified. Provide project parameter or set AZURE_DEVOPS_PROJECT environment variable."
+                
+                # First, get the PR details to show what's being approved
+                pr = await self.azure_client.get_pull_request(
+                    org, proj, repository_id, pull_request_id
+                )
+                
+                # Call the approve function
+                await self.azure_client.approve_pull_request(
+                    org, proj, repository_id, pull_request_id
+                )
+                
+                # Add custom approval comment if provided
+                if comment:
+                    comment_data = {
+                        "content": f"✅ **PR Approved**\n\n{comment}",
+                        "file_path": None,
+                        "line_number": None
+                    }
+                    await self.azure_client.add_pull_request_comments(
+                        org, proj, repository_id, pull_request_id,
+                        [comment_data]
+                    )
+                
+                return (
+                    f"✅ Successfully approved PR #{pull_request_id}: {pr.title}\n"
+                    f"Author: {pr.created_by.display_name if pr.created_by else 'Unknown'}\n"
+                    f"Target Branch: {pr.target_ref_name.replace('refs/heads/', '')}\n"
+                    + (f"\nComment added: {comment}" if comment else "")
+                )
+                
+            except Exception as e:
+                logger.error(f"Error approving PR: {e}")
+                return f"Error approving PR #{pull_request_id}: {str(e)}"
+    
+    def run(self):
+        """Run the MCP server"""
+        logger.info("Starting Azure PR Reviewer MCP Server")
+        self.server.run()
+
+
+def main():
+    """Main entry point"""
+    import sys
+    
+    # Check if running with stdio transport
+    if "--stdio" in sys.argv or len(sys.argv) == 1:
+        server = AzurePRReviewerServer()
+        server.run()
+    else:
+        print("Azure DevOps PR Reviewer MCP Server")
+        print("Usage: python -m azure_pr_reviewer.server [--stdio]")
+        print("\nThis server should be run through an MCP client like Claude Code.")
+        print("\nAvailable tools:")
+        print("  - list_prs_needing_my_review: List PRs that need your review/approval")
+        print("  - list_pull_requests: List all PRs in a repository")
+        print("  - get_pull_request: Get details of a specific PR")
+        print("  - get_pr_for_review: Prepare PR data for Claude CLI review")
+        print("  - post_review_comments: Post Claude's review back to Azure DevOps")
+        print("  - add_pr_comment: Add a single comment to a PR")
+
+
+if __name__ == "__main__":
+    main()
