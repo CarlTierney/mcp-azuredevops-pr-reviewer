@@ -23,10 +23,9 @@ class BaseAnalyzer:
         self.pat_token = pat_token
         self.data_dir = data_dir
         self.api_base = f"https://dev.azure.com/{org_name}/{project_name}/_apis"
-        
-        # Global date filters
+          # Global date filters - Use 3 months by default for faster analysis
         if date_from is None:
-            self.date_from = (datetime.now() - timedelta(days=180)).strftime("%Y-%m-%dT00:00:00Z")
+            self.date_from = (datetime.now() - timedelta(days=90)).strftime("%Y-%m-%dT00:00:00Z")
         else:
             if isinstance(date_from, str):
                 self.date_from = date_from if date_from.endswith('Z') else f"{date_from}T00:00:00Z"
@@ -160,16 +159,19 @@ class BaseAnalyzer:
                 if hasattr(signal, 'SIGALRM'):
                     signal.alarm(0)  # Cancel the alarm
                     
-        except (Exception, TimeoutError) as e:
-            # If radon fails or times out, fall back to simple line counting
+        except (Exception, TimeoutError) as e:            # If radon fails or times out, fall back to simple line counting
             error_type = type(e).__name__
             if error_type not in ['SyntaxError', 'TimeoutError', 'TokenError', 'IndentationError']:
                 print(f"    Warning: Radon analysis failed with {error_type}, using fallback method")
             return self._fallback_analysis(content)
-
+    
     def _is_valid_text_content(self, content):
         """Check if content appears to be valid text that can be analyzed"""
         if not content or len(content.strip()) == 0:
+            return False
+        
+        # Check for binary content first
+        if self._is_likely_binary(content):
             return False
         
         # Sample first 1KB for performance
@@ -184,11 +186,10 @@ class BaseAnalyzer:
             # Long lines without breaks (minified files)
             lambda s: any(len(line) > 1000 for line in s.split('\n')[:5]),
             # Too many special characters
-            lambda s: len([c for c in s[:200] if not c.isalnum() and c not in ' \n\r\t.,;:!?()[]{}"\'-_=+/*']) / len(s[:200]) > 0.5
-        ]
+            lambda s: len([c for c in s[:200] if not c.isalnum() and c not in ' \n\r\t.,;:!?()[]{}"\'-_=+/*']) / len(s[:200]) > 0.5        ]
         
         return not any(pattern(sample) for pattern in problematic_patterns)
-
+    
     def _is_likely_binary(self, content):
         """Check if content is likely binary by examining character distribution"""
         if not content:
@@ -196,6 +197,10 @@ class BaseAnalyzer:
         
         # Sample first 8KB for performance
         sample = content[:8192]
+        
+        # Check for null bytes (strong indicator of binary content)
+        if '\x00' in sample:
+            return True
         
         # Count non-printable characters (excluding common whitespace)
         non_printable = sum(1 for c in sample if ord(c) < 32 and c not in '\t\n\r\f\v')
@@ -379,19 +384,64 @@ class BaseAnalyzer:
             return None
 
     def get_repository_id(self):
-        """Get the repository ID from the repository name"""
+        """Get the repository ID from the repository name with better error handling"""
         url = f"{self.api_base}/git/repositories?api-version=7.0"
-        response = requests.get(url, headers=self.headers)
         
-        if response.status_code != 200:
-            raise Exception(f"Failed to get repositories: {response.status_code}")
+        try:
+            response = requests.get(url, headers=self.headers, timeout=30)
+        except requests.exceptions.RequestException as e:
+            print(f"\n[ERROR] Network error while fetching repository list: {e}")
+            print("\nTroubleshooting:")
+            print("  1. Check your internet connection")
+            print("  2. Verify Azure DevOps is accessible")
+            print(f"  3. Try accessing: https://dev.azure.com/{self.org_name}")
+            return None
         
-        repos = response.json().get('value', [])
+        if response.status_code == 401:
+            print(f"\n[ERROR] Authentication failed (401)")
+            print("\nTroubleshooting:")
+            print("  1. Verify your PAT token is valid and not expired")
+            print("  2. Ensure PAT has 'Code (read)' permission")
+            print("  3. Regenerate PAT token if needed at:")
+            print(f"     https://dev.azure.com/{self.org_name}/_usersSettings/tokens")
+            return None
+        elif response.status_code == 404:
+            print(f"\n[ERROR] Project not found (404)")
+            print(f"  Organization: {self.org_name}")
+            print(f"  Project: {self.project_name}")
+            print("\nPlease verify the organization and project names are correct.")
+            return None
+        elif response.status_code != 200:
+            print(f"\n[ERROR] Failed to get repositories: HTTP {response.status_code}")
+            print(f"  Response: {response.text[:500] if response.text else 'No response body'}")
+            return None
+        
+        try:
+            repos = response.json().get('value', [])
+        except json.JSONDecodeError:
+            print(f"\n[ERROR] Invalid JSON response from Azure DevOps")
+            return None
+        
+        if not repos:
+            print(f"\n[WARNING] No repositories found in project '{self.project_name}'")
+            print("  This project may not have any repositories.")
+            return None
+        
+        # Look for exact match first
         for repo in repos:
-            if repo['name'] == self.repo_name:
+            if repo.get('name') == self.repo_name:
+                print(f"[OK] Found repository: {self.repo_name} (ID: {repo['id']})")
                 return repo['id']
         
-        raise Exception(f"Repository '{self.repo_name}' not found")
+        # If no exact match, show available repositories
+        print(f"\n[ERROR] Repository '{self.repo_name}' not found in project '{self.project_name}'")
+        print("\nAvailable repositories:")
+        for repo in repos[:10]:  # Show first 10
+            print(f"  • {repo.get('name', 'Unknown')}")
+        if len(repos) > 10:
+            print(f"  ... and {len(repos) - 10} more")
+        print("\nPlease check the repository name and try again.")
+        return None
 
     def calculate_data_hash(self):
         """Calculate a hash of the current data to detect changes"""
@@ -459,7 +509,7 @@ class BaseAnalyzer:
         # Check if hash matches and output file exists
         if cached_hash == current_hash and cached_file and os.path.exists(cached_file):
             cached_time = analysis_info.get('timestamp', '')
-            print(f"  ✓ Using cached results for {analysis_name} (generated: {cached_time})")
+            print(f"  [OK] Using cached results for {analysis_name} (generated: {cached_time})")
             return True
         
         return False

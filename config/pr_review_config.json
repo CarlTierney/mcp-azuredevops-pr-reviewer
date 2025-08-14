@@ -4,7 +4,7 @@
     "cleanup_on_exit": false,
     "cleanup_after_review": false,
     "always_clean_before_clone": true,
-    "max_repo_size_mb": 500,
+    "max_repo_size_mb": 5000,
     "shallow_clone": true,
     "git_timeout_seconds": 300
   },
@@ -12,8 +12,8 @@
     "analyze_test_coverage": true,
     "check_security_patterns": true,
     "check_code_quality": true,
-    "max_files_to_analyze": 50,
-    "max_diff_size_kb": 1000
+    "max_files_to_analyze": 5000,
+    "max_diff_size_mb": 2048
   },
   "mcp_server": {
     "name": "pr-review-server",

@@ -180,8 +180,7 @@ class TestHotspotAnalyzer(unittest.TestCase):
         
         expected_score = (10 * 0.4) + (10 * 0.4) + (2.0 * 0.2)  # 4 + 4 + 0.4 = 8.4
         self.assertEqual(hotspot_score, expected_score)
-    
-    def test_critical_file_detection(self):
+      def test_critical_file_detection(self):
         """Test critical file detection logic"""
         test_cases = [
             ('Controller.cs', 'csharp', True),     # Controller in name
@@ -189,19 +188,15 @@ class TestHotspotAnalyzer(unittest.TestCase):
             ('DataManager.cs', 'csharp', True),   # Manager in name
             ('UserRepository.cs', 'csharp', True),# Repository in name
             ('Helper.cs', 'csharp', False),       # Not critical pattern
-            ('query.sql', 'sql', True),           # Core SQL file
+            ('query.sql', 'sql', False),          # SQL files are not automatically critical
             ('readme.md', 'docs', False)          # Documentation
         ]
         
         for filename, file_type, expected_critical in test_cases:
-            # Mock the critical detection logic
-            is_critical = (
-                file_type in ['csharp', 'sql', 'csharp_project'] or
-                'controller' in filename.lower() or
-                'service' in filename.lower() or
-                'manager' in filename.lower() or
-                'repository' in filename.lower()
-            )
+            # Use the actual critical detection logic from FileClassifier
+            from utils.file_classifier import FileClassifier
+            classifier = FileClassifier()
+            is_critical = classifier.is_critical_component(f"/path/to/{filename}", filename, file_type)
             
             self.assertEqual(is_critical, expected_critical, 
                            f"Failed for {filename} ({file_type})")

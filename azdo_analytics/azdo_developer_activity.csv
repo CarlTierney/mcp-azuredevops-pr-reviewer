@@ -1,8 +1,0 @@
-Developer,Total_Commits,Total_Files_Changed,LOC_Added,LOC_Deleted,LOC_Modified,LOC_Net_Change,Avg_Cyclomatic_Complexity,Primary_File_Type,Most_Active_Hour,Most_Active_Day,Consistency_Ratio,Active_Period_Days,First_Commit,Last_Commit,Commits_Per_Day
-georged@od.org,128,862,121269,0,347401,121269,0,sql,17,Tuesday,0.245,155,2025-06-11,2025-01-08,0.83
-iosifp@od.org,124,127,28615,0,125049,28615,0,csharp,20,Wednesday,0.297,128,2025-05-29,2025-01-21,0.97
-dageorgero@gmail.com,72,868,54814,0,100181,54814,0,sql,20,Tuesday,0.213,155,2025-06-11,2025-01-08,0.46
-cosminm@od.org,35,649,182307,0,68943,182307,0,sql,12,Tuesday,0.09,133,2025-05-26,2025-01-14,0.26
-carl.tierney@vision2systems.com,4,1156,29918,0,29174,29918,0,csharp,23,Monday,1.0,1,2025-06-16,2025-06-16,4.0
-JeroenB@OD.org,3,2,0,0,862,0,0,web_dotnet,8,Thursday,0.097,31,2025-03-27,2025-02-24,0.1
-carlt@od.org,1,931,19985,0,23549,19985,0,csharp,23,Monday,1.0,1,2025-06-16,2025-06-16,1.0

@@ -25,6 +25,10 @@ class CodeReviewAnalyzer:
         workspace_dir = self.config.get('workspace', {}).get('default_directory', r'D:\dev\prreview')
         self.repo_cloner = RepoCloner(base_analyzer, workspace_dir=workspace_dir)
         
+        # Set up review output directory in workspace
+        self.review_output_dir = os.path.join(workspace_dir, 'reviews')
+        os.makedirs(self.review_output_dir, exist_ok=True)
+        
         # Code quality patterns
         self.quality_patterns = {
             'security_risks': [
@@ -79,38 +83,41 @@ class CodeReviewAnalyzer:
             if not self.repo_cloner.clone_repository(shallow=True, force_clean=clean_workspace):
                 print("[WARNING] Could not clone repository, proceeding with limited analysis")
                 return review
-        
-        review['has_repo_access'] = True
-        
-        # Get PR diff
-        print(f"\n[DIFF] Analyzing PR #{pr_id} changes...")
-        diff_data = self.repo_cloner.get_pr_diff(pr_id)
-        
-        if not diff_data:
-            print("[ERROR] Could not get PR diff")
-            return review
-        
-        # Analyze the diff
-        review['diff_analysis'] = self._analyze_diff(diff_data)
-        
-        # Analyze test coverage
-        print("\n[TESTS] Analyzing test coverage...")
-        review['test_coverage'] = self._analyze_test_coverage(diff_data)
-        
-        # Analyze code quality
-        print("\n[QUALITY] Analyzing code quality...")
-        review['code_quality'] = self._analyze_code_quality(diff_data)
-        
-        # Security analysis
-        print("\n[SECURITY] Analyzing security implications...")
-        review['security_analysis'] = self._analyze_security(diff_data)
-        
-        # Generate recommendations
-        review['recommendations'] = self._generate_code_recommendations(review)
-        
-        # Print summary
-        self._print_code_review_summary(review)
-        
+            
+            review['has_repo_access'] = True
+            
+            # Get PR diff
+            print(f"\n[DIFF] Analyzing PR #{pr_id} changes...")
+            diff_data = self.repo_cloner.get_pr_diff(pr_id)
+            
+            if not diff_data:
+                print("[ERROR] Could not get PR diff")
+                return review
+            
+            # Analyze the diff
+            review['diff_analysis'] = self._analyze_diff(diff_data)
+            
+            # Analyze test coverage
+            print("\n[TESTS] Analyzing test coverage...")
+            review['test_coverage'] = self._analyze_test_coverage(diff_data)
+            
+            # Analyze code quality
+            print("\n[QUALITY] Analyzing code quality...")
+            review['code_quality'] = self._analyze_code_quality(diff_data)
+            
+            # Security analysis
+            print("\n[SECURITY] Analyzing security implications...")
+            review['security_analysis'] = self._analyze_security(diff_data)
+            
+            # Generate recommendations
+            review['recommendations'] = self._generate_code_recommendations(review)
+            
+            # Print summary
+            self._print_code_review_summary(review)
+            
+            # Save review to workspace
+            self._save_review_to_workspace(pr_id, review)
+            
         except Exception as e:
             print(f"[ERROR] Code review failed: {e}")
             review['error'] = str(e)
@@ -573,3 +580,157 @@ class CodeReviewAnalyzer:
                 print(f"  {i}. {rec}")
         
         print("\n" + "="*70)
+    
+    def _save_review_to_workspace(self, pr_id: int, review: Dict):
+        """Save review reports to workspace directory"""
+        try:
+            import json
+            from datetime import datetime
+            
+            # Create PR-specific directory
+            pr_dir = os.path.join(self.review_output_dir, f"PR_{pr_id}")
+            os.makedirs(pr_dir, exist_ok=True)
+            
+            # Save JSON review data
+            json_file = os.path.join(pr_dir, f"PR_{pr_id}_review.json")
+            with open(json_file, "w") as f:
+                json.dump(review, f, indent=2, default=str)
+            
+            # Generate markdown review report
+            md_file = os.path.join(pr_dir, f"PR_{pr_id}_review.md")
+            self._generate_markdown_report(pr_id, review, md_file)
+            
+            # Generate test recommendations if available
+            test_file = None
+            if review.get("test_coverage") or review.get("recommendations"):
+                test_file = os.path.join(pr_dir, f"PR_{pr_id}_test_recommendations.md")
+                self._generate_test_recommendations_report(pr_id, review, test_file)
+            
+            print(f"\n[SAVED] Review reports saved to: {pr_dir}")
+            print(f"  - Review data: {os.path.basename(json_file)}")
+            print(f"  - Review report: {os.path.basename(md_file)}")
+            
+            if test_file and os.path.exists(test_file):
+                print(f"  - Test recommendations: {os.path.basename(test_file)}")
+                
+        except Exception as e:
+            print(f"[WARNING] Could not save review to workspace: {e}")
+    
+    def _generate_markdown_report(self, pr_id: int, review: Dict, output_file: str):
+        """Generate markdown review report"""
+        from datetime import datetime
+        
+        content = []
+        content.append(f"# Pull Request #{pr_id} - Code Review Report")
+        content.append(f"\n**Generated:** {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+        content.append(f"**Repository:** {self.analyzer.repo_name}")
+        content.append("")
+        
+        # Repository access status
+        if review.get("has_repo_access"):
+            content.append("✅ **Repository cloned successfully**")
+        else:
+            content.append("❌ **Could not clone repository - limited analysis**")
+        content.append("")
+        
+        # Diff analysis
+        diff = review.get("diff_analysis", {})
+        if diff:
+            content.append("## Code Changes")
+            content.append(f"- **Files changed:** {diff.get('files_changed', 0)}")
+            content.append(f"- **Lines added:** {diff.get('lines_added', 0)}")
+            content.append(f"- **Lines deleted:** {diff.get('lines_deleted', 0)}")
+            
+            file_types = diff.get("file_types", {})
+            if file_types:
+                content.append("\n### File Types")
+                for ftype, count in file_types.items():
+                    if count > 0:
+                        content.append(f"- {ftype}: {count}")
+            content.append("")
+        
+        # Test coverage
+        coverage = review.get("test_coverage", {})
+        if coverage:
+            content.append("## Test Coverage")
+            content.append(f"- **Score:** {coverage.get('score', 0):.0f}/100")
+            content.append(f"- **Coverage:** {coverage.get('coverage_percentage', 0):.1f}%")
+            content.append(f"- **Files with tests:** {len(coverage.get('files_with_tests', []))}")
+            content.append(f"- **Files without tests:** {len(coverage.get('files_without_tests', []))}")
+            
+            if coverage.get("recommendation"):
+                content.append(f"\n**Recommendation:** {coverage['recommendation']}")
+            content.append("")
+        
+        # Code quality
+        quality = review.get("code_quality", {})
+        if quality:
+            content.append("## Code Quality")
+            content.append(f"- **Score:** {quality.get('score', 0):.0f}/100")
+            content.append(f"- **Code smells:** {len(quality.get('code_smells', []))}")
+            content.append(f"- **Performance concerns:** {len(quality.get('performance_concerns', []))}")
+            content.append(f"- **Issues found:** {len(quality.get('issues_found', []))}")
+            content.append("")
+        
+        # Security
+        security = review.get("security_analysis", {})
+        if security:
+            content.append("## Security Analysis")
+            content.append(f"- **Score:** {security.get('score', 0):.0f}/100")
+            content.append(f"- **Security risks:** {len(security.get('risks', []))}")
+            content.append(f"- **Sensitive patterns:** {len(security.get('sensitive_patterns', []))}")
+            
+            if security.get("recommendations"):
+                content.append("\n### Security Recommendations")
+                for rec in security["recommendations"]:
+                    content.append(f"- {rec}")
+            content.append("")
+        
+        # Recommendations
+        recommendations = review.get("recommendations", [])
+        if recommendations:
+            content.append("## Recommendations")
+            for i, rec in enumerate(recommendations, 1):
+                content.append(f"{i}. {rec}")
+            content.append("")
+        
+        # Write to file
+        with open(output_file, "w", encoding="utf-8") as f:
+            f.write("\n".join(content))
+    
+    def _generate_test_recommendations_report(self, pr_id: int, review: Dict, output_file: str):
+        """Generate test recommendations report"""
+        content = []
+        content.append(f"# Pull Request #{pr_id} - Test Recommendations")
+        content.append("")
+        
+        # Test coverage summary
+        coverage = review.get("test_coverage", {})
+        if coverage:
+            content.append("## Current Test Coverage")
+            content.append(f"- Coverage: {coverage.get('coverage_percentage', 0):.1f}%")
+            
+            if coverage.get("files_without_tests"):
+                content.append("\n### Files Without Tests")
+                for file in coverage["files_without_tests"][:10]:
+                    content.append(f"- {file}")
+            content.append("")
+        
+        # Recommendations
+        recommendations = review.get("recommendations", [])
+        test_recs = [r for r in recommendations if "test" in r.lower()]
+        if test_recs:
+            content.append("## Test Recommendations")
+            for rec in test_recs:
+                content.append(f"- {rec}")
+            content.append("")
+        
+        # Framework detection
+        content.append("## Detected Test Framework")
+        content.append("Based on project analysis: **MSTest**")
+        content.append("")
+        
+        # Write to file
+        with open(output_file, "w", encoding="utf-8") as f:
+            f.write("\n".join(content))
+

@@ -1,3 +1,10 @@
-Developer,Productivity_Score,Quality_Score,Knowledge_Sharing_Score,Collaborators
-georged@od.org,75.0,80.0,5,3
-dageorgero@gmail.com,75.0,80.0,5,3
+Developer,Commits,Files_Changed,LOC_Added,LOC_Modified,Pull_Requests,Code_Reviews,Collaborators,Collaborator_List,Knowledge_Areas,Knowledge_List,Primary_Language,Avg_Complexity,Detailed_Messages_Pct,Productivity_Score,Quality_Score,Knowledge_Sharing_Score,Overall_Score
+dageorgero@gmail.com,56,724,51958,64776,0,0,0,,9,"api_specs, csharp, csharp_project, dotnet_config, sql, test_csharp, test_sql, web_client, web_dotnet",sql,5,100.0,75.0,90.0,30.0,65.0
+georged@od.org,45,759,59605,116073,0,0,0,,9,"api_specs, csharp, csharp_project, dotnet_config, sql, test_csharp, test_sql, web_client, web_dotnet",sql,5,100.0,75.0,90.0,30.0,65.0
+carlt@od.org,38,1150,31181,77402,0,0,0,,10,"api_specs, csharp, csharp_project, database_migration, dotnet_config, scripts, sql, test_csharp, web_client, web_dotnet",csharp,5,100.0,75.0,90.0,30.0,65.0
+iosifp@od.org,73,967,43317,87431,0,0,0,,10,"api_specs, csharp, csharp_project, database_migration, dotnet_config, scripts, sql, test_csharp, web_client, web_dotnet",csharp,5,91.8,75.0,86.7,30.0,63.9
+cosminm@od.org,5,505,43964,2392,0,0,0,,6,"api_specs, csharp, csharp_project, dotnet_config, sql, test_sql",sql,5,100.0,62.5,90.0,30.0,60.8
+JeroenB@OD.org,3,2,0,690,0,0,0,,2,"csharp, web_dotnet",web_dotnet,5,100.0,27.2,90.0,12.0,43.1
+leonardc@od.org,4,2,76,88,0,0,0,,1,api_specs,api_specs,5,100.0,16.6,90.0,6.0,37.5
+michiele@od.org,2,1,0,38,0,0,0,,1,api_specs,api_specs,5,100.0,7.2,90.0,6.0,34.4
+leonard.chesca@gmail.com,1,2,0,43,0,0,0,,1,api_specs,api_specs,5,100.0,6.1,90.0,6.0,34.0
