@@ -49,7 +49,7 @@ LOG_LEVEL=INFO
     "azure-pr-reviewer": {
       "command": "powershell.exe",
       "args": ["-ExecutionPolicy", "Bypass", "-File", "start_server.ps1"],
-      "cwd": "D:\\OpenDoors\\pr-reviewer"
+      "cwd": "D:\\repos\\pr-reviewer"
     }
   }
 }
@@ -69,7 +69,7 @@ Option 1 - Python Wrapper:
     "azure-pr-reviewer": {
       "command": "python",
       "args": ["start_server_robust.py"],
-      "cwd": "D:\\OpenDoors\\pr-reviewer"
+      "cwd": "D:\\repos\\pr-reviewer"
     }
   }
 }
@@ -82,7 +82,7 @@ Option 2 - Direct with Manual Environment (copy values from .env):
     "azure-pr-reviewer": {
       "command": "python",
       "args": ["-m", "azure_pr_reviewer.server"],
-      "cwd": "D:\\OpenDoors\\pr-reviewer",
+      "cwd": "D:\\repos\\pr-reviewer",
       "env": {
         "AZURE_DEVOPS_ORG": "your-org-from-env",
         "AZURE_DEVOPS_PROJECT": "your-project-from-env",
@@ -95,7 +95,7 @@ Option 2 - Direct with Manual Environment (copy values from .env):
 ```
 
 **Important Notes:**
-- Replace `D:\\OpenDoors\\pr-reviewer` with your actual installation path
+- Replace `D:\\repos\\pr-reviewer` with your actual installation path
 - **Your PAT token and Azure settings are read from the `.env` file**
 - The PowerShell script handles loading these automatically
 

@@ -3,9 +3,9 @@
     "azure-pr-reviewer": {
       "command": "python",
       "args": ["start_server.py"],
-      "cwd": "D:\\OpenDoors\\pr-reviewer",
+      "cwd": "D:\\repos\\pr-reviewer",
       "env": {
-        "PYTHONPATH": "D:\\OpenDoors\\pr-reviewer",
+        "PYTHONPATH": "D:\\repos\\pr-reviewer",
         "WORKING_DIRECTORY": "D:\\temp\\pr-review",
         "AUTO_CLEANUP": "true"
       },
@@ -18,7 +18,7 @@
   },
   "notes": {
     "configuration": "The start_server.py wrapper ensures .env file is loaded properly",
-    "env_file_location": "D:\\OpenDoors\\pr-reviewer\\.env",
+    "env_file_location": "D:\\repos\\pr-reviewer\\.env",
     "required_env_variables": [
       "AZURE_DEVOPS_ORG - Your Azure DevOps organization",
       "AZURE_DEVOPS_PROJECT - Your default project", 
@@ -26,7 +26,7 @@
     ],
     "troubleshooting": [
       "If authentication fails, run: python test_auth.py",
-      "Ensure .env file exists in D:\\OpenDoors\\pr-reviewer",
+      "Ensure .env file exists in D:\\repos\\pr-reviewer",
       "PAT token must have Code (Read & Write) and Pull Request (Read & Write) permissions"
     ]
   }

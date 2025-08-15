@@ -3,7 +3,7 @@
     "azure-pr-reviewer": {
       "command": "powershell.exe",
       "args": ["-ExecutionPolicy", "Bypass", "-File", "start_server.ps1"],
-      "cwd": "D:\\OpenDoors\\pr-reviewer",
+      "cwd": "D:\\repos\\pr-reviewer",
       "metadata": {
         "name": "Azure DevOps PR Reviewer",
         "version": "2.0.0",
@@ -15,7 +15,7 @@
   "_notes": {
     "authentication": "This configuration uses PowerShell to load environment variables from .env file before starting the server",
     "requirements": [
-      "1. .env file must exist in D:\\OpenDoors\\pr-reviewer",
+      "1. .env file must exist in D:\\repos\\pr-reviewer",
       "2. .env must contain AZURE_DEVOPS_ORG, AZURE_DEVOPS_PROJECT, and AZURE_DEVOPS_PAT",
       "3. PowerShell execution policy allows running scripts (handled by -ExecutionPolicy Bypass)"
     ],

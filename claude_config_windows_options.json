@@ -4,28 +4,28 @@
       "_comment": "Option 1: Use PowerShell script (RECOMMENDED)",
       "command": "powershell.exe",
       "args": ["-ExecutionPolicy", "Bypass", "-File", "start_server.ps1"],
-      "cwd": "D:\\OpenDoors\\pr-reviewer"
+      "cwd": "D:\\repos\\pr-reviewer"
     },
     
     "azure-pr-reviewer-option2": {
       "_comment": "Option 2: Use robust Python wrapper",
       "command": "python",
       "args": ["start_server_robust.py"],
-      "cwd": "D:\\OpenDoors\\pr-reviewer"
+      "cwd": "D:\\repos\\pr-reviewer"
     },
     
     "azure-pr-reviewer-option3": {
       "_comment": "Option 3: Use batch file",
       "command": "cmd.exe",
       "args": ["/c", "start_server_embedded.bat"],
-      "cwd": "D:\\OpenDoors\\pr-reviewer"
+      "cwd": "D:\\repos\\pr-reviewer"
     },
     
     "azure-pr-reviewer-option4": {
       "_comment": "Option 4: Direct with explicit env (UPDATE VALUES FROM YOUR .env)",
       "command": "python",
       "args": ["-m", "azure_pr_reviewer.server"],
-      "cwd": "D:\\OpenDoors\\pr-reviewer",
+      "cwd": "D:\\repos\\pr-reviewer",
       "env": {
         "AZURE_DEVOPS_ORG": "your-organization",
         "AZURE_DEVOPS_PROJECT": "your-project",

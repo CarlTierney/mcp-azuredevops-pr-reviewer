@@ -3,9 +3,9 @@
     "azure-pr-reviewer": {
       "command": "python",
       "args": ["start_server.py"],
-      "cwd": "D:\\OpenDoors\\pr-reviewer",
+      "cwd": "D:\\repos\\pr-reviewer",
       "env": {
-        "PYTHONPATH": "D:\\OpenDoors\\pr-reviewer",
+        "PYTHONPATH": "D:\\repos\\pr-reviewer",
         "WORKING_DIRECTORY": "D:\\temp\\pr-review",
         "AUTO_CLEANUP": "true"
       },

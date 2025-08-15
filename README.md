@@ -107,9 +107,9 @@ Add the server to your Claude Desktop configuration:
     "azure-pr-reviewer": {
       "command": "python",
       "args": ["-m", "azure_pr_reviewer.server", "--stdio"],
-      "cwd": "D:\\OpenDoors\\pr-reviewer",
+      "cwd": "D:\\repos\\pr-reviewer",
       "env": {
-        "PYTHONPATH": "D:\\OpenDoors\\pr-reviewer",
+        "PYTHONPATH": "D:\\repos\\pr-reviewer",
         "AZURE_DEVOPS_ORG": "your-organization",
         "AZURE_DEVOPS_PAT": "your-pat-token",
         "AZURE_USER_EMAIL": "your.email@example.com"
@@ -122,7 +122,7 @@ Add the server to your Claude Desktop configuration:
 **Important Configuration Notes:**
 - The `--stdio` argument is required for proper MCP communication
 - Set `PYTHONPATH` to your pr-reviewer directory to ensure modules are found
-- Use your actual directory path in `cwd` (change `D:\\OpenDoors\\pr-reviewer` to your path)
+- Use your actual directory path in `cwd` (change `D:\\repos\\pr-reviewer` to your path)
 - On Windows, use double backslashes (`\\`) in the JSON configuration
 
 ### Environment Variables
