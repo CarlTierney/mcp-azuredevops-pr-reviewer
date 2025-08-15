@@ -10,7 +10,7 @@
 
 ### 2. Environment Configuration
 
-Create a `.env` file in the project root with these settings:
+Create a `.env` file in the project root with these settings. **This file contains your PAT token and other sensitive settings - it should NEVER be committed to git:**
 
 ```env
 # Azure DevOps Configuration
@@ -63,6 +63,8 @@ LOG_LEVEL=INFO
 - Replace `D:\\OpenDoors\\pr-reviewer` with your actual installation path
 - The `WORKING_DIRECTORY` must be a path where the system can create/delete folders
 - Use double backslashes (`\\`) in Windows paths in JSON
+- **Your PAT token and Azure settings are read from the `.env` file, NOT from this JSON config**
+- The Python application automatically loads the `.env` file from the project directory
 
 #### For macOS/Linux Users
 

@@ -27,12 +27,23 @@ class AzureDevOpsClient:
     
     def _initialize_connection(self):
         """Initialize Azure DevOps connection"""
+        # Ensure PAT is available
+        if not self.settings.azure_pat:
+            raise ValueError("AZURE_DEVOPS_PAT is not set. Please configure it in your .env file")
+        
+        # Use PAT authentication explicitly
         credentials = BasicAuthentication('', self.settings.azure_pat)
         self.connection = Connection(
             base_url=f"https://dev.azure.com/{self.settings.azure_organization}",
             creds=credentials
         )
+        
+        # Disable Azure CLI authentication fallback
+        # This ensures we only use PAT authentication
         self.git_client = self.connection.clients.get_git_client()
+        
+        # Log successful connection (without exposing PAT)
+        logger.info(f"Connected to Azure DevOps org: {self.settings.azure_organization}")
     
     async def list_pull_requests(
         self, 

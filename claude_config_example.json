@@ -2,7 +2,7 @@
   "mcpServers": {
     "azure-pr-reviewer": {
       "command": "python",
-      "args": ["-m", "azure_pr_reviewer.server"],
+      "args": ["start_server.py"],
       "cwd": "D:\\OpenDoors\\pr-reviewer",
       "env": {
         "PYTHONPATH": "D:\\OpenDoors\\pr-reviewer",
@@ -10,8 +10,9 @@
         "AUTO_CLEANUP": "true"
       },
       "metadata": {
-        "description": "Azure DevOps PR Reviewer with security scanning, test enforcement, and package vulnerability detection"
+        "description": "Azure DevOps PR Reviewer - Uses start_server.py to ensure .env is loaded"
       }
     }
-  }
+  },
+  "_comment": "The start_server.py wrapper ensures the .env file is loaded properly. Never put your PAT token in this JSON file."
 }
