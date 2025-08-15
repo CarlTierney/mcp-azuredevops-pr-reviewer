@@ -827,6 +827,190 @@ class AzurePRReviewerServer:
             except Exception as e:
                 logger.error(f"Error approving PR: {e}")
                 return f"Error approving PR #{pull_request_id}: {str(e)}"
+        
+        @self.server.tool()
+        async def reject_pull_request(
+            repository_id: str,
+            pull_request_id: int,
+            reason: str,
+            confirm: bool = False,
+            require_changes: bool = True,
+            project: Optional[str] = None,
+            organization: Optional[str] = None
+        ) -> str:
+            """Reject a pull request in Azure DevOps
+            
+            IMPORTANT: This action will reject the PR and require changes. Use with caution.
+            
+            Args:
+                repository_id: Repository name or ID
+                pull_request_id: PR number to reject
+                reason: Reason for rejection (will be posted as a comment)
+                confirm: Must be set to True to confirm the rejection
+                require_changes: If True, sets vote to "Rejected" (-10), if False sets to "Wait for author" (-5)
+                project: Project name (uses env var if not provided)
+                organization: Azure DevOps organization name (uses env var if not provided)
+            
+            Returns:
+                Confirmation of rejection or error message
+            """
+            try:
+                # Require explicit confirmation
+                if not confirm:
+                    return (
+                        "⚠️ REJECTION CONFIRMATION REQUIRED ⚠️\n\n"
+                        f"You are about to REJECT PR #{pull_request_id} in {repository_id}.\n"
+                        "This action will:\n"
+                        "  - Mark the PR as requiring changes\n"
+                        "  - Post your rejection reason as a comment\n"
+                        "  - Notify the author that changes are needed\n\n"
+                        "To confirm this action, set 'confirm=True'\n"
+                        f"Example: reject_pull_request(repository_id='{repository_id}', "
+                        f"pull_request_id={pull_request_id}, reason='...', confirm=True)"
+                    )
+                
+                # Validate reason
+                if not reason or len(reason.strip()) < 10:
+                    return "Error: Please provide a detailed reason for rejection (at least 10 characters)"
+                
+                # Use environment variables if not provided
+                org = organization or self.settings.azure_organization
+                if not org:
+                    return "Error: Azure DevOps organization not configured. Set AZURE_DEVOPS_ORG environment variable."
+                
+                proj = project or self.settings.azure_project
+                if not proj:
+                    return "Error: Azure DevOps project not specified. Provide project parameter or set AZURE_DEVOPS_PROJECT environment variable."
+                
+                # Get PR details
+                pr = await self.azure_client.get_pull_request(
+                    org, proj, repository_id, pull_request_id
+                )
+                
+                # Create rejection review data
+                review_data = {
+                    "approved": False,
+                    "severity": "critical" if require_changes else "major",
+                    "summary": f"PR REJECTED: {reason}",
+                    "comments": []
+                }
+                
+                # Post the rejection review
+                result = await self.azure_client.post_review_to_azure(
+                    org, proj, repository_id, pull_request_id, review_data
+                )
+                
+                # Add rejection comment
+                rejection_comment = {
+                    "content": (
+                        f"## ❌ PR Rejected\n\n"
+                        f"**Reason:** {reason}\n\n"
+                        f"**Status:** {'Changes Required' if require_changes else 'Waiting for Author'}\n\n"
+                        f"Please address the issues mentioned above and update the PR.\n\n"
+                        f"---\n"
+                        f"*Rejected by Azure PR Reviewer v2.0.0*\n"
+                        f"*Timestamp: {self.azure_client._get_timestamp()}*"
+                    ),
+                    "file_path": None,
+                    "line_number": None
+                }
+                
+                await self.azure_client.add_pull_request_comments(
+                    org, proj, repository_id, pull_request_id,
+                    [rejection_comment]
+                )
+                
+                return (
+                    f"❌ PR #{pull_request_id} has been REJECTED\n\n"
+                    f"**PR Title:** {pr.title}\n"
+                    f"**Author:** {pr.created_by.display_name if pr.created_by else 'Unknown'}\n"
+                    f"**Reason:** {reason}\n"
+                    f"**Vote Status:** {'Rejected (-10)' if require_changes else 'Wait for Author (-5)'}\n\n"
+                    f"The author has been notified and must address the issues before the PR can be approved."
+                )
+                
+            except Exception as e:
+                logger.error(f"Error rejecting PR: {e}")
+                return f"Error rejecting PR #{pull_request_id}: {str(e)}"
+        
+        @self.server.tool()
+        async def set_pr_vote(
+            repository_id: str,
+            pull_request_id: int,
+            vote: str,
+            comment: Optional[str] = None,
+            project: Optional[str] = None,
+            organization: Optional[str] = None
+        ) -> str:
+            """Set your vote on a pull request
+            
+            Args:
+                repository_id: Repository name or ID
+                pull_request_id: PR number
+                vote: Vote value - one of: 'approve', 'approve_with_suggestions', 'no_vote', 'wait_for_author', 'reject'
+                comment: Optional comment to add with the vote
+                project: Project name (uses env var if not provided)
+                organization: Azure DevOps organization name (uses env var if not provided)
+            
+            Returns:
+                Confirmation of vote update
+            """
+            try:
+                # Map vote strings to Azure DevOps vote values
+                vote_map = {
+                    'approve': 10,
+                    'approve_with_suggestions': 5,
+                    'no_vote': 0,
+                    'wait_for_author': -5,
+                    'reject': -10
+                }
+                
+                if vote not in vote_map:
+                    return f"Error: Invalid vote '{vote}'. Must be one of: {', '.join(vote_map.keys())}"
+                
+                vote_value = vote_map[vote]
+                
+                # Use environment variables if not provided
+                org = organization or self.settings.azure_organization
+                if not org:
+                    return "Error: Azure DevOps organization not configured."
+                
+                proj = project or self.settings.azure_project
+                if not proj:
+                    return "Error: Azure DevOps project not specified."
+                
+                # Update the vote
+                await self.azure_client.update_pull_request_vote(
+                    org, proj, repository_id, pull_request_id, vote_value
+                )
+                
+                # Add comment if provided
+                if comment:
+                    vote_comment = {
+                        "content": (
+                            f"**Vote Updated: {vote.replace('_', ' ').title()}**\n\n"
+                            f"{comment}\n\n"
+                            f"---\n"
+                            f"*Azure PR Reviewer v2.0.0*"
+                        ),
+                        "file_path": None,
+                        "line_number": None
+                    }
+                    await self.azure_client.add_pull_request_comments(
+                        org, proj, repository_id, pull_request_id,
+                        [vote_comment]
+                    )
+                
+                return (
+                    f"✅ Vote updated successfully\n"
+                    f"PR #{pull_request_id}: {vote.replace('_', ' ').title()}\n"
+                    f"Vote value: {vote_value}"
+                    + (f"\nComment added: {comment}" if comment else "")
+                )
+                
+            except Exception as e:
+                logger.error(f"Error setting vote: {e}")
+                return f"Error setting vote: {str(e)}"
     
     def run(self):
         """Run the MCP server"""
