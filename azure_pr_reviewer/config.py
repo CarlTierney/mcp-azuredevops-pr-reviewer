@@ -6,7 +6,10 @@ from pydantic import Field
 from pydantic_settings import BaseSettings
 from dotenv import load_dotenv
 
-load_dotenv()
+# Only load .env if environment variables aren't already set
+# This allows Claude Desktop to pass env vars directly
+if not os.getenv("AZURE_DEVOPS_PAT"):
+    load_dotenv(override=False)
 
 
 class Settings(BaseSettings):
@@ -75,7 +78,8 @@ class Settings(BaseSettings):
     )
     
     model_config = {
-        "env_file": ".env",
+        # Only use .env file if PAT is not already in environment
+        "env_file": ".env" if not os.getenv("AZURE_DEVOPS_PAT") else None,
         "env_file_encoding": "utf-8",
         "extra": "allow"
     }

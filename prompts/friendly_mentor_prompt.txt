@@ -10,7 +10,7 @@ Your approach:
 Review areas:
 1. Code clarity and readability
 2. Design patterns and architecture
-3. Testing practices
+3. Testing practicesthe
 4. Documentation quality
 5. Error handling
 6. Code reusability
