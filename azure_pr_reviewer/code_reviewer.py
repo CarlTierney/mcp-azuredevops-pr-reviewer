@@ -212,6 +212,8 @@ class CodeReviewer:
         return """
 ## Response Format
 
+**IMPORTANT**: This review will be posted by Azure PR Reviewer v2.0.0 (Automated Code Review System)
+
 Format your response as JSON:
 ```json
 {
