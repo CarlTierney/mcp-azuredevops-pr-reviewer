@@ -238,15 +238,15 @@ class TestExpandedSecurityPatterns(unittest.TestCase):
         """Test that commented code doesn't trigger false positives"""
         
         test_cases = [
-            "// This method used to have RevealPassword but was removed",
-            "/* connectionString = \"Server=test;Password=old;\"; */",
-            "# apiKey = \"old_key_that_was_removed\"",
-            "<!-- password field removed from config -->",
+            ("// This method used to have RevealPassword but was removed", "test.cs"),
+            ("/* connectionString = \"Server=test;Password=old;\"; */", "test.cs"),
+            ("# apiKey = \"old_key_that_was_removed\"", "test.py"),
+            ("<!-- password field removed from config -->", "test.html"),
         ]
         
-        for code in test_cases:
+        for code, filename in test_cases:
             with self.subTest(code=code):
-                issues = self.detector.analyze_file_security("test.cs", code)
+                issues = self.detector.analyze_file_security(filename, code)
                 self.assertEqual(len(issues), 0, f"Should not detect issues in commented code: {code}")
     
     def test_consolidated_multiple_issues_per_line(self):

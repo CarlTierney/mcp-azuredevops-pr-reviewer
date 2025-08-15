@@ -16,12 +16,13 @@ class SecurityDetector:
             (r'\b(reveal|get|show|display|expose|return|fetch|retrieve).*password\b', 'Method exposes password'),
             (r'\bpassword.*\.(get|show|reveal|display|expose|return|value|text)\b', 'Property exposes password'),
             (r'\b(public|export|global).*password\s*[=:]', 'Public password assignment'),
-            (r'password\s*[:=]\s*["\'][^"\']{3,}["\']', 'Hardcoded password value'),
+            (r'\b(password|pwd|passwd)\s*[:=]\s*["\'][^"\']*["\']', 'Hardcoded password value'),
             (r'(http|api|url|uri).*[?&]password=', 'Password in URL parameter'),
-            (r'password\s*[!=]==?\s*["\'][^"\']+["\']', 'Password comparison with literal'),
+            (r'\b(password|pwd|passwd)\s*[!=]==?\s*["\'][^"\']+["\']', 'Password comparison with literal'),
             (r'["\']\s*password\s*["\']\s*:\s*["\'][^"\']+["\']', 'Password in JSON/object structure'),
             (r'\bpassword\s*\+\s*', 'Password concatenation (potential exposure)'),
             (r'\$\{?password\}?', 'Password variable interpolation'),
+            (r'\b(pwd|passwd):\s*["\'][^"\']*["\']', 'Short password variant assignment'),
         ]
         
         # Connection string detection patterns
@@ -36,16 +37,16 @@ class SecurityDetector:
         
         # API keys, tokens, and secrets detection
         self.token_patterns = [
-            (r'\b(api[_-]?key|apikey)\s*[:=]\s*["\'][a-zA-Z0-9]{16,}["\']', 'Hardcoded API key'),
-            (r'\b(secret[_-]?key|secretkey)\s*[:=]\s*["\'][a-zA-Z0-9]{16,}["\']', 'Hardcoded secret key'),
-            (r'\b(access[_-]?token|accesstoken)\s*[:=]\s*["\'][a-zA-Z0-9]{16,}["\']', 'Hardcoded access token'),
-            (r'\b(bearer[_-]?token|bearertoken)\s*[:=]\s*["\'][a-zA-Z0-9]{16,}["\']', 'Hardcoded bearer token'),
-            (r'\b(refresh[_-]?token|refreshtoken)\s*[:=]\s*["\'][a-zA-Z0-9]{16,}["\']', 'Hardcoded refresh token'),
-            (r'\b(private[_-]?key|privatekey)\s*[:=]\s*["\'][a-zA-Z0-9+/=]{32,}["\']', 'Hardcoded private key'),
-            (r'\b(client[_-]?secret|clientsecret)\s*[:=]\s*["\'][a-zA-Z0-9]{16,}["\']', 'Hardcoded client secret'),
-            (r'\b(oauth[_-]?token|oauthtoken)\s*[:=]\s*["\'][a-zA-Z0-9]{16,}["\']', 'Hardcoded OAuth token'),
-            (r'\bauthorization\s*[:=]\s*["\']bearer\s+[a-zA-Z0-9]{16,}["\']', 'Authorization header with token'),
-            (r'\b(jwt|token)\s*[:=]\s*["\']ey[a-zA-Z0-9+/=]{16,}["\']', 'JWT token hardcoded'),
+            (r'\b(api[_-]?key|apikey)\s*[:=]\s*["\'][a-zA-Z0-9_\-]{10,}["\']', 'Hardcoded API key'),
+            (r'\b(secret[_-]?key|secretkey)\s*[:=]\s*["\'][a-zA-Z0-9_\-]{10,}["\']', 'Hardcoded secret key'),
+            (r'\b(access[_-]?token|accesstoken)\s*[:=]\s*["\'][a-zA-Z0-9_\-\.]{10,}["\']', 'Hardcoded access token'),
+            (r'\b(bearer[_-]?token|bearertoken)\s*[:=]\s*["\'].*[a-zA-Z0-9]{10,}["\']', 'Hardcoded bearer token'),
+            (r'\b(refresh[_-]?token|refreshtoken)\s*[:=]\s*["\'][a-zA-Z0-9_\-]{10,}["\']', 'Hardcoded refresh token'),
+            (r'\b(private[_-]?key|privatekey)\s*[:=]\s*["\'][a-zA-Z0-9+/=]{20,}["\']', 'Hardcoded private key'),
+            (r'\b(client[_-]?secret|clientsecret)\s*[:=]\s*["\'][a-zA-Z0-9_\-]{10,}["\']', 'Hardcoded client secret'),
+            (r'\b(oauth[_-]?token|oauthtoken)\s*[:=]\s*["\'][a-zA-Z0-9_\-]{10,}["\']', 'Hardcoded OAuth token'),
+            (r'\b(authorization|Authorization)\s*[:=]\s*["\']?Bearer\s+[a-zA-Z0-9_\-\./+=]+', 'Authorization header with token'),
+            (r'\b(jwt|token)\s*[:=]\s*["\']ey[a-zA-Z0-9_\-\.]+["\']', 'JWT token hardcoded'),
         ]
         
         # Cloud service specific patterns
@@ -59,8 +60,10 @@ class SecurityDetector:
         # Certificate and key patterns
         self.certificate_patterns = [
             (r'-----BEGIN\s+(PRIVATE\s+KEY|RSA\s+PRIVATE\s+KEY|CERTIFICATE)', 'Private key or certificate in code'),
-            (r'\b(ssl[_-]?cert|certificate)\s*[:=]\s*["\'][^"\']{50,}["\']', 'SSL certificate hardcoded'),
-            (r'\b(thumbprint|fingerprint)\s*[:=]\s*["\'][a-fA-F0-9]{40,}["\']', 'Certificate thumbprint'),
+            (r'\b(ssl[_-]?cert|sslCert|certificate)\s*[:=]\s*["\'][^"\']{20,}["\']', 'SSL certificate hardcoded'),
+            (r'\b(thumbprint|fingerprint)\s*[:=]\s*["\'][a-fA-F0-9]{32,}["\']', 'Certificate thumbprint'),
+            (r'-----BEGIN', 'Certificate or key block detected'),
+            (r'MII[A-Za-z0-9+/]{20,}', 'Base64 encoded certificate'),
         ]
     
     def analyze_file_security(self, file_path: str, content: str) -> List[Dict[str, Any]]:
@@ -95,7 +98,7 @@ class SecurityDetector:
                 line_issues.append("CRITICAL: Method returns password value directly")
             
             # 3. Password logging (console, logger, debug, etc.)
-            if self._is_logging_statement(line_lower) and self._contains_sensitive_data(line_lower):
+            if self._is_logging_statement(line_lower) and self._contains_sensitive_value_in_log(line, line_lower):
                 line_issues.append("CRITICAL: Sensitive data logged - passwords/secrets should never be logged")
             
             # 4. ToString with password
@@ -215,6 +218,36 @@ class SecurityDetector:
             'connection', 'connectionstring'
         ]
         return any(keyword in line for keyword in sensitive_keywords)
+    
+    def _contains_sensitive_value_in_log(self, line: str, line_lower: str) -> bool:
+        """Check if logging statement actually logs sensitive data (not just mentions it)"""
+        # Look for patterns that indicate actual sensitive values being logged
+        
+        # Check for concatenation or interpolation with sensitive variables
+        if re.search(r'[\+\$\{].*\b(password|pwd|passwd|secret|token|apikey|api_key|connstr|connectionstring|accesstoken)\b', line_lower):
+            return True
+        
+        # Check for sensitive variables being passed as parameters
+        if re.search(r'\b(password|pwd|passwd|secret|token|apikey|api_key|connstr|connectionstring|accesstoken|userpassword)\b', line_lower):
+            # But exclude safe messages like "Authentication completed" or "User authorized"
+            safe_patterns = [
+                r'authentication\s+(completed|successful|failed)',
+                r'user\s+(authorized|authenticated|logged\s+in\s+successfully)',
+                r'login\s+(successful|failed|attempt)',
+                r'successfully',
+                r'completed'
+            ]
+            for safe in safe_patterns:
+                if re.search(safe, line_lower):
+                    return False
+            
+            # If it contains quotes and a sensitive word, it's likely logging the value
+            if '"' in line and any(word in line_lower for word in ['password:', 'token:', 'secret:', 'with password', 'connection string:']):
+                return True
+            
+            return True
+        
+        return False
     
     def _is_duplicate_issue(self, description: str, existing_issues: List[str]) -> bool:
         """Check if this issue type already exists"""
