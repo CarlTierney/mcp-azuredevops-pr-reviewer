@@ -23,6 +23,7 @@ class AzurePRReviewerServer:
         self.settings.validate_settings()
         self.azure_client = AzureDevOpsClient(self.settings)
         self.code_reviewer = CodeReviewer(self.settings)
+        self._last_review = None  # Store last review for confirmation workflow
         self._setup_tools()
         
     def _setup_tools(self):
@@ -244,6 +245,9 @@ class AzurePRReviewerServer:
                 # Get review instructions
                 instructions = self.code_reviewer.get_review_instructions()
                 
+                # Include package analysis in response
+                package_analysis = review_data.pr_details.get("package_analysis", {})
+                
                 return json.dumps({
                     "status": "success",
                     "pr_id": pull_request_id,
@@ -252,12 +256,264 @@ class AzurePRReviewerServer:
                     "review_context": review_data.review_prompt,
                     "file_count": len(changes),
                     "file_types": review_data.file_type_summary,
-                    "message": "PR data prepared with file-type specific review prompts."
+                    "package_analysis": package_analysis,
+                    "message": "PR data prepared with file-type specific review prompts and package analysis."
                 }, indent=2)
                 
             except Exception as e:
                 logger.error(f"Error preparing PR for review: {e}")
                 return f"Error preparing pull request for review: {str(e)}"
+        
+        @self.server.tool()
+        async def preview_review(
+            review_json: str,
+            store_for_posting: bool = True
+        ) -> str:
+            """Preview the review before posting to Azure DevOps
+            
+            This tool shows you what the review will look like before posting.
+            After previewing, you can use confirm_and_post_review to post it.
+            
+            Args:
+                review_json: JSON string with review results
+                store_for_posting: If True, stores the review for later posting (default: True)
+            
+            Returns:
+                Formatted preview of the review that will be posted
+            """
+            try:
+                # Parse the review JSON
+                review_data = json.loads(review_json)
+                parsed_review = self.code_reviewer.parse_review_response(review_data)
+                
+                # Store the review if requested and we have context
+                if store_for_posting and self._last_review:
+                    self._last_review["review_data"] = parsed_review
+                
+                # Get PR info from stored context
+                pr_info = ""
+                if self._last_review:
+                    pr_info = f"PR #{self._last_review['pull_request_id']} in {self._last_review['repository_id']}"
+                else:
+                    pr_info = "Review Preview"
+                
+                # Format the preview
+                preview_lines = [
+                    "=" * 60,
+                    "REVIEW PREVIEW - NOT POSTED YET",
+                    "=" * 60,
+                    "",
+                    pr_info,
+                    f"Status: {'APPROVED' if parsed_review['approved'] else 'CHANGES REQUIRED'}",
+                    f"Severity: {parsed_review['severity'].upper()}",
+                    "",
+                    "--- SUMMARY ---",
+                    self.azure_client._format_review_summary(parsed_review),
+                    "",
+                    "--- LINE COMMENTS ---"
+                ]
+                
+                # Separate general and line-specific comments
+                general_comments = []
+                comments_by_location = {}
+                
+                for comment in parsed_review.get("comments", []):
+                    file_path = comment.get("file_path")
+                    line_num = comment.get("line_number", 0)
+                    
+                    # Comments with no line number or line 0 are general
+                    if not file_path or not line_num or line_num <= 0:
+                        general_comments.append(comment)
+                    else:
+                        location_key = f"{file_path}:{line_num}"
+                        if location_key not in comments_by_location:
+                            comments_by_location[location_key] = []
+                        comments_by_location[location_key].append(comment)
+                
+                # Show general comments
+                if general_comments:
+                    preview_lines.append("\n--- GENERAL COMMENTS (will be in summary) ---")
+                    for comment in general_comments:
+                        severity = comment.get("severity", "info")
+                        content = comment.get("content", "")
+                        preview_lines.append(f"  [{severity.upper()}] {content}")
+                
+                # Show line-specific comments
+                if comments_by_location:
+                    for location, location_comments in sorted(comments_by_location.items()):
+                        file_path, line_num = location.rsplit(":", 1)
+                        preview_lines.append(f"\n{file_path} (Line {line_num}):")
+                        # Consolidate multiple comments on same line
+                        consolidated_content = "; ".join([c["content"] for c in location_comments])
+                        severity = max([c.get("severity", "info") for c in location_comments])
+                        preview_lines.append(f"  [{severity.upper()}] {consolidated_content}")
+                else:
+                    preview_lines.append("No line-specific comments")
+                
+                # Show test suggestions
+                test_suggestions = parsed_review.get("test_suggestions", [])
+                if test_suggestions:
+                    preview_lines.extend([
+                        "",
+                        "--- TEST SUGGESTIONS ---",
+                        f"{len(test_suggestions)} test(s) will be suggested:"
+                    ])
+                    for suggestion in test_suggestions:
+                        preview_lines.append(f"  • {suggestion.get('test_name', 'Unknown')}: {suggestion.get('description', '')}")
+                
+                preview_lines.extend([
+                    "",
+                    "=" * 60,
+                ])
+                
+                if store_for_posting and self._last_review:
+                    preview_lines.extend([
+                        "REVIEW STORED - Ready to post",
+                        "",
+                        "To post this review to Azure DevOps:",
+                        "  confirm_and_post_review(confirm=True)",
+                        "",
+                        "To modify the review:",
+                        "  1. Update your review JSON",
+                        "  2. Call preview_review again with the new JSON"
+                    ])
+                else:
+                    preview_lines.extend([
+                        "To store and post this review:",
+                        "  1. First use review_and_confirm to prepare the PR",
+                        "  2. Then call preview_review with your review JSON",
+                        "  3. Finally use confirm_and_post_review(confirm=True)"
+                    ])
+                
+                return "\n".join(preview_lines)
+                
+            except json.JSONDecodeError as e:
+                return f"Error: Invalid JSON format - {e}"
+            except Exception as e:
+                logger.error(f"Error generating preview: {e}")
+                return f"Error generating preview: {str(e)}"
+        
+        @self.server.tool()
+        async def review_and_confirm(
+            repository_id: str,
+            pull_request_id: int,
+            project: Optional[str] = None,
+            organization: Optional[str] = None
+        ) -> str:
+            """Review a PR and show results for confirmation before posting
+            
+            This tool performs a complete review of the PR and shows you the results.
+            After reviewing, you can choose to post the comments or make modifications.
+            
+            Args:
+                repository_id: Repository name or ID
+                pull_request_id: PR number
+                project: Project name (uses env var if not provided)
+                organization: Azure DevOps organization name (uses env var if not provided)
+            
+            Returns:
+                The review results with instructions for posting
+            """
+            try:
+                # Use environment variables if not provided
+                org = organization or self.settings.azure_organization
+                if not org:
+                    return "Error: Azure DevOps organization not configured. Set AZURE_DEVOPS_ORG environment variable."
+                
+                proj = project or self.settings.azure_project
+                if not proj:
+                    return "Error: Azure DevOps project not specified. Provide project parameter or set AZURE_DEVOPS_PROJECT environment variable."
+                
+                logger.info(f"Performing review of PR {pull_request_id}")
+                
+                # Get PR details
+                pr = await self.azure_client.get_pull_request(
+                    org, proj, repository_id, pull_request_id
+                )
+                
+                # Get PR changes
+                changes = await self.azure_client.get_pull_request_changes(
+                    org, proj, repository_id, pull_request_id
+                )
+                
+                # Prepare review data
+                review_data = self.code_reviewer.prepare_review_data(pr, changes)
+                
+                # Store the review data for later use
+                self._last_review = {
+                    "repository_id": repository_id,
+                    "pull_request_id": pull_request_id,
+                    "project": proj,
+                    "organization": org,
+                    "pr_details": review_data.pr_details,
+                    "review_prompt": review_data.review_prompt,
+                    "file_count": len(changes),
+                    "file_types": review_data.file_type_summary,
+                    "package_analysis": review_data.pr_details.get("package_analysis", {})
+                }
+                
+                # Format the response
+                response_lines = [
+                    "=" * 60,
+                    f"REVIEW PREPARED FOR PR #{pull_request_id}",
+                    "=" * 60,
+                    "",
+                    f"Repository: {repository_id}",
+                    f"Project: {proj}",
+                    f"Title: {pr.title}",
+                    f"Author: {pr.created_by.display_name if pr.created_by else 'Unknown'}",
+                    f"Source: {pr.source_ref_name.replace('refs/heads/', '')}",
+                    f"Target: {pr.target_ref_name.replace('refs/heads/', '')}",
+                    "",
+                    "FILES CHANGED:",
+                    f"  Total files: {len(changes)}",
+                    f"  File types: {', '.join(review_data.file_type_summary.keys())}",
+                    "",
+                    "PACKAGE ANALYSIS:",
+                ]
+                
+                pkg_analysis = review_data.pr_details.get("package_analysis", {})
+                if pkg_analysis:
+                    response_lines.append(f"  Packages examined: {pkg_analysis.get('total_packages_examined', 0)}")
+                    if pkg_analysis.get('has_issues'):
+                        response_lines.append(f"  VULNERABILITIES FOUND: {pkg_analysis.get('vulnerable_packages', 0)}")
+                        for vuln in pkg_analysis.get('vulnerable_list', [])[:3]:
+                            response_lines.append(f"    - {vuln}")
+                    else:
+                        response_lines.append("  No vulnerabilities detected")
+                else:
+                    response_lines.append("  No packages found in this PR")
+                
+                response_lines.extend([
+                    "",
+                    "=" * 60,
+                    "REVIEW DATA PREPARED",
+                    "=" * 60,
+                    "",
+                    "The PR is ready for review. Claude will now analyze the code.",
+                    "",
+                    "To proceed with the review:",
+                    "1. Claude will analyze the code based on the prepared data",
+                    "2. You'll see a preview of the review comments",
+                    "3. You can then choose to post or modify the review",
+                    "",
+                    "The review will check for:",
+                    "- Code quality and best practices",
+                    "- Security vulnerabilities",
+                    "- Performance issues",
+                    "- Missing tests",
+                    "- Package vulnerabilities",
+                    "",
+                    "Review prompt contains " + str(len(review_data.review_prompt)) + " characters of context.",
+                    "",
+                    "Please review the PR and provide your analysis in JSON format."
+                ])
+                
+                return "\n".join(response_lines)
+                
+            except Exception as e:
+                logger.error(f"Error performing review: {e}")
+                return f"Error performing review: {str(e)}"
         
         @self.server.tool()
         async def post_review_comments(
@@ -298,6 +554,10 @@ class AzurePRReviewerServer:
                 # Parse the review JSON
                 review_data = json.loads(review_json)
                 parsed_review = self.code_reviewer.parse_review_response(review_data)
+                
+                # Add package analysis to the review if available
+                if self.code_reviewer.package_analysis:
+                    parsed_review["package_analysis"] = self.code_reviewer.package_analysis
                 
                 # Use the new integrated posting method
                 result = await self.azure_client.post_review_to_azure(
@@ -375,6 +635,91 @@ class AzurePRReviewerServer:
             except Exception as e:
                 logger.error(f"Error adding comment: {e}")
                 return f"Error adding comment: {str(e)}"
+        
+        @self.server.tool()
+        async def confirm_and_post_review(
+            confirm: bool = False
+        ) -> str:
+            """Confirm and post the last review to Azure DevOps
+            
+            After reviewing with review_and_confirm and seeing the preview,
+            use this tool to post the review to Azure DevOps.
+            
+            Args:
+                confirm: Must be set to True to confirm posting the review
+            
+            Returns:
+                Status of the posted review
+            """
+            try:
+                if not confirm:
+                    return (
+                        "⚠️ CONFIRMATION REQUIRED ⚠️\n\n"
+                        "You are about to post the review to Azure DevOps.\n"
+                        "This will add comments to the PR that are visible to all reviewers.\n\n"
+                        "To confirm, call this tool again with confirm=True:\n"
+                        "confirm_and_post_review(confirm=True)"
+                    )
+                
+                if not self._last_review:
+                    return (
+                        "Error: No review prepared.\n"
+                        "Please use 'review_and_confirm' first to prepare a review,\n"
+                        "then use 'preview_review' to see what will be posted,\n"
+                        "and finally use this tool to post the review."
+                    )
+                
+                # Get the stored review data
+                review_data = self._last_review.get("review_data")
+                if not review_data:
+                    return "Error: Review data is missing. Please prepare a new review."
+                
+                # Store values before clearing
+                pr_id = self._last_review["pull_request_id"]
+                
+                # Post the review
+                result = await self.azure_client.post_review_to_azure(
+                    self._last_review["organization"],
+                    self._last_review["project"],
+                    self._last_review["repository_id"],
+                    self._last_review["pull_request_id"],
+                    review_data
+                )
+                
+                # Clear the stored review
+                self._last_review = None
+                
+                # Format response
+                response_lines = [
+                    "=" * 60,
+                    "REVIEW POSTED SUCCESSFULLY",
+                    "=" * 60,
+                    "",
+                    f"PR #{pr_id} has been reviewed.",
+                    f"Comments posted: {result['comments_posted']}",
+                    f"Vote updated: {'Yes' if result['vote_updated'] else 'No'}",
+                ]
+                
+                if result.get("errors"):
+                    response_lines.extend([
+                        "",
+                        "⚠️ Some issues occurred:",
+                    ])
+                    for error in result["errors"]:
+                        response_lines.append(f"  - {error}")
+                else:
+                    response_lines.extend([
+                        "",
+                        "✅ All review comments posted successfully.",
+                        "",
+                        "The review is now visible in Azure DevOps."
+                    ])
+                
+                return "\n".join(response_lines)
+                
+            except Exception as e:
+                logger.error(f"Error posting review: {e}")
+                return f"Error posting review: {str(e)}"
         
         @self.server.tool()
         async def approve_pull_request(

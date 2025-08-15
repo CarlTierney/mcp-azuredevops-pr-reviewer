@@ -311,8 +311,9 @@ class TestCodeReviewer(unittest.TestCase):
         
         self.assertFalse(result["approved"])
         self.assertEqual(result["severity"], "minor")
-        self.assertEqual(result["summary"], "Could not parse review response")
+        self.assertEqual(result["summary"], "Review completed")  # Default value
         self.assertEqual(result["comments"], [])
+        self.assertEqual(result["test_suggestions"], [])
     
     def test_parse_review_response_partial(self):
         """Test parsing partial review response"""
@@ -328,6 +329,7 @@ class TestCodeReviewer(unittest.TestCase):
         self.assertEqual(result["severity"], "minor")  # Default
         self.assertEqual(result["summary"], "Partial review")
         self.assertEqual(result["comments"], [])  # Default empty list
+        self.assertEqual(result["test_suggestions"], [])  # Default empty list
 
 
 if __name__ == '__main__':

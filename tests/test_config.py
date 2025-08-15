@@ -3,7 +3,7 @@
 import unittest
 import os
 from unittest.mock import patch, mock_open
-from azure_pr_reviewer.config import Settings, validate_settings
+from azure_pr_reviewer.config import Settings
 
 
 class TestSettings(unittest.TestCase):
@@ -108,7 +108,7 @@ class TestSettings(unittest.TestCase):
         """Test successful settings validation"""
         settings = Settings()
         # Should not raise any exception
-        validate_settings(settings)
+        settings.validate_settings()
     
     @patch.dict(os.environ, {})
     def test_validate_settings_missing_pat(self):
@@ -118,7 +118,7 @@ class TestSettings(unittest.TestCase):
         settings.azure_pat = ''
         
         with self.assertRaises(ValueError) as context:
-            validate_settings(settings)
+            settings.validate_settings()
         self.assertIn('PAT', str(context.exception))
     
     @patch.dict(os.environ, {})
@@ -129,8 +129,8 @@ class TestSettings(unittest.TestCase):
         settings.azure_pat = 'test-pat'
         
         with self.assertRaises(ValueError) as context:
-            validate_settings(settings)
-        self.assertIn('organization', str(context.exception).lower())
+            settings.validate_settings()
+        self.assertIn('Azure DevOps organization', str(context.exception))
     
     @patch.dict(os.environ, {})
     def test_validate_settings_missing_both(self):
@@ -140,7 +140,7 @@ class TestSettings(unittest.TestCase):
         settings.azure_pat = ''
         
         with self.assertRaises(ValueError) as context:
-            validate_settings(settings)
+            settings.validate_settings()
         # Should mention both are missing
         error_msg = str(context.exception).lower()
         self.assertTrue('organization' in error_msg or 'pat' in error_msg)

@@ -486,14 +486,61 @@ class AzureDevOpsClient:
                 "errors": []
             }
             
-            # Post individual comments if any
+            # Separate general comments from line-specific comments
+            general_comments = []  # Comments to include in summary
+            
+            # Consolidate comments by file and line to prevent multiple comments on same line
             if review_data.get("comments"):
-                comments_to_post = []
+                # Group comments by location
+                comments_by_location = {}
                 for comment in review_data["comments"]:
+                    file_path = comment.get("file_path")
+                    line_number = comment.get("line_number", 0)
+                    
+                    # Comments with no line number or line 0 go to summary
+                    if not file_path or not line_number or line_number <= 0:
+                        # Add to general comments for summary
+                        general_comments.append(comment)
+                    else:
+                        # Create location key for line-specific comments
+                        location_key = f"{file_path}:{line_number}"
+                        if location_key not in comments_by_location:
+                            comments_by_location[location_key] = []
+                        comments_by_location[location_key].append(comment)
+                
+                # Create consolidated line-specific comments only
+                comments_to_post = []
+                for location_key, location_comments in comments_by_location.items():
+                    # All comments here have valid file path and line number > 0
+                    file_path, line_number = location_key.rsplit(":", 1)
+                    
+                    # Combine all comments for this location
+                    consolidated_parts = []
+                    highest_severity = "info"
+                    severity_order = {"info": 0, "warning": 1, "error": 2}
+                    
+                    for comment in location_comments:
+                        severity = comment.get("severity", "info")
+                        content = comment.get("content", "")
+                        
+                        # Track highest severity
+                        if severity_order.get(severity, 0) > severity_order.get(highest_severity, 0):
+                            highest_severity = severity
+                        
+                        consolidated_parts.append(f"[{severity.upper()}] {content}")
+                    
+                    # Create single consolidated comment
+                    if len(consolidated_parts) == 1:
+                        # Single comment, use original format
+                        consolidated_content = self._format_review_comment(location_comments[0])
+                    else:
+                        # Multiple comments, create consolidated message
+                        consolidated_content = f"**[{highest_severity.upper()}]**: Multiple issues found:\n" + "\n".join(f"• {part}" for part in consolidated_parts)
+                    
                     comment_data = {
-                        "content": self._format_review_comment(comment),
-                        "file_path": comment.get("file_path"),
-                        "line_number": comment.get("line_number")
+                        "content": consolidated_content,
+                        "file_path": file_path,
+                        "line_number": int(line_number)
                     }
                     comments_to_post.append(comment_data)
                 
@@ -506,7 +553,11 @@ class AzureDevOpsClient:
                 except Exception as e:
                     result["errors"].append(f"Failed to post comments: {e}")
             
-            # Post summary comment
+            # Add general comments to review data for summary
+            if general_comments:
+                review_data["general_comments"] = general_comments
+            
+            # Post summary comment with general comments included
             summary = self._format_review_summary(review_data)
             try:
                 summary_comment = [{
@@ -542,17 +593,10 @@ class AzureDevOpsClient:
     
     def _format_review_comment(self, comment: Dict[str, Any]) -> str:
         """Format a single review comment for Azure DevOps"""
-        severity_icons = {
-            "error": "❌",
-            "warning": "⚠️",
-            "info": "ℹ️"
-        }
-        
         severity = comment.get("severity", "info")
-        icon = severity_icons.get(severity, "")
         content = comment.get("content", "")
         
-        return f"{icon} **{severity.upper()}**: {content}"
+        return f"**[{severity.upper()}]**: {content}"
     
     def _format_review_summary(self, review_data: Dict[str, Any]) -> str:
         """Format comprehensive review summary for Azure DevOps"""
@@ -560,7 +604,9 @@ class AzureDevOpsClient:
         summary = review_data.get("summary", "No summary provided")
         approved = review_data.get("approved", False)
         comments = review_data.get("comments", [])
+        general_comments = review_data.get("general_comments", [])
         test_suggestions = review_data.get("test_suggestions", [])
+        package_analysis = review_data.get("package_analysis", {})
         
         # If summary is already comprehensive (contains multiple sections), use it directly
         if "FILES CHANGED:" in summary and "ISSUES FOUND:" in summary:
@@ -578,7 +624,7 @@ class AzureDevOpsClient:
         else:
             status_line = "**Review Status: APPROVED**"
         
-        # Build comprehensive summary
+        # Build comprehensive summary without emojis
         lines = [
             "## Automated Code Review Results",
             "",
@@ -586,31 +632,65 @@ class AzureDevOpsClient:
             "",
         ]
         
-        # Add issue breakdown
-        if comments:
-            security_issues = [c for c in comments if c.get("issue_type") == "security"]
-            test_issues = [c for c in comments if c.get("issue_type") == "missing_tests" or "test" in c.get("content", "").lower()]
+        # Add package analysis section if available
+        if package_analysis:
+            lines.append("### Package Security Analysis")
+            lines.append(f"**Packages examined from all project folders: {package_analysis.get('total_packages_examined', 0)}**")
             
-            lines.append("### Issues Found")
+            if package_analysis.get('packages_by_type'):
+                lines.append("")
+                lines.append("Package types analyzed:")
+                for pkg_type, count in package_analysis['packages_by_type'].items():
+                    lines.append(f"- {pkg_type}: {count} packages")
             
-            if security_issues:
-                lines.append(f"🔒 **Security violations: {len(security_issues)}**")
-                for issue in security_issues[:2]:  # Show first 2
-                    line_info = f"Line {issue['line_number']}" if issue.get('line_number', 0) > 1 else "Multiple lines"
-                    lines.append(f"  - {line_info}: Password exposure detected")
-            
-            if test_issues:
-                lines.append(f"🧪 **Testing violations: {len(test_issues)}**")
-                lines.append(f"  - Bug fix lacks required regression tests")
-            
-            if not security_issues and not test_issues:
-                other_issues = len(comments)
-                if other_issues > 0:
-                    lines.append(f"⚠️ **Code quality issues: {other_issues}**")
-                else:
-                    lines.append("✅ **No critical issues detected**")
+            if package_analysis.get('has_issues'):
+                lines.append("")
+                lines.append(f"**CRITICAL: {package_analysis.get('vulnerable_packages', 0)} vulnerable package(s) found:**")
+                for vuln in package_analysis.get('vulnerable_list', [])[:3]:
+                    lines.append(f"- {vuln}")
+                if len(package_analysis.get('vulnerable_list', [])) > 3:
+                    lines.append(f"- ... and {len(package_analysis['vulnerable_list']) - 3} more")
+            else:
+                lines.append("")
+                lines.append("**Result: No package vulnerabilities detected**")
             
             lines.append("")
+        
+        # Add general comments that don't have line numbers
+        if general_comments:
+            lines.append("### General Review Comments")
+            for comment in general_comments:
+                severity = comment.get("severity", "info")
+                content = comment.get("content", "")
+                lines.append(f"**[{severity.upper()}]**: {content}")
+            lines.append("")
+        
+        # Add issue breakdown for line-specific comments
+        if comments:
+            # Only count line-specific comments (those with valid line numbers)
+            line_specific_comments = [c for c in comments if (c.get("line_number") or 0) > 0]
+            security_issues = [c for c in line_specific_comments if c.get("issue_type") == "security"]
+            test_issues = [c for c in line_specific_comments if c.get("issue_type") == "missing_tests" or "test" in c.get("content", "").lower()]
+            
+            if line_specific_comments:
+                lines.append("### Line-Specific Issues Found")
+                
+                if security_issues:
+                    lines.append(f"**Security violations: {len(security_issues)}**")
+                    for issue in security_issues[:2]:  # Show first 2
+                        line_info = f"Line {issue['line_number']}"
+                        lines.append(f"  - {line_info}: {issue.get('content', 'Security issue detected')[:80]}")
+                
+                if test_issues:
+                    lines.append(f"**Testing violations: {len(test_issues)}**")
+                    lines.append(f"  - Bug fix lacks required regression tests")
+                
+                if not security_issues and not test_issues:
+                    other_issues = len(line_specific_comments)
+                    if other_issues > 0:
+                        lines.append(f"**Code quality issues: {other_issues}**")
+                
+                lines.append("")
         
         # Add original summary if provided
         if summary and summary != "No summary provided":
@@ -637,8 +717,8 @@ class AzureDevOpsClient:
         # Add test suggestions if any
         if test_suggestions:
             lines.extend([
-                "### Test Suggestions",
-                f"The following {len(test_suggestions)} test(s) should be added:",
+                "### Required Test Cases",
+                f"The following {len(test_suggestions)} test case(s) should be added:",
                 ""
             ])
             
@@ -647,12 +727,16 @@ class AzureDevOpsClient:
                 description = suggestion.get("description", "")
                 test_code = suggestion.get("test_code", "")
                 
-                lines.append(f"**{i}. {test_name}**")
+                lines.append(f"#### {i}. {test_name}")
                 if description:
-                    lines.append(f"   - {description}")
+                    lines.append(f"**Purpose:** {description}")
+                    lines.append("")
                 if test_code:
+                    lines.append("**Stubbed Implementation:**")
                     lines.append("```csharp")
-                    lines.append(test_code.replace("\\n", "\n"))
+                    # Properly handle escaped newlines in test code
+                    formatted_code = test_code.replace("\\n", "\n")
+                    lines.append(formatted_code)
                     lines.append("```")
                 lines.append("")
         

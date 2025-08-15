@@ -2,9 +2,13 @@
 
 import logging
 import os
-from typing import List, Dict, Any, Optional
+import json
+import xml.etree.ElementTree as ET
+from pathlib import Path
+from typing import List, Dict, Any, Optional, Tuple
 from dataclasses import dataclass
 from .file_type_detector import FileTypeDetector, FileType
+from .security_detector import SecurityDetector
 
 logger = logging.getLogger(__name__)
 
@@ -22,19 +26,28 @@ class CodeReviewer:
     def __init__(self, settings):
         self.settings = settings
         self.file_detector = FileTypeDetector()
+        self.security_detector = SecurityDetector()
+        self.package_analysis = None  # Will store package analysis results
+        self.security_issues = []  # Will store security issues found
     
     def prepare_review_data(
         self,
         pr_details: Any,
         changes: List[Dict[str, Any]]
     ) -> ReviewData:
-        """Prepare PR data for Claude CLI to review with file-type awareness"""
+        """Prepare PR data for Claude CLI to review with file-type awareness, package analysis, and security scanning"""
         try:
             # Analyze file types in the PR
             file_type_summary = self.file_detector.analyze_pr_files(changes)
             
-            # Build the review context
-            review_prompt = self._build_review_prompt(pr_details, changes, file_type_summary)
+            # Analyze packages for vulnerabilities
+            package_summary, package_issues = self.analyze_packages_in_pr(changes)
+            
+            # Run security analysis on all changed files
+            security_issues = self.analyze_security_in_pr(changes)
+            
+            # Build the review context with all analyses
+            review_prompt = self._build_review_prompt(pr_details, changes, file_type_summary, package_summary, security_issues)
             
             # Prepare structured data
             pr_data = {
@@ -44,7 +57,8 @@ class CodeReviewer:
                 "source_branch": pr_details.source_ref_name,
                 "target_branch": pr_details.target_ref_name,
                 "created_by": pr_details.created_by.display_name if pr_details.created_by else "Unknown",
-                "status": pr_details.status
+                "status": pr_details.status,
+                "package_analysis": package_summary
             }
             
             # Convert file type summary to JSON-serializable format
@@ -54,6 +68,9 @@ class CodeReviewer:
             
             logger.info(f"Prepared review data for PR #{pr_details.pull_request_id}")
             logger.info(f"File types detected: {list(file_type_summary_str.keys())}")
+            logger.info(f"Packages examined: {package_summary['total_packages_examined']}")
+            if package_summary['has_issues']:
+                logger.warning(f"Package vulnerabilities found: {package_summary['vulnerable_packages']}")
             
             return ReviewData(
                 pr_details=pr_data,
@@ -211,11 +228,28 @@ Format your response as JSON:
     ],
     "test_suggestions": [
         {
-            "test_name": "TestClassName.TestMethodName",
-            "description": "What this test should verify",
-            "test_code": "// Stubbed test code\\n[Test]\\npublic void TestMethodName()\\n{\\n    // Arrange\\n    \\n    // Act\\n    \\n    // Assert\\n    Assert.Fail(\\"Not implemented\\");\\n}"
+            "file_path": "path/to/file.cs",
+            "test_name": "ShouldValidateUserInput",
+            "description": "Verify that user input is properly validated before processing",
+            "test_code": "[Test]\\npublic void ShouldValidateUserInput()\\n{\\n    // Arrange\\n    \\n    // Act\\n    \\n    // Assert\\n    Assert.Fail(\\"Not implemented\\");\\n}"
         }
-    ]
+    ],
+    "files_with_tests": {
+        "path/to/file1.cs": [
+            {
+                "test_name": "ShouldHandleNullInput",
+                "description": "Verify the method handles null input gracefully",
+                "test_code": "[Test]\\npublic void ShouldHandleNullInput()\\n{\\n    // Arrange\\n    \\n    // Act\\n    \\n    // Assert\\n    Assert.Fail(\\"Not implemented\\");\\n}"
+            }
+        ],
+        "path/to/file2.cs": [
+            {
+                "test_name": "ShouldThrowOnInvalidState",
+                "description": "Verify exception is thrown when object is in invalid state",
+                "test_code": "[Test]\\npublic void ShouldThrowOnInvalidState()\\n{\\n    // Arrange\\n    \\n    // Act\\n    \\n    // Assert\\n    Assert.Fail(\\"Not implemented\\");\\n}"
+            }
+        ]
+    }
 }
 ```
 
@@ -226,12 +260,27 @@ Format your response as JSON:
 - **critical**: Security vulnerabilities, bugs, or data integrity issues
 
 ## Test Suggestions
-For any bug fixes or new features, provide specific test suggestions with:
-- Concrete test method names
-- Description of what each test verifies
-- Stubbed test code in the appropriate testing framework
-- Focus on edge cases, error conditions, and critical paths
-- For bug fixes: MUST include tests that verify the fix
+For EVERY file with code changes (add/edit), provide test method stubs:
+- Include file_path to indicate which file the test is for
+- Create concrete test method names only (e.g., ShouldThrowWhenUserNotFound, VerifyPasswordIsNotExposed)
+- Method names should describe what is being tested
+- Description should explain the test scenario
+- test_code should be ONLY the method stub, not the full test class
+- For C#: Just the method with [Test] attribute
+- For JavaScript/TypeScript: Just the it() or test() block
+- For Python: Just the def test_* method
+- MUST include tests for:
+  - Bug fixes (regression tests)
+  - New features (happy path and edge cases)
+  - Error handling
+  - Boundary conditions
+
+Example test_code format:
+For C#: 
+"[Test]\npublic void ShouldValidateUserInput()\n{\n    // Arrange\n    \n    // Act\n    \n    // Assert\n    Assert.Fail(\"Not implemented\");\n}"
+
+For JavaScript:
+"it('should validate user input', () => {\n    // Arrange\n    \n    // Act\n    \n    // Assert\n    expect(false).toBe(true); // Not implemented\n});"
 """
     
     def _get_default_prompt(self) -> str:
@@ -271,9 +320,11 @@ Provide your review in JSON format:
         self,
         pr_details: Any,
         changes: List[Dict[str, Any]],
-        file_type_summary: Dict[FileType, List[str]]
+        file_type_summary: Dict[FileType, List[str]],
+        package_summary: Optional[Dict[str, Any]] = None,
+        security_issues: Optional[List[Dict[str, Any]]] = None
     ) -> str:
-        """Build the review context for Claude with file type awareness"""
+        """Build the review context for Claude with file type awareness, package analysis, and security issues"""
         
         prompt_parts = [
             f"Pull Request #{pr_details.pull_request_id}: {pr_details.title}",
@@ -287,6 +338,48 @@ Provide your review in JSON format:
         for file_type, files in file_type_summary.items():
             if files:
                 prompt_parts.append(f"- {file_type.value}: {len(files)} file(s)")
+        
+        # Add package analysis summary
+        if package_summary:
+            prompt_parts.append("\n### Package Analysis:\n")
+            prompt_parts.append(f"- Total packages examined: {package_summary['total_packages_examined']}")
+            
+            if package_summary['packages_by_type']:
+                prompt_parts.append("- Package types found:")
+                for pkg_type, count in package_summary['packages_by_type'].items():
+                    prompt_parts.append(f"  - {pkg_type}: {count} packages")
+            
+            if package_summary['has_issues']:
+                prompt_parts.append(f"- **CRITICAL**: {package_summary['vulnerable_packages']} vulnerable package(s) found:")
+                for vuln in package_summary['vulnerable_list'][:5]:  # Show first 5
+                    prompt_parts.append(f"  - {vuln}")
+                if len(package_summary['vulnerable_list']) > 5:
+                    prompt_parts.append(f"  - ... and {len(package_summary['vulnerable_list']) - 5} more")
+            else:
+                prompt_parts.append("- **No package vulnerabilities detected**")
+        
+        # Add security issues summary
+        if security_issues:
+            prompt_parts.append("\n### CRITICAL SECURITY ISSUES DETECTED:\n")
+            prompt_parts.append(f"**Found {len(security_issues)} security issue(s) that MUST be addressed:**\n")
+            
+            # Group by file
+            issues_by_file = {}
+            for issue in security_issues:
+                file_path = issue.get("file_path", "Unknown")
+                if file_path not in issues_by_file:
+                    issues_by_file[file_path] = []
+                issues_by_file[file_path].append(issue)
+            
+            for file_path, file_issues in issues_by_file.items():
+                prompt_parts.append(f"\n**{file_path}:**")
+                for issue in file_issues[:10]:  # Show first 10 per file
+                    prompt_parts.append(f"  - Line {issue['line_number']}: {issue['content']}")
+                if len(file_issues) > 10:
+                    prompt_parts.append(f"  - ... and {len(file_issues) - 10} more issues")
+            
+            prompt_parts.append("\n**IMPORTANT**: These security issues MUST be added as comments in your review JSON.")
+            prompt_parts.append("Each security issue should have a comment with the exact file_path and line_number.")
         
         prompt_parts.append("\n### File Changes:\n")
         
@@ -348,15 +441,217 @@ Provide your review in JSON format:
         
         return "\n".join(diff_lines)
     
+    def analyze_packages_in_pr(self, changes: List[Dict[str, Any]]) -> Tuple[Dict[str, Any], List[str]]:
+        """Analyze packages in PR changes for vulnerabilities and outdated versions
+        
+        Returns:
+            Tuple of (package_summary, issues_found)
+        """
+        packages_found = {
+            "npm": {},
+            "nuget": {},
+            "pip": {},
+            "maven": {},
+            "composer": {}
+        }
+        
+        issues = []
+        total_packages = 0
+        vulnerable_packages = []
+        outdated_packages = []
+        
+        # Known vulnerable packages (simplified for demonstration)
+        vulnerable_db = {
+            "npm": {
+                "lodash": ["< 4.17.21", "CVE-2021-23337"],
+                "minimist": ["< 1.2.6", "CVE-2021-44906"],
+                "axios": ["< 0.21.2", "CVE-2021-3749"]
+            },
+            "nuget": {
+                "Newtonsoft.Json": ["< 13.0.1", "CVE-2021-42219"],
+                "System.Text.Encodings.Web": ["< 4.7.2", "CVE-2021-26701"]
+            },
+            "pip": {
+                "django": ["< 3.2.13", "CVE-2022-28346"],
+                "pillow": ["< 9.0.1", "CVE-2022-24303"]
+            }
+        }
+        
+        # Process each changed file
+        for change in changes:
+            file_path = change.get("path", "")
+            content = change.get("new_content", "") or change.get("full_content", "")
+            
+            if not content:
+                continue
+            
+            # Check for package files
+            if file_path.endswith("package.json") or file_path.endswith("package-lock.json"):
+                # Parse npm packages
+                try:
+                    data = json.loads(content)
+                    deps = {}
+                    if "dependencies" in data:
+                        deps.update(data["dependencies"])
+                    if "devDependencies" in data:
+                        deps.update(data["devDependencies"])
+                    
+                    for name, version in deps.items():
+                        packages_found["npm"][name] = self._clean_version(version)
+                        total_packages += 1
+                        
+                        # Check if vulnerable
+                        if name in vulnerable_db.get("npm", {}):
+                            vuln_info = vulnerable_db["npm"][name]
+                            vulnerable_packages.append(f"{name}@{version} ({vuln_info[1]})")
+                            issues.append(f"CRITICAL: Vulnerable package {name}@{version} - {vuln_info[1]}")
+                except:
+                    pass
+            
+            elif file_path.endswith(".csproj") or file_path.endswith("packages.config"):
+                # Parse NuGet packages
+                try:
+                    tree = ET.fromstring(content)
+                    
+                    # Handle .csproj files
+                    if file_path.endswith(".csproj"):
+                        for item in tree.findall(".//PackageReference"):
+                            name = item.get("Include")
+                            version = item.get("Version", "unknown")
+                            if name:
+                                packages_found["nuget"][name] = version
+                                total_packages += 1
+                                
+                                # Check if vulnerable
+                                if name in vulnerable_db.get("nuget", {}):
+                                    vuln_info = vulnerable_db["nuget"][name]
+                                    vulnerable_packages.append(f"{name}@{version} ({vuln_info[1]})")
+                                    issues.append(f"CRITICAL: Vulnerable package {name}@{version} - {vuln_info[1]}")
+                    
+                    # Handle packages.config
+                    elif file_path.endswith("packages.config"):
+                        for package_elem in tree.findall(".//package"):
+                            name = package_elem.get("id")
+                            version = package_elem.get("version", "unknown")
+                            if name:
+                                packages_found["nuget"][name] = version
+                                total_packages += 1
+                                
+                                # Check if vulnerable
+                                if name in vulnerable_db.get("nuget", {}):
+                                    vuln_info = vulnerable_db["nuget"][name]
+                                    vulnerable_packages.append(f"{name}@{version} ({vuln_info[1]})")
+                                    issues.append(f"CRITICAL: Vulnerable package {name}@{version} - {vuln_info[1]}")
+                except:
+                    pass
+            
+            elif "requirements" in file_path and file_path.endswith(".txt"):
+                # Parse pip packages
+                try:
+                    lines = content.splitlines()
+                    for line in lines:
+                        line = line.strip()
+                        if line and not line.startswith("#"):
+                            # Parse package and version
+                            parts = line.split("==")
+                            if len(parts) == 2:
+                                name = parts[0].strip()
+                                version = parts[1].strip()
+                                packages_found["pip"][name] = version
+                                total_packages += 1
+                                
+                                # Check if vulnerable
+                                if name in vulnerable_db.get("pip", {}):
+                                    vuln_info = vulnerable_db["pip"][name]
+                                    vulnerable_packages.append(f"{name}@{version} ({vuln_info[1]})")
+                                    issues.append(f"CRITICAL: Vulnerable package {name}@{version} - {vuln_info[1]}")
+                except:
+                    pass
+        
+        # Create summary
+        package_summary = {
+            "total_packages_examined": total_packages,
+            "packages_by_type": {
+                k: len(v) for k, v in packages_found.items() if v
+            },
+            "vulnerable_packages": len(vulnerable_packages),
+            "vulnerable_list": vulnerable_packages,
+            "has_issues": len(issues) > 0
+        }
+        
+        # Store for later use
+        self.package_analysis = package_summary
+        
+        return package_summary, issues
+    
+    def _clean_version(self, version: str) -> str:
+        """Clean version string"""
+        # Remove common prefixes
+        version = version.lstrip("^~>=<!")
+        # Remove any ranges
+        version = version.split(",")[0]
+        version = version.split("||")[0]
+        return version.strip()
+    
+    def analyze_security_in_pr(self, changes: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+        """Analyze all changed files for security issues
+        
+        Returns:
+            List of security issues found with file path and line numbers
+        """
+        all_security_issues = []
+        
+        for change in changes:
+            file_path = change.get("path", "")
+            content = change.get("new_content", "") or change.get("full_content", "")
+            
+            if not content:
+                continue
+            
+            # Run security analysis on the file
+            file_issues = self.security_detector.analyze_file_security(file_path, content)
+            
+            # Add all issues to the list
+            all_security_issues.extend(file_issues)
+            
+            # Log if we found critical issues
+            if file_issues:
+                logger.warning(f"Found {len(file_issues)} security issues in {file_path}")
+                for issue in file_issues:
+                    logger.warning(f"  Line {issue['line_number']}: {issue['content']}")
+        
+        # Store for later use
+        self.security_issues = all_security_issues
+        
+        return all_security_issues
+    
     def parse_review_response(self, review_json: Dict[str, Any]) -> Dict[str, Any]:
         """Parse the review response from Claude CLI"""
         try:
+            # Collect all test suggestions from both formats
+            all_test_suggestions = []
+            
+            # Get test suggestions from the main array
+            test_suggestions = review_json.get("test_suggestions", [])
+            all_test_suggestions.extend(test_suggestions)
+            
+            # Get test suggestions from files_with_tests
+            files_with_tests = review_json.get("files_with_tests", {})
+            for file_path, tests in files_with_tests.items():
+                for test in tests:
+                    # Ensure each test has the file_path
+                    test_with_path = dict(test)
+                    if "file_path" not in test_with_path:
+                        test_with_path["file_path"] = file_path
+                    all_test_suggestions.append(test_with_path)
+            
             return {
                 "approved": review_json.get("approved", False),
                 "severity": review_json.get("severity", "minor"),
                 "summary": review_json.get("summary", "Review completed"),
                 "comments": review_json.get("comments", []),
-                "test_suggestions": review_json.get("test_suggestions", [])
+                "test_suggestions": all_test_suggestions,
+                "files_with_tests": files_with_tests  # Keep original structure too
             }
         except Exception as e:
             logger.error(f"Error parsing review response: {e}")
@@ -365,5 +660,6 @@ Provide your review in JSON format:
                 "severity": "minor",
                 "summary": "Could not parse review response",
                 "comments": [],
-                "test_suggestions": []
+                "test_suggestions": [],
+                "files_with_tests": {}
             }
