@@ -253,14 +253,32 @@ Format your response as JSON:
 }
 ```
 
+## CRITICAL: Security Analysis Required
+
+**ALWAYS check for security issues in EVERY line of EVERY changed file:**
+- RevealPassword methods or any method that exposes password information
+- Password values being returned, logged, or displayed
+- ToString methods that expose sensitive data
+- Hardcoded passwords, API keys, or connection strings
+- Any method that reveals sensitive information
+
+**If security issues are found:**
+- Set severity to "critical" 
+- Add comments with exact line numbers for each security violation
+- Include "SECURITY" in the comment content
+- Set approved to false
+
+**Security issues take priority over all other concerns.**
+
 ## Severity Guidelines
 - **approved**: Code meets standards, follows best practices
 - **minor**: Style issues, minor improvements
 - **major**: Performance, maintainability, or design issues
 - **critical**: Security vulnerabilities, bugs, or data integrity issues
 
-## Test Suggestions
-For EVERY file with code changes (add/edit), provide test method stubs:
+## Test Suggestions - REQUIRED FOR ALL CHANGED FILES
+
+**MANDATORY: For EVERY file with code changes (add/edit), provide test method stubs:**
 - Include file_path to indicate which file the test is for
 - Create concrete test method names only (e.g., ShouldThrowWhenUserNotFound, VerifyPasswordIsNotExposed)
 - Method names should describe what is being tested

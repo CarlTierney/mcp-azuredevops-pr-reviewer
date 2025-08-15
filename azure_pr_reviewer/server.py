@@ -248,6 +248,14 @@ class AzurePRReviewerServer:
                 # Include package analysis in response
                 package_analysis = review_data.pr_details.get("package_analysis", {})
                 
+                # Include security analysis results
+                security_issues = self.code_reviewer.security_issues
+                security_analysis = {
+                    "issues_found": len(security_issues),
+                    "issues": security_issues,
+                    "has_critical_issues": len(security_issues) > 0
+                }
+                
                 return json.dumps({
                     "status": "success",
                     "pr_id": pull_request_id,
@@ -257,7 +265,8 @@ class AzurePRReviewerServer:
                     "file_count": len(changes),
                     "file_types": review_data.file_type_summary,
                     "package_analysis": package_analysis,
-                    "message": "PR data prepared with file-type specific review prompts and package analysis."
+                    "security_analysis": security_analysis,
+                    "message": f"PR data prepared with file-type specific review prompts, package analysis, and security scanning. {len(security_issues)} security issue(s) detected."
                 }, indent=2)
                 
             except Exception as e:
@@ -483,6 +492,26 @@ class AzurePRReviewerServer:
                         response_lines.append("  No vulnerabilities detected")
                 else:
                     response_lines.append("  No packages found in this PR")
+                
+                # Add security analysis
+                security_issues = self.code_reviewer.security_issues
+                response_lines.extend([
+                    "",
+                    "SECURITY ANALYSIS:",
+                    f"  Security issues detected: {len(security_issues)}"
+                ])
+                
+                if security_issues:
+                    response_lines.append("  CRITICAL SECURITY ISSUES FOUND:")
+                    for issue in security_issues[:5]:  # Show first 5
+                        file_path = issue.get('file_path', 'Unknown')
+                        line_num = issue.get('line_number', 0)
+                        content = issue.get('content', '')[:60] + "..." if len(issue.get('content', '')) > 60 else issue.get('content', '')
+                        response_lines.append(f"    - {file_path}:{line_num} - {content}")
+                    if len(security_issues) > 5:
+                        response_lines.append(f"    - ... and {len(security_issues) - 5} more issues")
+                else:
+                    response_lines.append("  No security issues detected")
                 
                 response_lines.extend([
                     "",
