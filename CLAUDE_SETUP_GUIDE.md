@@ -37,7 +37,7 @@ LOG_LEVEL=INFO
 
 ### 3. Claude Desktop Configuration
 
-#### For Windows Users
+#### For Windows Users (RECOMMENDED - PowerShell Method)
 
 1. Open Claude Desktop settings
 2. Navigate to MCP Servers configuration
@@ -47,11 +47,46 @@ LOG_LEVEL=INFO
 {
   "mcpServers": {
     "azure-pr-reviewer": {
+      "command": "powershell.exe",
+      "args": ["-ExecutionPolicy", "Bypass", "-File", "start_server.ps1"],
+      "cwd": "D:\\OpenDoors\\pr-reviewer"
+    }
+  }
+}
+```
+
+**Why PowerShell?**
+- Reliably loads environment variables from .env file
+- Handles comments and special characters in .env
+- No issues with Claude Desktop environment isolation
+
+**Alternative Methods (if PowerShell doesn't work):**
+
+Option 1 - Python Wrapper:
+```json
+{
+  "mcpServers": {
+    "azure-pr-reviewer": {
+      "command": "python",
+      "args": ["start_server_robust.py"],
+      "cwd": "D:\\OpenDoors\\pr-reviewer"
+    }
+  }
+}
+```
+
+Option 2 - Direct with Manual Environment (copy values from .env):
+```json
+{
+  "mcpServers": {
+    "azure-pr-reviewer": {
       "command": "python",
       "args": ["-m", "azure_pr_reviewer.server"],
       "cwd": "D:\\OpenDoors\\pr-reviewer",
       "env": {
-        "PYTHONPATH": "D:\\OpenDoors\\pr-reviewer",
+        "AZURE_DEVOPS_ORG": "your-org-from-env",
+        "AZURE_DEVOPS_PROJECT": "your-project-from-env",
+        "AZURE_DEVOPS_PAT": "your-pat-from-env",
         "WORKING_DIRECTORY": "D:\\temp\\pr-review"
       }
     }
@@ -61,10 +96,8 @@ LOG_LEVEL=INFO
 
 **Important Notes:**
 - Replace `D:\\OpenDoors\\pr-reviewer` with your actual installation path
-- The `WORKING_DIRECTORY` must be a path where the system can create/delete folders
-- Use double backslashes (`\\`) in Windows paths in JSON
-- **Your PAT token and Azure settings are read from the `.env` file, NOT from this JSON config**
-- The Python application automatically loads the `.env` file from the project directory
+- **Your PAT token and Azure settings are read from the `.env` file**
+- The PowerShell script handles loading these automatically
 
 #### For macOS/Linux Users
 

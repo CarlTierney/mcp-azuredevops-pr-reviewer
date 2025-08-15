@@ -1,0 +1,29 @@
+{
+  "mcpServers": {
+    "azure-pr-reviewer": {
+      "command": "powershell.exe",
+      "args": ["-ExecutionPolicy", "Bypass", "-File", "start_server.ps1"],
+      "cwd": "D:\\OpenDoors\\pr-reviewer",
+      "metadata": {
+        "name": "Azure DevOps PR Reviewer",
+        "version": "2.0.0",
+        "description": "Comprehensive PR review with security scanning and test enforcement. Loads credentials from .env file."
+      }
+    }
+  },
+  
+  "_notes": {
+    "authentication": "This configuration uses PowerShell to load environment variables from .env file before starting the server",
+    "requirements": [
+      "1. .env file must exist in D:\\OpenDoors\\pr-reviewer",
+      "2. .env must contain AZURE_DEVOPS_ORG, AZURE_DEVOPS_PROJECT, and AZURE_DEVOPS_PAT",
+      "3. PowerShell execution policy allows running scripts (handled by -ExecutionPolicy Bypass)"
+    ],
+    "troubleshooting": [
+      "If authentication fails, run: powershell .\\start_server.ps1 --help",
+      "To test Azure connection: python test_auth.py",
+      "To debug environment: python debug_env.py"
+    ],
+    "alternative": "If PowerShell doesn't work, use start_server_robust.py instead"
+  }
+}
