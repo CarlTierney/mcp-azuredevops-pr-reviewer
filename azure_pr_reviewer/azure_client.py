@@ -333,47 +333,34 @@ class AzureDevOpsClient:
                     # Get file content if it's a modification or addition
                     if change_type in ["edit", "add"]:
                         try:
-                            # Get ENTIRE file content (not just diff) for security analysis
-                            # Try to get from target branch first (full file)
-                            try:
-                                full_content = self.git_client.get_item_content(
-                                    repository_id=repository_id,
-                                    path=item_path,
-                                    project=project,
-                                    version_descriptor=GitVersionDescriptor(version=pr.target_ref_name.replace('refs/heads/', ''), version_type="branch")
-                                )
-                                # Content is returned as a generator, need to join it
-                                if full_content:
-                                    content_bytes = b''.join(full_content)
-                                    change_dict["full_content"] = content_bytes.decode('utf-8')
-                                else:
-                                    change_dict["full_content"] = ""
-                            except:
-                                # Fallback to commit version
-                                full_content = self.git_client.get_item_content(
-                                    repository_id=repository_id,
-                                    path=item_path,
-                                    project=project,
-                                    version_descriptor=GitVersionDescriptor(version=commit.commit_id, version_type="commit")
-                                )
-                                # Content is returned as a generator, need to join it
-                                if full_content:
-                                    content_bytes = b''.join(full_content)
-                                    change_dict["full_content"] = content_bytes.decode('utf-8')
-                                else:
-                                    change_dict["full_content"] = ""
-                            
-                            # Also get new content for diff comparison
-                            change_dict["new_content"] = change_dict.get("full_content", "")
+                            # Get NEW content from the commit in the PR
+                            new_content = self.git_client.get_item_content(
+                                repository_id=repository_id,
+                                path=item_path,
+                                project=project,
+                                version_descriptor=GitVersionDescriptor(version=commit.commit_id, version_type="commit")
+                            )
+                            # Content is returned as a generator, need to join it
+                            if new_content:
+                                content_bytes = b''.join(new_content)
+                                change_dict["new_content"] = content_bytes.decode('utf-8')
+                                change_dict["full_content"] = change_dict["new_content"]  # For full file analysis
+                            else:
+                                change_dict["new_content"] = ""
+                                change_dict["full_content"] = ""
                             
                             # Get old content for edits to create diff
                             if change_type == "edit":
                                 try:
+                                    # Get old content from the target branch (what we're comparing against)
                                     old_content = self.git_client.get_item_content(
                                         repository_id=repository_id,
                                         path=item_path,
                                         project=project,
-                                        version_descriptor=GitVersionDescriptor(version=pr.target_ref_name, version_type="branch")
+                                        version_descriptor=GitVersionDescriptor(
+                                            version=pr.target_ref_name.replace('refs/heads/', ''), 
+                                            version_type="branch"
+                                        )
                                     )
                                     # Content is returned as a generator, need to join it
                                     if old_content:
