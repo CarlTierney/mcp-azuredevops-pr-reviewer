@@ -10,7 +10,8 @@ from azure.devops.v7_1.git.models import (
     Comment,
     CommentThread,
     CommentThreadContext,
-    CommentPosition
+    CommentPosition,
+    GitVersionDescriptor
 )
 from msrest.authentication import BasicAuthentication
 from .config import Settings
@@ -231,9 +232,13 @@ class AzureDevOpsClient:
                 repository_id=repository_id,
                 path=file_path,
                 project=project,
-                version_descriptor={"version": branch, "versionType": "branch"}
+                version_descriptor=GitVersionDescriptor(version=branch, version_type="branch")
             )
-            return content.decode('utf-8') if content else ""
+            # Content is returned as a generator, need to join it
+            if content:
+                content_bytes = b''.join(content)
+                return content_bytes.decode('utf-8')
+            return ""
         except Exception as e:
             logger.warning(f"Could not get full content for {file_path}: {e}")
             return ""
@@ -335,18 +340,28 @@ class AzureDevOpsClient:
                                     repository_id=repository_id,
                                     path=item_path,
                                     project=project,
-                                    version_descriptor={"version": pr.target_ref_name.replace('refs/heads/', ''), "versionType": "branch"}
+                                    version_descriptor=GitVersionDescriptor(version=pr.target_ref_name.replace('refs/heads/', ''), version_type="branch")
                                 )
-                                change_dict["full_content"] = full_content.decode('utf-8') if full_content else ""
+                                # Content is returned as a generator, need to join it
+                                if full_content:
+                                    content_bytes = b''.join(full_content)
+                                    change_dict["full_content"] = content_bytes.decode('utf-8')
+                                else:
+                                    change_dict["full_content"] = ""
                             except:
                                 # Fallback to commit version
                                 full_content = self.git_client.get_item_content(
                                     repository_id=repository_id,
                                     path=item_path,
                                     project=project,
-                                    version_descriptor={"version": commit.commit_id, "versionType": "commit"}
+                                    version_descriptor=GitVersionDescriptor(version=commit.commit_id, version_type="commit")
                                 )
-                                change_dict["full_content"] = full_content.decode('utf-8') if full_content else ""
+                                # Content is returned as a generator, need to join it
+                                if full_content:
+                                    content_bytes = b''.join(full_content)
+                                    change_dict["full_content"] = content_bytes.decode('utf-8')
+                                else:
+                                    change_dict["full_content"] = ""
                             
                             # Also get new content for diff comparison
                             change_dict["new_content"] = change_dict.get("full_content", "")
@@ -358,16 +373,21 @@ class AzureDevOpsClient:
                                         repository_id=repository_id,
                                         path=item_path,
                                         project=project,
-                                        version_descriptor={"version": pr.target_ref_name, "versionType": "branch"}
+                                        version_descriptor=GitVersionDescriptor(version=pr.target_ref_name, version_type="branch")
                                     )
-                                    change_dict["old_content"] = old_content.decode('utf-8') if old_content else ""
+                                    # Content is returned as a generator, need to join it
+                                    if old_content:
+                                        content_bytes = b''.join(old_content)
+                                        change_dict["old_content"] = content_bytes.decode('utf-8')
+                                    else:
+                                        change_dict["old_content"] = ""
                                     
                                     # Calculate diff summary
-                                    if old_content and new_content:
+                                    if old_content and change_dict.get("new_content"):
                                         old_lines = change_dict["old_content"].splitlines()
                                         new_lines = change_dict["new_content"].splitlines()
                                         change_dict["lines_added"] = len(new_lines) - len(old_lines)
-                                        change_dict["size_change"] = len(new_content) - len(old_content)
+                                        change_dict["size_change"] = len(change_dict["new_content"]) - len(change_dict["old_content"])
                                 except:
                                     change_dict["old_content"] = ""
                         except Exception as e:

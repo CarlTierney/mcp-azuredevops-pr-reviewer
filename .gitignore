@@ -113,9 +113,6 @@ $RECYCLE.BIN/
 *.lnk
 
 # Test outputs
-test_*.py
-!test_file_detection.py
-!test_package_detection.py
 test-results/
 test-output/
 
