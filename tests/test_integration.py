@@ -90,17 +90,20 @@ class TestIntegration(unittest.TestCase):
         # Mock commits and changes
         mock_commit = Mock()
         mock_commit.commit_id = "abc123def456"
+        mock_commit.comment = "Fix calculation bug"
         mock_git_client.get_pull_request_commits.return_value = [mock_commit]
         
         mock_change1 = Mock()
         mock_change1.item = Mock()
         mock_change1.item.path = "/src/Calculator.cs"
+        mock_change1.item.is_folder = False
         mock_change1.change_type = "edit"
         mock_change1.original_path = None
         
         mock_change2 = Mock()
         mock_change2.item = Mock()
         mock_change2.item.path = "/tests/CalculatorTests.cs"
+        mock_change2.item.is_folder = False
         mock_change2.change_type = "add"
         mock_change2.original_path = None
         
@@ -108,11 +111,11 @@ class TestIntegration(unittest.TestCase):
         mock_changes_response.changes = [mock_change1, mock_change2]
         mock_git_client.get_changes.return_value = mock_changes_response
         
-        # Mock file content
+        # Mock file content - return generators as the API does
         mock_git_client.get_item_content.side_effect = [
-            b"public class Calculator { public int Add(int a, int b) { return a + b; } }",
-            b"public class Calculator { public int Add(int a, int b) { return a - b; } }",  # Bug!
-            b"[Test] public void TestAdd() { Assert.AreEqual(5, calculator.Add(2, 3)); }"
+            iter([b"public class Calculator { public int Add(int a, int b) { return a - b; } }"]),  # New content with bug!
+            iter([b"public class Calculator { public int Add(int a, int b) { return a + b; } }"]),  # Old content (correct)
+            iter([b"[Test] public void TestAdd() { Assert.AreEqual(5, calculator.Add(2, 3)); }"])   # New test file
         ]
         
         changes = asyncio.run(client.get_pull_request_changes(

@@ -200,7 +200,8 @@ class TestAzureDevOpsClient(unittest.TestCase):
             mock_get_pr.return_value = mock_pr
             self.client.git_client.get_pull_request_commits.return_value = [mock_commit]
             self.client.git_client.get_changes.return_value = mock_changes
-            self.client.git_client.get_item_content.return_value = b"test content"
+            # Mock get_item_content to return a generator (as the real API does)
+            self.client.git_client.get_item_content.return_value = iter([b"test content"])
             
             result = asyncio.run(self.client.get_pull_request_changes(
                 "test-org", "test-project", "test-repo", 123

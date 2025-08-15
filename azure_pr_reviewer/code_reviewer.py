@@ -208,6 +208,13 @@ Format your response as JSON:
             "content": "Specific feedback",
             "severity": "info/warning/error"
         }
+    ],
+    "test_suggestions": [
+        {
+            "test_name": "TestClassName.TestMethodName",
+            "description": "What this test should verify",
+            "test_code": "// Stubbed test code\\n[Test]\\npublic void TestMethodName()\\n{\\n    // Arrange\\n    \\n    // Act\\n    \\n    // Assert\\n    Assert.Fail(\\"Not implemented\\");\\n}"
+        }
     ]
 }
 ```
@@ -217,6 +224,14 @@ Format your response as JSON:
 - **minor**: Style issues, minor improvements
 - **major**: Performance, maintainability, or design issues
 - **critical**: Security vulnerabilities, bugs, or data integrity issues
+
+## Test Suggestions
+For any bug fixes or new features, provide specific test suggestions with:
+- Concrete test method names
+- Description of what each test verifies
+- Stubbed test code in the appropriate testing framework
+- Focus on edge cases, error conditions, and critical paths
+- For bug fixes: MUST include tests that verify the fix
 """
     
     def _get_default_prompt(self) -> str:
@@ -340,7 +355,8 @@ Provide your review in JSON format:
                 "approved": review_json.get("approved", False),
                 "severity": review_json.get("severity", "minor"),
                 "summary": review_json.get("summary", "Review completed"),
-                "comments": review_json.get("comments", [])
+                "comments": review_json.get("comments", []),
+                "test_suggestions": review_json.get("test_suggestions", [])
             }
         except Exception as e:
             logger.error(f"Error parsing review response: {e}")
@@ -348,5 +364,6 @@ Provide your review in JSON format:
                 "approved": False,
                 "severity": "minor",
                 "summary": "Could not parse review response",
-                "comments": []
+                "comments": [],
+                "test_suggestions": []
             }

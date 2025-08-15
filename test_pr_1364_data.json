@@ -1,0 +1,19 @@
+{
+  "pr_details": {
+    "pull_request_id": 1364,
+    "title": "Unable to delete invite woppies",
+    "description": "This PR is a hotfix for story https://dev.azure.com/itdept0907/Fidem/_workitems/edit/20780\nIt is a fix for \"invite deletion\" only.\nIt doesn't have Integration Tests",
+    "source_branch": "refs/heads/feature/20780-Unable-to-delete-invite-woppies",
+    "target_branch": "refs/heads/develop",
+    "created_by": "George Draghici",
+    "status": "active"
+  },
+  "file_count": 1,
+  "has_content": true,
+  "file_types": {
+    "csharp": [
+      "/ZinniaInternal.Businesslogic/WWL/Questionnaires.cs"
+    ]
+  },
+  "prompt_length": 34249
+}

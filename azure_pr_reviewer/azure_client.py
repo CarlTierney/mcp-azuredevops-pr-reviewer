@@ -560,6 +560,7 @@ class AzureDevOpsClient:
         summary = review_data.get("summary", "No summary provided")
         approved = review_data.get("approved", False)
         comments = review_data.get("comments", [])
+        test_suggestions = review_data.get("test_suggestions", [])
         
         # If summary is already comprehensive (contains multiple sections), use it directly
         if "FILES CHANGED:" in summary and "ISSUES FOUND:" in summary:
@@ -632,6 +633,28 @@ class AzureDevOpsClient:
                 f"- Suggestions: {info_count}",
                 ""
             ])
+        
+        # Add test suggestions if any
+        if test_suggestions:
+            lines.extend([
+                "### Test Suggestions",
+                f"The following {len(test_suggestions)} test(s) should be added:",
+                ""
+            ])
+            
+            for i, suggestion in enumerate(test_suggestions, 1):
+                test_name = suggestion.get("test_name", f"Test_{i}")
+                description = suggestion.get("description", "")
+                test_code = suggestion.get("test_code", "")
+                
+                lines.append(f"**{i}. {test_name}**")
+                if description:
+                    lines.append(f"   - {description}")
+                if test_code:
+                    lines.append("```csharp")
+                    lines.append(test_code.replace("\\n", "\n"))
+                    lines.append("```")
+                lines.append("")
         
         lines.append("---")
         lines.append("*This review was generated automatically by the Azure PR Reviewer*")
